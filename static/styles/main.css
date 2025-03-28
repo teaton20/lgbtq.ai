@@ -1,18 +1,28 @@
+/* CSS Variables for consistency */
+:root {
+  --cream: #fff8e1;
+  --smoke-color1: rgba(196, 117, 48, 0.8);
+  --smoke-color2: rgba(166, 35, 173, 0.9);
+  --results-bg: #ffebcd;
+  --accent: #ffa07a;
+  --accent-hover: #ff8c69;
+  --input-border: #ccc;
+}
+
 /* Global Styles */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-}
-html {
-  background-color: #fff8e1; /* Cream */
-  position: relative;
+  background-color: var(--cream);
+  height: 100%;
 }
 body {
   display: flex;
-  min-height: 100vh;
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
 }
 
 /* Container */
@@ -21,7 +31,7 @@ body {
   max-width: 600px;
   text-align: center;
   position: relative;
-  z-index: 1; /* Keeps content above the animated backgrounds */
+  z-index: 1; /* Keeps content above animated backgrounds */
 }
 
 /* Animated Smoke Background */
@@ -38,19 +48,17 @@ html::after {
   will-change: transform, opacity;
 }
 html::before {
-  background: radial-gradient(circle at 50% 50%, rgba(196, 117, 48, 0.8), transparent 60%);
+  background: radial-gradient(circle at 50% 50%, var(--smoke-color1), transparent 60%);
   filter: blur(80px);
   opacity: 0.7;
   animation: smokeMove 40s ease-in-out infinite;
 }
 html::after {
-  background: radial-gradient(circle at 60% 60%, rgba(166, 35, 173, 0.9), transparent 60%);
+  background: radial-gradient(circle at 60% 60%, var(--smoke-color2), transparent 60%);
   filter: blur(70px);
   opacity: 0.6;
   animation: smokeMove2 45s ease-in-out infinite;
 }
-
-/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   html::before,
   html::after {
@@ -70,14 +78,21 @@ html::after {
   100% { transform: translate(0, 0) scale(1); }
 }
 
-/* Header (Title) */
+/* Header */
 header {
   padding: 20px;
 }
 .title {
   font-size: 2em;
   transition: all 0.6s ease;
-  /* Removed absolute positioning to let semantic layout handle alignment */
+}
+/* Vertical title style for animated repositioning */
+.title.vertical {
+  position: absolute;
+  left: -100px; /* adjust as needed */
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: left center;
 }
 
 /* Landing View */
@@ -85,16 +100,13 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.6s ease;
+  transition: transform 0.6s ease, top 0.6s ease;
   margin-top: 20px;
-}
-.landing-view.moved {
-  transform: translateY(120px);
 }
 .landing-view input[type="text"] {
   width: 70%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--input-border);
   border-radius: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   font-size: 16px;
@@ -109,15 +121,16 @@ header {
   margin-left: 10px;
   border: none;
   border-radius: 20px;
-  background-color: #ffa07a; /* Warm tone */
+  background-color: var(--accent);
   color: #fff;
   font-size: 16px;
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.3s ease;
 }
-.landing-view button:hover {
+.landing-view button:hover,
+.landing-view button:focus {
   transform: scale(1.05);
-  background-color: #ff8c69;
+  background-color: var(--accent-hover);
 }
 
 /* Results Section */
@@ -126,7 +139,7 @@ header {
   transform: scaleY(0);
   transform-origin: top;
   transition: opacity 0.6s ease, transform 0.6s ease;
-  background-color: #ffebcd; /* Warm neutral */
+  background-color: var(--results-bg);
   margin-top: 20px;
   padding: 20px;
   border-radius: 10px;
@@ -144,8 +157,12 @@ header {
 .results-section li {
   padding: 10px;
   margin-bottom: 10px;
-  background-color: rgba(40, 182, 139, 0.27); /* Soft accent with transparency */
+  background-color: rgba(40, 182, 139, 0.27);
   border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.results-section li:hover {
+  background-color: rgba(40, 182, 139, 0.4);
 }
 
 /* Responsive Adjustments */

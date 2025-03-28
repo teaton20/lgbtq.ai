@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Highly interactive, animated website for LGBTQ.ai+." />
     <title>LGBTQ.ai+</title>
     <link rel="stylesheet" href="/static/styles/main.css" />
   </head>
@@ -12,12 +13,12 @@
         <h1 class="title">LGBTQ.ai+</h1>
       </header>
       <main>
-        <div class="landing-view">
-          <input type="text" id="userInput" placeholder="What would you like to do?" />
-          <button id="goButton">Go</button>
-        </div>
+        <section class="landing-view" aria-label="User Interaction">
+          <input type="text" id="userInput" placeholder="What would you like to do?" aria-label="User Input" />
+          <button id="goButton" aria-label="Submit Action">Go</button>
+        </section>
         <!-- Results Section (initially hidden) -->
-        <section class="results-section" id="resultsSection">
+        <section class="results-section" id="resultsSection" aria-live="polite" aria-atomic="true">
           <ul id="resultsList">
             <li>Result 1: Interactive demo content...</li>
             <li>Result 2: Interactive demo content...</li>
