@@ -1,11 +1,9 @@
 # lgbtq.ai
 The repository for LGBTQ.AI+ 
 
-Pull as needed
+Please fork the repo
 
-Make a branch - do your edits locally
-
-Consider making a folder for your designs / ideas as well
+Submit pull requestions as needed
 
 From project main folder:
 
