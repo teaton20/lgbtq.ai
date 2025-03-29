@@ -13,7 +13,9 @@ current uri: http://127.0.0.1:6969
 
 From mk2 folder:
 
->npm start
+>>npm start
+
+current uri: http://localhost:3000
 
 CHANGE LOG
 
