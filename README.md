@@ -3,7 +3,7 @@ The repository for LGBTQ.AI+
 
 Please fork the repo
 
-Submit pull requestions as needed
+Submit pull requests as needed
 
 From project main folder:
 
