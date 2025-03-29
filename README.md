@@ -5,11 +5,15 @@ Please fork the repo
 
 Submit pull requests as needed
 
-From project main folder:
+From mk1 folder:
 
 >>python app.py
 
-current uri: http://127.0.0.1:5000
+current uri: http://127.0.0.1:6969
+
+From mk2 folder:
+
+>npm start
 
 CHANGE LOG
 
