@@ -1,0 +1,22 @@
+:root {
+  /* Light Theme */
+  --light-bg: #ffffff;
+  --light-gray: #f0f0f0;
+  --coral: #ff6f61;
+  --mint: #98ff98;
+  
+  /* Dark Theme */
+  --dark-bg: #2c2c2c;
+  --charcoal: #333333;
+  --electric-blue: #7df9ff;
+}
+
+body.light-theme {
+  background-color: var(--light-bg);
+  color: #000;
+}
+
+body.dark-theme {
+  background-color: var(--dark-bg);
+  color: #fff;
+}

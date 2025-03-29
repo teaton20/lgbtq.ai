@@ -1,0 +1,103 @@
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: var(--light-gray);
+}
+
+.nav-left, .nav-center, .nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-center a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.chat-window {
+  border: 1px solid #ccc;
+  padding: 10px;
+  height: 300px;
+  overflow-y: scroll;
+  margin-bottom: 10px;
+}
+
+.chat-input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-input-container form {
+  display: flex;
+}
+
+.chat-input-container input {
+  flex: 1;
+  padding: 8px;
+}
+
+.chat-input-container button {
+  padding: 8px 12px;
+}
+
+.discover-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card-feed {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.discover-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: calc(33% - 10px);
+  box-sizing: border-box;
+}
+
+.support-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.quick-exit {
+  background-color: var(--coral);
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.suggestion-chip {
+  background-color: var(--mint);
+  padding: 4px 8px;
+  margin-right: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.thread-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.thread-list li {
+  padding: 5px 0;
+  cursor: pointer;
+}
