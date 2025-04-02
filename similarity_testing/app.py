@@ -1,14 +1,15 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import subprocess
 import numpy as np
 import io, contextlib
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from transformers import pipeline
+from newspaper import Article  # For article extraction
 
 app = Flask(__name__)
 
-# --- LLM Query functions (unchanged) ---
+# --- LLM Query functions ---
 
 def llama_query(prompt: str, max_tokens: int = 150, model_choice: str = "llama3.2") -> str:
     print(f"Calling model {model_choice} via Ollama CLI...")
@@ -85,7 +86,6 @@ def chunk_text(text: str, tokenizer, max_tokens: int = 512) -> list:
 
 def classify_emotions_paginated(text: str, emotion_classifier) -> list:
     """Splits the text into chunks, classifies each chunk, and aggregates the results."""
-    # Get the tokenizer from the pipeline
     tokenizer = emotion_classifier.tokenizer
     chunks = chunk_text(text, tokenizer, max_tokens=512)
     print(f"Text split into {len(chunks)} chunk(s) for emotion classification.")
@@ -101,7 +101,6 @@ def classify_emotions_paginated(text: str, emotion_classifier) -> list:
             score = res["score"]
             aggregated_scores[label] = aggregated_scores.get(label, 0) + score
         num_chunks += 1
-    # Average scores across chunks
     averaged_scores = [{"label": label, "score": score / num_chunks} for label, score in aggregated_scores.items()]
     return averaged_scores
 
@@ -177,7 +176,37 @@ def run_analysis(text1: str, text2: str, model_choice: str, guardrail_questions:
     print("Guardrail analysis for Text 2 complete.\n")
     
     return results
-# --- Flask Routes (unchanged except for parameters) ---
+
+# --- New Route for Article Extraction ---
+
+@app.route("/get_articles", methods=["POST"])
+def get_articles():
+    url1 = request.form.get("url1", "")
+    url2 = request.form.get("url2", "")
+    articles = {"text1": "", "text2": ""}
+    try:
+        if url1:
+            article1 = Article(url1)
+            article1.download()
+            article1.parse()
+            articles["text1"] = article1.text
+            print(f"Fetched article from {url1}")
+    except Exception as e:
+        articles["text1"] = f"Error fetching article: {e}"
+        print(f"Error fetching article from {url1}: {e}")
+    try:
+        if url2:
+            article2 = Article(url2)
+            article2.download()
+            article2.parse()
+            articles["text2"] = article2.text
+            print(f"Fetched article from {url2}")
+    except Exception as e:
+        articles["text2"] = f"Error fetching article: {e}"
+        print(f"Error fetching article from {url2}: {e}")
+    return jsonify(articles)
+
+# --- Flask Routes for Index & Analysis ---
 
 @app.route("/", methods=["GET"])
 def index():
