@@ -1,57 +1,75 @@
 <div>
     <h2>Results</h2>
-    <h3>Semantic Similarity</h3>
-    <p>Cosine Similarity Score: {{ results.semantic_similarity|round(4) }}</p>
     
-    <h3>Tone and Style Analysis</h3>
-    <p><strong>Article 1:</strong> {{ results.tone_description1 }}</p>
-    <p><strong>Article 2:</strong> {{ results.tone_description2 }}</p>
+    <section>
+      <h3>Semantic Similarity</h3>
+      <p>Cosine Similarity Score: {{ results.semantic_similarity|round(4) }}</p>
+    </section>
     
-    <h3>Comparative Analysis</h3>
-    <p>{{ results.comparative_analysis }}</p>
+    <section>
+      <h3>Tone and Style Analysis</h3>
+      <p><strong>Article 1:</strong> {{ results.tone_description1 }}</p>
+      <p><strong>Article 2:</strong> {{ results.tone_description2 }}</p>
+    </section>
     
-    <h3>Emotion Classification</h3>
-    {% if results.emotions_text1 %}
-      <p><strong>Article 1 Emotions:</strong></p>
-      <ul>
-        {% for emotion in results.emotions_text1 %}
-          <li>{{ emotion.label }}: {{ emotion.score|round(4) }}</li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>Emotion classification for Article 1 was skipped or not available.</p>
-    {% endif %}
-    {% if results.emotions_text2 %}
-      <p><strong>Article 2 Emotions:</strong></p>
-      <ul>
-        {% for emotion in results.emotions_text2 %}
-          <li>{{ emotion.label }}: {{ emotion.score|round(4) }}</li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>Emotion classification for Article 2 was skipped or not available.</p>
-    {% endif %}
+    <section>
+      <h3>Comparative Analysis</h3>
+      <p>{{ results.comparative_analysis }}</p>
+    </section>
     
-    <h3>Guardrail Analysis</h3>
-    <div>
-      <h4>Article 1 Guardrails:</h4>
-      {% for question, answer in results.guardrails_text1.items() %}
+    <section>
+      <h3>Emotion Classification</h3>
+      {% if results.emotions_text1 %}
         <div>
-          <strong>{{ question }}</strong>
-          <p>{{ answer }}</p>
+          <p><strong>Article 1 Emotions:</strong></p>
+          <ul>
+            {% for emotion in results.emotions_text1 %}
+              <li>{{ emotion.label }}: {{ emotion.score|round(4) }}</li>
+            {% endfor %}
+          </ul>
         </div>
-      {% endfor %}
-    </div>
-    <div>
-      <h4>Article 2 Guardrails:</h4>
-      {% for question, answer in results.guardrails_text2.items() %}
+      {% else %}
+        <p>Emotion classification for Article 1 was skipped or not available.</p>
+      {% endif %}
+      
+      {% if results.emotions_text2 %}
         <div>
-          <strong>{{ question }}</strong>
-          <p>{{ answer }}</p>
+          <p><strong>Article 2 Emotions:</strong></p>
+          <ul>
+            {% for emotion in results.emotions_text2 %}
+              <li>{{ emotion.label }}: {{ emotion.score|round(4) }}</li>
+            {% endfor %}
+          </ul>
         </div>
-      {% endfor %}
-    </div>
+      {% else %}
+        <p>Emotion classification for Article 2 was skipped or not available.</p>
+      {% endif %}
+    </section>
     
-    <h3>Progress Logs</h3>
-    <pre>{{ logs }}</pre>
+    <section>
+      <h3>Guardrail Analysis</h3>
+      <div>
+        <h4>Article 1 Guardrails:</h4>
+        {% for question, answer in results.guardrails_text1.items() %}
+          <div>
+            <strong>{{ question }}</strong>
+            <p>{{ answer }}</p>
+          </div>
+        {% endfor %}
+      </div>
+      <div>
+        <h4>Article 2 Guardrails:</h4>
+        {% for question, answer in results.guardrails_text2.items() %}
+          <div>
+            <strong>{{ question }}</strong>
+            <p>{{ answer }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+    
+    <section>
+      <h3>Progress Logs</h3>
+      <pre>{{ logs }}</pre>
+    </section>
   </div>

@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 import subprocess
-import numpy as np
 import io, contextlib
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -52,7 +51,7 @@ def get_comparative_analysis(text1: str, text2: str, model_choice: str) -> str:
 def run_guardrails(text: str, guardrail_questions: list, model_choice: str) -> dict:
     responses = {}
     for question in guardrail_questions:
-        print(f"Running guardrail question: {question}")
+        app.logger.info(f"Running guardrail question: {question}")
         prompt = (
             "Evaluate the following text for potential issues.\n\n"
             f"Text:\n{text}\n\n"
@@ -60,6 +59,9 @@ def run_guardrails(text: str, guardrail_questions: list, model_choice: str) -> d
             "Answer concisely:"
         )
         response = llama_query(prompt, max_tokens=150, model_choice=model_choice)
+        if not response:
+            app.logger.warning(f"Guardrail question '{question}' returned an empty response.")
+            response = "No response received."
         responses[question] = response
     return responses
 
@@ -177,12 +179,12 @@ def run_analysis(text1: str, text2: str, model_choice: str, guardrail_questions:
     
     return results
 
-# --- New Route for Article Extraction ---
+# --- Route for Article Extraction ---
 
 @app.route("/get_articles", methods=["POST"])
 def get_articles():
-    url1 = request.form.get("url1", "")
-    url2 = request.form.get("url2", "")
+    url1 = request.form.get("url1", "").strip()
+    url2 = request.form.get("url2", "").strip()
     articles = {"text1": "", "text2": ""}
     try:
         if url1:
@@ -221,17 +223,33 @@ def index():
 
 @app.route("/analyze", methods=["POST"])
 def analyze():
-    text1 = request.form.get("text1", "")
-    text2 = request.form.get("text2", "")
-    model_choice = request.form.get("model_choice", "llama3.2")
+    text1 = request.form.get("text1", "").strip()
+    text2 = request.form.get("text2", "").strip()
+    model_choice = request.form.get("model_choice", "llama3.2").strip()
     guardrail_text = request.form.get("guardrail_questions", "")
     guardrail_questions = [q.strip() for q in guardrail_text.splitlines() if q.strip()]
-    
+
+    app.logger.info(f"Guardrail raw text: {guardrail_text}")
+    app.logger.info(f"Parsed guardrail questions: {guardrail_questions}")
+
+    if not text1 or not text2:
+        error_msg = (f"Both article texts are required for analysis. "
+                     f"Received text1 length: {len(text1)}, text2 length: {len(text2)}.")
+        app.logger.error(error_msg)
+        return jsonify({"error": error_msg}), 400
+
     log_buffer = io.StringIO()
-    with contextlib.redirect_stdout(log_buffer):
-        results = run_analysis(text1, text2, model_choice, guardrail_questions)
+    try:
+        with contextlib.redirect_stdout(log_buffer):
+            results = run_analysis(text1, text2, model_choice, guardrail_questions)
+    except Exception as e:
+        error_msg = f"An error occurred during analysis: {str(e)}"
+        app.logger.error(error_msg, exc_info=True)
+        return jsonify({"error": error_msg}), 500
+
     logs = log_buffer.getvalue()
     rendered_results = render_template("results_partial.html", results=results, logs=logs, text1=text1, text2=text2)
+    app.logger.info("Analysis completed successfully.")
     return rendered_results
 
 if __name__ == "__main__":

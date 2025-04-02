@@ -1,0 +1,92 @@
+/* Base styles */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Wrapper for overall centering */
+  .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Header styles */
+  header {
+    background: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* Container styles */
+  .container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    position: relative;
+  }
+  
+  /* Form inputs */
+  input[type="text"], textarea, select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    resize: vertical;
+  }
+  
+  /* Button styles */
+  input[type="submit"], button {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  input[type="submit"]:hover, button:hover {
+    background: #555;
+  }
+  
+  /* Progress overlay styles */
+  #progress-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #fff;
+    font-size: 20px;
+  }
+  
+  /* Spinner styles */
+  .spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+    margin-bottom: 20px;
+  }
+  
+  /* Keyframes for spinner */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
