@@ -17,7 +17,16 @@ From mk2 folder:
 
 current uri: http://localhost:3000
 
+Fromm similarity_testing folder:
+>>python app.py
+
+current uri: http://127.0.0.1:5000
+
+
 CHANGE LOG
+- 4/1/25
+Added a similarity website. Can easily test things. Can easily modify website design too.
+
 
 - 3/29/25
 Uploaded Second Design of Website
