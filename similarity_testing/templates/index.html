@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text Similarity & Guardrails Analyzer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    textarea, select {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+    input[type="submit"] {
+      background: #333;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background: #555;
+    }
+    #results {
+      margin-top: 40px;
+    }
+    /* Progress overlay styles */
+    #progress-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #fff;
+      font-size: 20px;
+    }
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #3498db;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 2s linear infinite;
+      margin-bottom: 20px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Text Similarity & Guardrails Analyzer</h1>
+  </header>
+  <div class="container">
+    <form id="analysis-form" method="POST">
+      <div>
+        <h2>Input Texts</h2>
+        <label for="text1"><strong>Text 1:</strong></label>
+        <textarea id="text1" name="text1" placeholder="Paste the first large paragraph here..."></textarea>
+        <label for="text2"><strong>Text 2:</strong></label>
+        <textarea id="text2" name="text2" placeholder="Paste the second large paragraph here..."></textarea>
+        <label for="model_choice"><strong>Select Model:</strong></label>
+        <select id="model_choice" name="model_choice">
+          <option value="llama3.2">llama3.2</option>
+          <option value="mistral">mistral</option>
+        </select>
+        <label for="guardrail_questions"><strong>Guardrail Questions (one per line):</strong></label>
+        <textarea id="guardrail_questions" name="guardrail_questions" placeholder="Enter guardrail questions here...">{{ default_guardrails }}</textarea>
+        <input type="submit" value="Analyze">
+      </div>
+    </form>
+    <div id="results"></div>
+  </div>
+
+  <!-- Progress Overlay -->
+  <div id="progress-overlay">
+    <div class="spinner"></div>
+    <div id="progress-message">Initializing analysis...</div>
+  </div>
+
+  <script>
+    // Array of progress messages to simulate stages.
+    const progressMessages = [
+      "Loading models... Hang tight while we initialize.",
+      "Computing semantic similarity... Just a moment!",
+      "Analyzing tone and style for Text 1... Almost there!",
+      "Analyzing tone and style for Text 2... Please wait!",
+      "Generating comparative analysis... Hold on tight!",
+      "Classifying emotions... Almost finished!",
+      "Running guardrail checks... Finalizing results..."
+    ];
+    let messageIndex = 0;
+    let progressInterval = null;
+
+    // Function to start progress updates.
+    function startProgressUpdates() {
+      const messageElement = document.getElementById("progress-message");
+      progressInterval = setInterval(() => {
+        messageIndex = (messageIndex + 1) % progressMessages.length;
+        messageElement.textContent = progressMessages[messageIndex];
+      }, 4000);
+    }
+
+    // Function to stop progress updates.
+    function stopProgressUpdates() {
+      clearInterval(progressInterval);
+      messageIndex = 0;
+      document.getElementById("progress-message").textContent = progressMessages[0];
+    }
+
+    // Handle form submission via AJAX.
+    document.getElementById("analysis-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      // Show the progress overlay.
+      document.getElementById("progress-overlay").style.display = "flex";
+      startProgressUpdates();
+
+      const formData = new FormData(this);
+      fetch("/analyze", {
+        method: "POST",
+        body: formData
+      })
+      .then(response => response.text())
+      .then(html => {
+        // Hide the progress overlay.
+        stopProgressUpdates();
+        document.getElementById("progress-overlay").style.display = "none";
+        // Insert the returned HTML into the results div.
+        document.getElementById("results").innerHTML = html;
+      })
+      .catch(error => {
+        console.error("Error during analysis:", error);
+        stopProgressUpdates();
+        document.getElementById("progress-overlay").style.display = "none";
+        document.getElementById("results").innerHTML = "<p style='color:red;'>An error occurred. Please try again.</p>";
+      });
+    });
+  </script>
+</body>
+</html>

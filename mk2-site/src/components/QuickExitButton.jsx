@@ -3,7 +3,7 @@ import React from 'react';
 function QuickExitButton() {
   const handleQuickExit = () => {
     // Redirect to a safe page (e.g., Google)
-    window.location.href = 'https://www.google.com';
+    window.location.href = '';
   };
 
   return (

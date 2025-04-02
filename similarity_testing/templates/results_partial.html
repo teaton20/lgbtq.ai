@@ -1,0 +1,57 @@
+<div>
+    <h2>Results</h2>
+    <h3>Semantic Similarity</h3>
+    <p>Cosine Similarity Score: {{ results.semantic_similarity|round(4) }}</p>
+    
+    <h3>Tone and Style Analysis</h3>
+    <p><strong>Text 1:</strong> {{ results.tone_description1 }}</p>
+    <p><strong>Text 2:</strong> {{ results.tone_description2 }}</p>
+    
+    <h3>Comparative Analysis</h3>
+    <p>{{ results.comparative_analysis }}</p>
+    
+    <h3>Emotion Classification</h3>
+    {% if results.emotions_text1 %}
+      <p><strong>Text 1 Emotions:</strong></p>
+      <ul>
+        {% for emotion in results.emotions_text1 %}
+          <li>{{ emotion.label }}: {{ emotion.score|round(4) }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Emotion classification for Text 1 was skipped or not available.</p>
+    {% endif %}
+    {% if results.emotions_text2 %}
+      <p><strong>Text 2 Emotions:</strong></p>
+      <ul>
+        {% for emotion in results.emotions_text2 %}
+          <li>{{ emotion.label }}: {{ emotion.score|round(4) }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Emotion classification for Text 2 was skipped or not available.</p>
+    {% endif %}
+    
+    <h3>Guardrail Analysis</h3>
+    <div>
+      <h4>Text 1 Guardrails:</h4>
+      {% for question, answer in results.guardrails_text1.items() %}
+        <div>
+          <strong>{{ question }}</strong>
+          <p>{{ answer }}</p>
+        </div>
+      {% endfor %}
+    </div>
+    <div>
+      <h4>Text 2 Guardrails:</h4>
+      {% for question, answer in results.guardrails_text2.items() %}
+        <div>
+          <strong>{{ question }}</strong>
+          <p>{{ answer }}</p>
+        </div>
+      {% endfor %}
+    </div>
+    
+    <h3>Progress Logs</h3>
+    <pre>{{ logs }}</pre>
+  </div>

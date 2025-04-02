@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
+import { sendChatMessage } from '../utils/api';
 import FollowUpSuggestions from './FollowUpSuggestions';
 
 function ChatInput() {
   const [input, setInput] = useState('');
   const [followUpMode, setFollowUpMode] = useState(false);
+  const [chatResponse, setChatResponse] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted:", input);
+    console.log("Submitting message:", input);
+    const result = await sendChatMessage(input);
+    if (result.response) {
+      setChatResponse(result.response);
+    } else {
+      setChatResponse("Error: " + result.error);
+    }
     setInput('');
   };
 
@@ -26,6 +34,11 @@ function ChatInput() {
       <button onClick={() => setFollowUpMode(!followUpMode)}>
         {followUpMode ? 'Hide Suggestions' : 'Show Suggestions'}
       </button>
+      {chatResponse && (
+        <div className="chat-response">
+          <strong>Bot:</strong> {chatResponse}
+        </div>
+      )}
     </div>
   );
 }
