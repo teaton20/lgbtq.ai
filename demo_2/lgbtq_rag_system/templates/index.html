@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LGBTQ.ai+</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1 class="main-heading">LGBTQ.ai+</h1>
+        <p class="tagline">here for you</p>
+    </header>
+    
+    <form method="POST" action="/" class="search-form">
+        <div class="search-container">
+            <input type="text" id="query" name="query" placeholder="What would you like to know?" required>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+    
+    {% if response %}
+    <div class="response-container">
+        <div class="response-content">
+            <p>{{ response }}</p>
+        </div>
+    </div>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,326 @@
+[
+    {
+      "title": "The Evolution of LGBTQ+ Rights in America",
+      "author": "Jordan Smith",
+      "source": "LGBTQ Chronicles",
+      "date": "2024-04-01",
+      "content": "Over the last 100 years, the LGBTQ+ rights movement in America has advanced through protests, court decisions, and cultural change. From Stonewall to marriage equality, each victory has come with resistance and resilience. This article traces those pivotal moments.",
+      "tags": [
+        "history",
+        "rights",
+        "equality"
+      ],
+      "summary": "An overview of important milestones in LGBTQ+ rights in America.",
+      "embedding": [
+        0.1,
+        0.2,
+        0.3
+      ]
+    },
+    {
+      "title": "Trans Voices: Personal Journeys",
+      "author": "Alex Kim",
+      "source": "TransLife",
+      "date": "2024-03-15",
+      "content": "From navigating family rejection to discovering community, transgender individuals share personal stories that reflect strength and diversity. Each narrative offers insight into how society both challenges and uplifts trans lives across generations and regions.",
+      "tags": [
+        "trans",
+        "personal",
+        "journey"
+      ],
+      "summary": "Personal narratives from members of the transgender community.",
+      "embedding": [
+        0.2,
+        0.1,
+        0.4
+      ]
+    },
+    {
+      "title": "Queer Art and Expression",
+      "author": "Riley Johnson",
+      "source": "Art Spectrum",
+      "date": "2023-12-22",
+      "content": "Queer artists have long used creativity to challenge norms and express identity. Through painting, performance, and digital media, these voices have shaped modern art and helped redefine visibility in powerful and unexpected ways.",
+      "tags": [
+        "queer",
+        "art",
+        "culture"
+      ],
+      "summary": "Examines the impact of queer art in contemporary culture.",
+      "embedding": [
+        0.3,
+        0.3,
+        0.2
+      ]
+    },
+    {
+      "title": "Health and Wellness in the LGBTQ+ Community",
+      "author": "Morgan Lee",
+      "source": "Health Matters",
+      "date": "2024-01-10",
+      "content": "LGBTQ+ individuals often face disparities in access to quality healthcare, with higher risks of mental health issues and chronic conditions. This piece explores affirming care practices and how inclusive wellness spaces are emerging across the country.",
+      "tags": [
+        "health",
+        "wellness",
+        "community"
+      ],
+      "summary": "Insights into health issues and wellness strategies for the LGBTQ+ community.",
+      "embedding": [
+        0.4,
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "title": "Intersectionality in Modern Movements",
+      "author": "Casey Rivera",
+      "source": "Society Now",
+      "date": "2024-02-20",
+      "content": "Activists are increasingly recognizing how race, gender, disability, and sexual orientation intersect to impact people\u2019s lived experiences. This article examines how intersectional advocacy is reshaping LGBTQ+ movements to be more inclusive and effective.",
+      "tags": [
+        "intersectionality",
+        "advocacy",
+        "movements"
+      ],
+      "summary": "Analyzing the role of intersectionality in shaping LGBTQ+ advocacy.",
+      "embedding": [
+        0.5,
+        0.1,
+        0.2
+      ]
+    },
+    {
+      "title": "Understanding Hormone Replacement Therapy",
+      "author": "Dr. Sasha Patel",
+      "source": "Trans Health Today",
+      "date": "2024-05-02",
+      "content": "This article outlines the process, effects, and access issues surrounding hormone replacement therapy (HRT) for transgender individuals, including both MTF and FTM pathways.",
+      "tags": [
+        "hrt",
+        "health",
+        "trans"
+      ],
+      "summary": "A medical overview of hormone replacement therapy for transgender people.",
+      "embedding": [
+        0.25,
+        0.3,
+        0.35
+      ]
+    },
+    {
+      "title": "Top 10 Trans-Friendly Cities in the U.S.",
+      "author": "Lena Moore",
+      "source": "Safe Spaces Weekly",
+      "date": "2024-04-10",
+      "content": "From Portland to Asheville, we spotlight cities known for their inclusive laws, healthcare support, and affirming communities for transgender residents.",
+      "tags": [
+        "safe",
+        "cities",
+        "trans",
+        "community"
+      ],
+      "summary": "Highlights trans-inclusive cities with strong community support and protections.",
+      "embedding": [
+        0.3,
+        0.25,
+        0.4
+      ]
+    },
+    {
+      "title": "Navigating Trans Healthcare: What You Need to Know",
+      "author": "Taylor Nguyen",
+      "source": "Healthline Equality",
+      "date": "2024-03-30",
+      "content": "A comprehensive guide to understanding and accessing trans-specific healthcare services, including mental health, surgical options, and insurance navigation.",
+      "tags": [
+        "trans",
+        "healthcare",
+        "access"
+      ],
+      "summary": "Guide to accessing trans-affirming healthcare and navigating systemic barriers.",
+      "embedding": [
+        0.35,
+        0.3,
+        0.2
+      ]
+    },
+    {
+      "title": "Male-to-Female Transition: A Personal Perspective",
+      "author": "Vivian Clarke",
+      "source": "TransLife Stories",
+      "date": "2024-02-27",
+      "content": "Vivian shares her journey through a male-to-female transition, detailing emotional and physical changes, societal responses, and personal growth.",
+      "tags": [
+        "transition",
+        "mtf",
+        "personal",
+        "journey"
+      ],
+      "summary": "An intimate look at the male-to-female transition process through personal experience.",
+      "embedding": [
+        0.28,
+        0.34,
+        0.38
+      ]
+    },
+    {
+      "title": "Female-to-Male Transition: Realities and Resilience",
+      "author": "Jamie Torres",
+      "source": "Living Proud",
+      "date": "2024-01-18",
+      "content": "This piece shares the story of Jamie's female-to-male transition and the resilience required to thrive in a world still catching up with gender diversity.",
+      "tags": [
+        "ftm",
+        "transition",
+        "resilience",
+        "trans"
+      ],
+      "summary": "Explores the lived experience of a female-to-male transition.",
+      "embedding": [
+        0.27,
+        0.33,
+        0.31
+      ]
+    },
+    {
+      "title": "The Current State of Trans Rights in 2025",
+      "author": "Justice Daniels",
+      "source": "Rights Watch",
+      "date": "2025-01-12",
+      "content": "An up-to-date analysis of legal protections, challenges, and policy changes affecting trans individuals in the United States.",
+      "tags": [
+        "rights",
+        "trans",
+        "policy",
+        "legal"
+      ],
+      "summary": "An overview of legal developments and threats to trans rights in the U.S.",
+      "embedding": [
+        0.31,
+        0.29,
+        0.35
+      ]
+    },
+    {
+      "title": "Understanding Hormone Replacement Therapy",
+      "author": "Dr. Sasha Patel",
+      "source": "Trans Health Today",
+      "date": "2024-05-02",
+      "content": "Hormone Replacement Therapy (HRT) can be a transformative process for many transgender individuals. For MTF transitions, estrogen and anti-androgens are commonly prescribed, while FTM transitions typically involve testosterone. Access remains uneven due to cost, medical gatekeeping, and geographical disparities. This guide aims to demystify HRT and empower readers to advocate for their health.",
+      "tags": [
+        "hrt",
+        "health",
+        "trans"
+      ],
+      "summary": "A medical overview of hormone replacement therapy for transgender people.",
+      "embedding": [
+        0.25,
+        0.3,
+        0.35
+      ]
+    },
+    {
+      "title": "Top 10 Trans-Friendly Cities in the U.S.",
+      "author": "Lena Moore",
+      "source": "Safe Spaces Weekly",
+      "date": "2024-04-10",
+      "content": "Cities like Portland, OR and Minneapolis, MN have risen as beacons of trans inclusivity, offering local ordinances, accessible healthcare, and strong support networks. From city-funded resource centers to LGBTQ+ housing protections, this list explores the best places where trans people can live safely and thrive.",
+      "tags": [
+        "safe",
+        "cities",
+        "trans",
+        "community"
+      ],
+      "summary": "Highlights trans-inclusive cities with strong community support and protections.",
+      "embedding": [
+        0.3,
+        0.25,
+        0.4
+      ]
+    },
+    {
+      "title": "Navigating Trans Healthcare: What You Need to Know",
+      "author": "Taylor Nguyen",
+      "source": "Healthline Equality",
+      "date": "2024-03-30",
+      "content": "For many trans people, finding competent and affirming healthcare is a daunting task. This article covers how to locate providers using online directories, what questions to ask during a first appointment, and how to challenge insurance denials. We also speak with advocates who are working to expand care access nationwide.",
+      "tags": [
+        "trans",
+        "healthcare",
+        "access"
+      ],
+      "summary": "Guide to accessing trans-affirming healthcare and navigating systemic barriers.",
+      "embedding": [
+        0.35,
+        0.3,
+        0.2
+      ]
+    },
+    {
+      "title": "Male-to-Female Transition: A Personal Perspective",
+      "author": "Vivian Clarke",
+      "source": "TransLife Stories",
+      "date": "2024-02-27",
+      "content": "When I first came out, I feared losing everything\u2014my job, my family, my safety. Transitioning from male to female meant more than hormones and clothes; it meant reclaiming my truth. From navigating my first electrolysis appointment to walking into work with a new name tag, this is my story of transformation and self-love.",
+      "tags": [
+        "transition",
+        "mtf",
+        "personal",
+        "journey"
+      ],
+      "summary": "An intimate look at the male-to-female transition process through personal experience.",
+      "embedding": [
+        0.28,
+        0.34,
+        0.38
+      ]
+    },
+    {
+      "title": "Female-to-Male Transition: Realities and Resilience",
+      "author": "Jamie Torres",
+      "source": "Living Proud",
+      "date": "2024-01-18",
+      "content": "Coming out as a trans man in a rural town meant learning to grow a thick skin early. I started testosterone in my mid-20s and underwent top surgery a year later. The changes were both liberating and isolating. This piece is not just about transition, but about persistence, community, and re-learning what it means to take up space.",
+      "tags": [
+        "ftm",
+        "transition",
+        "resilience",
+        "trans"
+      ],
+      "summary": "Explores the lived experience of a female-to-male transition.",
+      "embedding": [
+        0.27,
+        0.33,
+        0.31
+      ]
+    },
+    {
+      "title": "The Current State of Trans Rights in 2025",
+      "author": "Justice Daniels",
+      "source": "Rights Watch",
+      "date": "2025-01-12",
+      "content": "As of early 2025, over a dozen U.S. states have proposed or passed legislation restricting access to gender-affirming care for minors. At the same time, federal lawsuits challenge these bans as unconstitutional. This article breaks down where rights are expanding, where they\u2019re being curtailed, and how advocacy organizations are responding.",
+      "tags": [
+        "rights",
+        "trans",
+        "policy",
+        "legal"
+      ],
+      "summary": "An overview of legal developments and threats to trans rights in the U.S.",
+      "embedding": [
+        0.31,
+        0.29,
+        0.35
+      ]
+    },
+    {
+        "title": "Florida's Ongoing Legal Battle Over Transgender Healthcare",
+        "author": "Avery Brooks",
+        "source": "Sunshine State Journal",
+        "date": "2025-04-10",
+        "content": "In a significant legal development, the U.S. Court of Appeals for the Eleventh Circuit has allowed Florida to enforce its ban on gender-affirming care for minors and impose restrictions on such care for adults, pending the outcome of ongoing litigation. This decision overturns a previous ruling by U.S. District Judge Robert Hinkle, who had blocked the law, citing it as discriminatory against transgender individuals. The appellate court's majority opinion stated that the legislature likely did not act with discriminatory intent. However, the dissenting judge emphasized the potential harm to transgender individuals denied care. The law, known as SB 254, prohibits puberty blockers and hormonal treatments for minors and mandates that transgender adults can only receive treatment from a doctor, not from nurse practitioners or other qualified providers. The legal battle continues as the case may eventually reach the U.S. Supreme Court, which is already reviewing a similar law from Tennessee.",
+        "tags": ["minor","hrt", "trans", "healthcare", "Florida", "legal", "policy"],
+        "summary": "An overview of Florida's legal developments affecting transgender healthcare access.",
+        "embedding": [0.6, 0.28, 0.36]
+    }
+  ]
