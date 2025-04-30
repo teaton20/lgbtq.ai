@@ -1,0 +1,120 @@
+/* style.css */
+
+/* Define the trans flag color variables */
+:root {
+    --trans-blue: #55CDFC;     /* light blue */
+    --trans-pink: #F7A8B8;     /* soft pink */
+    --trans-white: #FFFFFF;    /* white */
+    
+    --font-color: #333333;     /* dark grey text for readability */
+    --border-radius: 8px;
+    --transition-duration: 0.3s;
+}
+
+/* Body styling: a gentle gradient background with a fixed attachment */
+body {
+    margin: 0;
+    font-family: Calibri, sans-serif;
+    color: var(--font-color);
+    background: linear-gradient(135deg, var(--trans-blue) 25%, var(--trans-white) 50%, var(--trans-pink) 75%);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* Header styling */
+header {
+    text-align: center;
+    padding: 20px 0;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: var(--trans-blue);
+}
+
+/* Tagline styling */
+.tagline {
+    font-size: 1.2em;
+    color: var(--font-color);
+    margin-top: 5px;
+}
+
+/* Centered search form */
+.search-form {
+    text-align: center;
+    margin: 20px auto;
+}
+
+/* Search container: inline-flex to keep input and button on the same line */
+.search-container {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Search input styling */
+.search-container input[type="text"] {
+    padding: 12px 20px;
+    width: 300px;
+    border: 1px solid var(--trans-blue);
+    border-radius: var(--border-radius);
+    margin-right: 10px;
+    transition: box-shadow var(--transition-duration);
+}
+
+.search-container input[type="text"]:focus {
+    box-shadow: 0 0 10px rgba(85, 205, 252, 0.5);
+    outline: none;
+}
+
+/* Submit button styling: white background, rounded edges */
+.search-container button {
+    background-color: #fff;
+    color: var(--font-color);
+    border: 1px solid var(--trans-blue);
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition-duration);
+}
+
+.search-container button:hover {
+    background-color: var(--trans-pink);
+}
+
+/* Link styling */
+a {
+    color: var(--trans-blue);
+    text-decoration: none;
+    transition: color var(--transition-duration);
+}
+
+a:hover {
+    color: var(--trans-pink);
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    padding: 10px;
+    color: var(--font-color);
+}
+
+/* (Optional) Additional styling for response sections, if needed */
+.response-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    /* Using RGBA for a slightly translucent white background */
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Override default heading color */
+.main-heading {
+    color: black;
+}
