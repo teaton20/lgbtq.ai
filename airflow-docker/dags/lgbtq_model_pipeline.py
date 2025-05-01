@@ -26,7 +26,7 @@ with DAG(
     t3 = PythonOperator(task_id="retrain", python_callable=retrain)
     t4 = PythonOperator(task_id="get_metrics", python_callable=get_metrics)
 
-    branch = BranchPythonOperator(task_id="branch_model_decision", python_callable=decide_branch)
+    branch = BranchPythonOperator(task_id="decide_branch", python_callable=decide_branch)
 
     t5a = PythonOperator(task_id="deploy_model", python_callable=deploy_model)
     t5b = PythonOperator(task_id="keep_model", python_callable=keep_model)

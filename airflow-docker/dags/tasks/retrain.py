@@ -16,7 +16,7 @@ CLASSIFIER_PATH = os.path.join(MODEL_DIR, "classifier.joblib")
 REVIEW_THRESHOLD = 5
 
 def combine_data():
-    """Combine all JSON files from production and new data into ALL_DATA_DIR."""
+    """Combine all JSON files from production and new data into ALL_DATA_DIR, skipping duplicates."""
     os.makedirs(ALL_DATA_DIR, exist_ok=True)
 
     # Copy production data
@@ -27,13 +27,22 @@ def combine_data():
             if not os.path.exists(dst):
                 shutil.copy(src, dst)
 
-    # Move new data
+    # Move new data, but skip if already in all_data (by article ID)
     for f in os.listdir(NEW_DATA_DIR):
         if f.endswith(".json"):
+            try:
+                article_id = f.split("_")[1]  # e.g., article_244_2025.json → 244
+            except IndexError:
+                print(f"⚠️ Skipping malformed filename: {f}")
+                continue
+
+            if any(existing.startswith(f"article_{article_id}_") for existing in os.listdir(ALL_DATA_DIR)):
+                print(f"⚠️ Skipping duplicate article_{article_id} — already exists in all_data.")
+                continue
+
             src = os.path.join(NEW_DATA_DIR, f)
             dst = os.path.join(ALL_DATA_DIR, f)
-            if not os.path.exists(dst):
-                shutil.move(src, dst)
+            shutil.move(src, dst)
 
 def load_training_data():
     """Load embeddings and labels from ALL_DATA_DIR."""

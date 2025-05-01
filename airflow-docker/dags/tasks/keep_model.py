@@ -1,2 +1,2 @@
 def run():
-    print('Running keep_model task...')
+    print("⏸️ Keeping current model. No deployment necessary.")

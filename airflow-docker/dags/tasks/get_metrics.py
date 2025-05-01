@@ -1,74 +1,69 @@
 import os
 import json
 import pandas as pd
+import joblib
 from sklearn.metrics import (
     confusion_matrix,
     accuracy_score,
     precision_score,
     recall_score,
     f1_score,
-    roc_auc_score
+    roc_auc_score,
 )
+from datetime import datetime
 
+MODEL_PATH = "/opt/airflow/models/classifier.joblib"
+VAL_DATA_PATH = "/opt/airflow/validation/val_data.json"
 METRICS_DIR = "/opt/airflow/metrics"
-PREDICTIONS_PATH = "/opt/airflow/predictions/latest_predictions.parquet"
+LATEST_METRICS_POINTER = os.path.join(METRICS_DIR, "latest_metrics.json")
 
 def load_previous_metrics():
-    """Load the most recent metrics JSON file from METRICS_DIR."""
-    if not os.path.exists(METRICS_DIR):
+    if not os.path.exists(LATEST_METRICS_POINTER):
         return None
-    files = [f for f in os.listdir(METRICS_DIR) if f.endswith(".json")]
-    if not files:
-        return None
-    latest_file = sorted(files)[-1]
-    with open(os.path.join(METRICS_DIR, latest_file), "r") as f:
+    with open(LATEST_METRICS_POINTER, "r") as f:
         return json.load(f)
 
 def run():
-    print("Running get_metrics task...")
+    print("📊 Running get_metrics task...")
 
     os.makedirs(METRICS_DIR, exist_ok=True)
 
-    if not os.path.exists(PREDICTIONS_PATH):
-        print("No predictions found. Skipping metrics calculation.")
+    # Load classifier
+    if not os.path.exists(MODEL_PATH):
+        print("❌ No model found. Skipping.")
         return
+    classifier = joblib.load(MODEL_PATH)
 
-    df = pd.read_parquet(PREDICTIONS_PATH)
-
-    if 'y_true' not in df or 'y_pred' not in df:
-        print("Predictions file must contain 'y_true' and 'y_pred' columns.")
+    # Load validation data
+    if not os.path.exists(VAL_DATA_PATH):
+        print("❌ No validation data found.")
         return
+    with open(VAL_DATA_PATH, "r") as f:
+        val_data = json.load(f)
 
-    y_true = df['y_true']
-    y_pred = df['y_pred']
+    X = [item["embedding"] for item in val_data]
+    y_true = [item["true_label"] for item in val_data]
 
-    # Compute core metrics
+    y_pred = classifier.predict(X)
+    y_prob = classifier.predict_proba(X)[:, 1]
+
+    # Compute metrics
     cm = confusion_matrix(y_true, y_pred).tolist()
     acc = accuracy_score(y_true, y_pred)
     precision = precision_score(y_true, y_pred, zero_division=0)
     recall = recall_score(y_true, y_pred, zero_division=0)
     f1 = f1_score(y_true, y_pred, zero_division=0)
+    auc = roc_auc_score(y_true, y_prob)
 
-    # AUC (optional, only if probabilities are available)
-    auc = None
-    if 'y_prob' in df.columns:
-        try:
-            auc = roc_auc_score(y_true, df['y_prob'])
-        except ValueError as e:
-            print(f"AUC could not be computed: {e}")
-
-    # Compare to previous metrics
     prev_metrics = load_previous_metrics()
     prev_acc = prev_metrics.get("accuracy") if prev_metrics else None
 
-    # Display current metrics
-    print(f"Confusion Matrix:\n{cm}")
+    print(f"📈 Confusion Matrix:\n{cm}")
     print(f"Accuracy: {acc:.4f}")
     print(f"Precision: {precision:.4f}")
     print(f"Recall: {recall:.4f}")
     print(f"F1 Score: {f1:.4f}")
-    if auc is not None:
-        print(f"AUC: {auc:.4f}")
+    print(f"AUC: {auc:.4f}")
     if prev_acc is not None:
         print(f"Previous Accuracy: {prev_acc:.4f}")
         print(f"Accuracy Change: {acc - prev_acc:+.4f}")
@@ -82,17 +77,21 @@ def run():
         "f1_score": f1,
         "auc": auc,
         "previous_accuracy": prev_acc,
-        "n_samples": len(y_true)
+        "n_samples": len(y_true),
+        "evaluated_at": datetime.now().isoformat()
     }
 
-    metrics_file = os.path.join(
-        METRICS_DIR,
-        f"metrics_{pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')}.json"
+    timestamped_path = os.path.join(
+        METRICS_DIR, f"metrics_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
     )
-    with open(metrics_file, "w") as f:
+    with open(timestamped_path, "w") as f:
         json.dump(metrics, f, indent=2)
 
-    print(f"Saved metrics to {metrics_file}")
+    with open(LATEST_METRICS_POINTER, "w") as f:
+        json.dump(metrics, f, indent=2)
+
+    print(f"✅ Saved metrics to {timestamped_path}")
+    print(f"🔗 Updated latest_metrics.json for deployment reference.")
 
 if __name__ == "__main__":
     run()

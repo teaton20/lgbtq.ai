@@ -1,0 +1,22 @@
+[2025-05-01T11:16:49.582+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.retrain manual__2025-05-01T11:16:01.903358+00:00 [queued]>
+[2025-05-01T11:16:49.587+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.retrain manual__2025-05-01T11:16:01.903358+00:00 [queued]>
+[2025-05-01T11:16:49.587+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2025-05-01T11:16:49.594+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): retrain> on 2025-05-01 11:16:01.903358+00:00
+[2025-05-01T11:16:49.599+0000] {standard_task_runner.py:57} INFO - Started process 245 to run task
+[2025-05-01T11:16:49.602+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'lgbtq_model_pipeline', 'retrain', 'manual__2025-05-01T11:16:01.903358+00:00', '--job-id', '225', '--raw', '--subdir', 'DAGS_FOLDER/lgbtq_model_pipeline.py', '--cfg-path', '/tmp/tmpcwcqvfs_']
+[2025-05-01T11:16:49.607+0000] {standard_task_runner.py:85} INFO - Job 225: Subtask retrain
+[2025-05-01T11:16:49.633+0000] {task_command.py:416} INFO - Running <TaskInstance: lgbtq_model_pipeline.retrain manual__2025-05-01T11:16:01.903358+00:00 [running]> on host de01c95effdc
+[2025-05-01T11:16:49.674+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='lgbtq_model_pipeline' AIRFLOW_CTX_TASK_ID='retrain' AIRFLOW_CTX_EXECUTION_DATE='2025-05-01T11:16:01.903358+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-05-01T11:16:01.903358+00:00'
+[2025-05-01T11:16:49.675+0000] {logging_mixin.py:154} INFO - 🔁 Starting retraining process...
+[2025-05-01T11:16:49.675+0000] {logging_mixin.py:154} INFO - 📦 Combining production and new data into all_data...
+[2025-05-01T11:16:49.710+0000] {logging_mixin.py:154} INFO - 📊 Loading all training data...
+[2025-05-01T11:16:49.785+0000] {logging_mixin.py:154} INFO - 🧠 Retraining classifier on 249 samples...
+[2025-05-01T11:16:49.786+0000] {logging_mixin.py:154} INFO - 📂 Loading previous model from /opt/***/models/classifier.joblib
+[2025-05-01T11:16:49.788+0000] {logging_mixin.py:154} INFO - 🛡️ Backed up previous model to /opt/***/models/classifier_backup_20250501111649.joblib
+[2025-05-01T11:16:50.005+0000] {logging_mixin.py:154} INFO - ✅ Saved retrained classifier to /opt/***/models/classifier.joblib
+[2025-05-01T11:16:50.016+0000] {logging_mixin.py:154} INFO - 📦 Generating predictions for metric evaluation...
+[2025-05-01T11:16:50.131+0000] {logging_mixin.py:154} INFO - ✅ Saved predictions to /opt/***/predictions/latest_predictions.parquet
+[2025-05-01T11:16:50.132+0000] {python.py:194} INFO - Done. Returned value was: None
+[2025-05-01T11:16:50.137+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=lgbtq_model_pipeline, task_id=retrain, execution_date=20250501T111601, start_date=20250501T111649, end_date=20250501T111650
+[2025-05-01T11:16:50.162+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-05-01T11:16:50.182+0000] {taskinstance.py:2778} INFO - 1 downstream tasks scheduled from follow-on schedule check

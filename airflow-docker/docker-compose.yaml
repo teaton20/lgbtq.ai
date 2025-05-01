@@ -35,6 +35,7 @@ services:
       - ./new_data:/opt/airflow/new_data
       - ./all_data:/opt/airflow/all_data
       - ./review_queue:/opt/airflow/review_queue
+      - ./validation:/opt/airflow/validation
     ports:
       - "8080:8080"
     command: webserver
@@ -60,6 +61,7 @@ services:
       - ./new_data:/opt/airflow/new_data
       - ./all_data:/opt/airflow/all_data
       - ./review_queue:/opt/airflow/review_queue
+      - ./validation:/opt/airflow/validation
     command: scheduler
 
   airflow-init:
@@ -77,6 +79,7 @@ services:
       - ./data:/opt/airflow/data
       - ./metrics:/opt/airflow/metrics
       - ./predictions:/opt/airflow/predictions
+      - ./validation:/opt/airflow/validation
     command: db init
 
 volumes:
