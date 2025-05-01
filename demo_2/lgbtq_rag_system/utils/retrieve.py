@@ -1,31 +1,32 @@
 # lgbtq_rag_system/utils/retrieve.py
-def score_article(article, tokens):
-    score = 0
-    # Retrieve and lowercase article fields.
-    title = article.get('title', '').lower()
-    summary = article.get('summary', '').lower()
-    content = article.get('content', '').lower()
-    tags = [tag.lower() for tag in article.get('tags', [])]
-    
-    for token in tokens:
-        if token in title:
-            score += 3   # Title weight
-        if token in summary:
-            score += 2   # Summary weight
-        if token in content:
-            score += 2   # Content weight
-        if token in tags:
-            score += 3
-        # Tags: each exact match weights 2 points.
-        score += 2 * sum(1 for tag in tags if token == tag)
-    return score
 
-def retrieve_articles(tokens, articles, top_n=5):
-    scored_articles = []
-    for article in articles:
-        score = score_article(article, tokens)
-        if score > 0:
-            scored_articles.append((score, article))
-    # Rank the results by score (highest first)
-    scored_articles.sort(key=lambda x: x[0], reverse=True)
-    return [article for score, article in scored_articles][:top_n]
+import numpy as np
+import faiss
+import pickle
+from sentence_transformers import SentenceTransformer
+
+INDEX_PATH = "lgbtq_rag_system/embeddings/index.pkl"
+MODEL_NAME = "all-MiniLM-L6-v2"
+
+def retrieve_articles(query, top_n=5):
+    print("🔎 Running semantic retrieval...")
+
+    # Load index and metadata
+    with open(INDEX_PATH, "rb") as f:
+        data = pickle.load(f)
+    index = data["index"]
+    metadata = data["metadata"]
+
+    # Load embedding model and encode query
+    model = SentenceTransformer(MODEL_NAME)
+    query_vec = model.encode([query])
+    
+    # Search index
+    D, I = index.search(np.array(query_vec).astype("float32"), top_n)
+
+    # Return top N articles with metadata
+    results = []
+    for idx in I[0]:
+        if idx < len(metadata):
+            results.append(metadata[idx])
+    return results

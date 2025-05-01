@@ -7,19 +7,19 @@ import joblib
 from sklearn.linear_model import LogisticRegression
 from datetime import datetime
 
+# Directories
 PRODUCTION_DATA_DIR = "/opt/airflow/production_data"
 NEW_DATA_DIR = "/opt/airflow/new_data"
 ALL_DATA_DIR = "/opt/airflow/all_data"
 MODEL_DIR = "/opt/airflow/models"
+FRONTEND_DIR = "/opt/airflow/frontend"
 CLASSIFIER_PATH = os.path.join(MODEL_DIR, "classifier.joblib")
 
 REVIEW_THRESHOLD = 5
 
 def combine_data():
-    """Combine all JSON files from production and new data into ALL_DATA_DIR, skipping duplicates."""
     os.makedirs(ALL_DATA_DIR, exist_ok=True)
 
-    # Copy production data
     for f in os.listdir(PRODUCTION_DATA_DIR):
         if f.endswith(".json"):
             src = os.path.join(PRODUCTION_DATA_DIR, f)
@@ -27,27 +27,20 @@ def combine_data():
             if not os.path.exists(dst):
                 shutil.copy(src, dst)
 
-    # Move new data, but skip if already in all_data (by article ID)
     for f in os.listdir(NEW_DATA_DIR):
         if f.endswith(".json"):
             try:
-                article_id = f.split("_")[1]  # e.g., article_244_2025.json → 244
+                article_id = f.split("_")[1]
             except IndexError:
                 print(f"⚠️ Skipping malformed filename: {f}")
                 continue
-
             if any(existing.startswith(f"article_{article_id}_") for existing in os.listdir(ALL_DATA_DIR)):
-                print(f"⚠️ Skipping duplicate article_{article_id} — already exists in all_data.")
+                print(f"⚠️ Skipping duplicate article_{article_id}")
                 continue
-
-            src = os.path.join(NEW_DATA_DIR, f)
-            dst = os.path.join(ALL_DATA_DIR, f)
-            shutil.move(src, dst)
+            shutil.move(os.path.join(NEW_DATA_DIR, f), os.path.join(ALL_DATA_DIR, f))
 
 def load_training_data():
-    """Load embeddings and labels from ALL_DATA_DIR."""
-    X = []
-    y = []
+    X, y = [], []
     for f in os.listdir(ALL_DATA_DIR):
         if f.endswith(".json"):
             with open(os.path.join(ALL_DATA_DIR, f), "r") as file:
@@ -68,7 +61,7 @@ def run():
     print("📦 Combining production and new data into all_data...")
     combine_data()
 
-    print("📊 Loading all training data...")
+    print("📊 Loading training data...")
     X, y = load_training_data()
     if len(X) == 0:
         print("❌ No data found for retraining.")
@@ -76,46 +69,67 @@ def run():
 
     print(f"🧠 Retraining classifier on {len(X)} samples...")
     if os.path.exists(CLASSIFIER_PATH):
-        print(f"📂 Loading previous model from {CLASSIFIER_PATH}")
         classifier = joblib.load(CLASSIFIER_PATH)
-
-        # Backup previous model
-        timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-        backup_path = os.path.join(MODEL_DIR, f"classifier_backup_{timestamp}.joblib")
+        backup_path = os.path.join(MODEL_DIR, f"classifier_backup_{datetime.now().strftime('%Y%m%d%H%M%S')}.joblib")
         shutil.copy(CLASSIFIER_PATH, backup_path)
-        print(f"🛡️ Backed up previous model to {backup_path}")
+        print(f"🛡️ Backed up model to {backup_path}")
     else:
-        print("🚀 No existing model found. Creating new one.")
         classifier = LogisticRegression()
 
     classifier.fit(X, y)
-
-    os.makedirs(MODEL_DIR, exist_ok=True)
     joblib.dump(classifier, CLASSIFIER_PATH)
-    print(f"✅ Saved retrained classifier to {CLASSIFIER_PATH}")
+    print(f"✅ Saved classifier to {CLASSIFIER_PATH}")
 
-    # Save predictions for evaluation
-    print("📦 Generating predictions for metric evaluation...")
-
-    # Predict probabilities and labels
-    y_prob = classifier.predict_proba(X)[:, 1]  # Probability for class 1
+    print("📈 Saving predictions...")
+    y_prob = classifier.predict_proba(X)[:, 1]
     y_pred = classifier.predict(X)
+    predictions_df = pd.DataFrame({"y_true": y, "y_pred": y_pred, "y_prob": y_prob})
+    predictions_dir = "/opt/airflow/predictions"
+    os.makedirs(predictions_dir, exist_ok=True)
+    predictions_df.to_parquet(os.path.join(predictions_dir, "latest_predictions.parquet"), index=False)
 
-    # Build DataFrame
-    predictions_df = pd.DataFrame({
-        "y_true": y,
-        "y_pred": y_pred,
-        "y_prob": y_prob
-    })
+    # 🔍 Build Semantic Index for RAG
+    try:
+        from sentence_transformers import SentenceTransformer
+        import faiss
 
-    # Create predictions directory if it doesn't exist
-    PREDICTIONS_DIR = "/opt/airflow/predictions"
-    os.makedirs(PREDICTIONS_DIR, exist_ok=True)
-    predictions_path = os.path.join(PREDICTIONS_DIR, "latest_predictions.parquet")
+        print("📚 Building semantic index for frontend...")
+        model = SentenceTransformer("all-MiniLM-L6-v2")
+        texts, metadata = [], []
 
-    # Save to Parquet
-    predictions_df.to_parquet(predictions_path, index=False)
-    print(f"✅ Saved predictions to {predictions_path}")
+        for f in os.listdir(ALL_DATA_DIR):
+            if f.endswith(".json"):
+                with open(os.path.join(ALL_DATA_DIR, f), "r") as file:
+                    article = json.load(file)
+                if "content" in article:
+                    texts.append(article["content"])
+                    metadata.append({
+                        "title": article.get("title", ""),
+                        "summary": article.get("summary", ""),
+                        "content": article.get("content", ""),
+                        "tags": article.get("tags", []),
+                        "date": article.get("date", ""),
+                        "url": article.get("url", "")
+                    })
+
+        if not texts:
+            print("⚠️ No valid content found for embeddings.")
+            return
+
+        vectors = model.encode(texts)
+        index = faiss.IndexFlatL2(vectors.shape[1])
+        index.add(vectors)
+
+        # Save paths for frontend compatibility
+        os.makedirs(FRONTEND_DIR, exist_ok=True)
+        with open(os.path.join(FRONTEND_DIR, "semantic_articles.json"), "w") as f:
+            json.dump(metadata, f, indent=2)
+        faiss.write_index(index, os.path.join(FRONTEND_DIR, "semantic_index.faiss"))
+
+        print("✅ Semantic index and metadata saved for frontend.")
+
+    except Exception as e:
+        print(f"❌ Semantic index creation failed: {e}")
 
 if __name__ == "__main__":
     print("🚀 Starting retrain.run() from __main__")

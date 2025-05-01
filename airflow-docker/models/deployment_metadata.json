@@ -1,6 +1,6 @@
 {
-  "deployed_model_path": "/opt/airflow/models/production_model_20250501113412.joblib",
-  "deployed_at": "2025-05-01T11:34:12.821956",
+  "deployed_model_path": "/opt/airflow/models/production_model_20250501233623.joblib",
+  "deployed_at": "2025-05-01T23:36:23.395221",
   "source_model_path": "/opt/airflow/models/classifier.joblib",
   "deployment_reason": "automated pipeline decision"
 }
