@@ -1,94 +1,101 @@
 import os
 import json
-import pandas as pd
-from sklearn.metrics import confusion_matrix, accuracy_score
+import numpy as np
+import joblib
+import mlflow
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
 
-# Directory where metrics JSON files are stored
+ALL_DATA_DIR = "/opt/airflow/all_data"
+MODEL_DIR = "/opt/airflow/models"
 METRICS_DIR = "/opt/airflow/metrics"
-
-# Path to the latest model predictions file (assumed parquet with y_true and y_pred columns)
-PREDICTIONS_PATH = "/opt/airflow/predictions/latest_predictions.parquet"
-
-def load_previous_metrics():
-    """
-    Load the most recent metrics JSON file from METRICS_DIR.
-    Returns:
-        dict or None: Parsed JSON metrics if available, else None.
-    """
-    if not os.path.exists(METRICS_DIR):
-        return None
-    files = [f for f in os.listdir(METRICS_DIR) if f.endswith(".json")]
-    if not files:
-        return None
-    # Sort files to get the latest by filename (assumes timestamp in filename)
-    latest_file = sorted(files)[-1]
-    with open(os.path.join(METRICS_DIR, latest_file), "r") as f:
-        return json.load(f)
+MODEL_PATH = os.path.join(MODEL_DIR, "classifier.joblib")
 
 def run():
-    """
-    Main function to calculate and save model performance metrics.
-    Steps:
-    1. Ensure metrics directory exists.
-    2. Load predictions with true and predicted labels.
-    3. Compute confusion matrix and accuracy.
-    4. Load previous metrics and compare accuracy.
-    5. Save current metrics as a timestamped JSON file.
-    """
-    print('Running get_metrics task...')
-    # Create metrics directory if it doesn't exist
-    os.makedirs(METRICS_DIR, exist_ok=True)
-
-    # Check if predictions file exists
-    if not os.path.exists(PREDICTIONS_PATH):
-        print("No predictions found. Skipping metrics calculation.")
+    # Set up MLflow tracking
+    mlflow.set_tracking_uri("file:///opt/airflow/mlflow")
+    mlflow.set_experiment("stance_classifier")
+    
+    if not os.path.exists(MODEL_PATH):
+        print(f"No model found at {MODEL_PATH}. Cannot compute metrics.")
         return
-
-    # Load predictions DataFrame
-    df = pd.read_parquet(PREDICTIONS_PATH)
-
-    # Verify required columns exist
-    if 'y_true' not in df or 'y_pred' not in df:
-        print("Predictions file must contain 'y_true' and 'y_pred' columns.")
+    
+    # Load model
+    print(f"Loading model from {MODEL_PATH}")
+    classifier = joblib.load(MODEL_PATH)
+    
+    # Load data for evaluation
+    X = []
+    y_true = []
+    for f in os.listdir(ALL_DATA_DIR):
+        if f.endswith(".json"):
+            with open(os.path.join(ALL_DATA_DIR, f), "r") as file:
+                data = json.load(file)
+            if "embedding" in data and "stance_encoded" in data:
+                X.append(data["embedding"])
+                y_true.append(data["stance_encoded"])
+    
+    if len(X) == 0:
+        print("No data found in all_data directory to evaluate.")
         return
-
-    y_true = df['y_true']
-    y_pred = df['y_pred']
-
-    # Compute confusion matrix and convert to list for JSON serialization
+    
+    X = np.array(X)
+    y_true = np.array(y_true)
+    print(f"Evaluating model on {len(X)} samples...")
+    
+    # Generate predictions
+    y_pred = classifier.predict(X)
+    
+    # Calculate metrics
     cm = confusion_matrix(y_true, y_pred).tolist()
-
-    # Compute accuracy score
-    acc = accuracy_score(y_true, y_pred)
-
-    # Load previous metrics to compare accuracy
-    prev_metrics = load_previous_metrics()
-    prev_acc = prev_metrics['accuracy'] if prev_metrics else None
-
-    # Print current metrics and comparison
+    accuracy = accuracy_score(y_true, y_pred)
+    precision = precision_score(y_true, y_pred, average='weighted')
+    recall = recall_score(y_true, y_pred, average='weighted')
+    f1 = f1_score(y_true, y_pred, average='weighted')
+    
+    # Print metrics
     print(f"Confusion Matrix:\n{cm}")
-    print(f"Accuracy: {acc:.4f}")
-    if prev_acc is not None:
-        print(f"Previous Accuracy: {prev_acc:.4f}")
-        print(f"Accuracy Change: {acc - prev_acc:+.4f}")
-
-    # Prepare metrics dictionary for saving
-    metrics = {
+    print(f"Accuracy: {accuracy:.4f}")
+    print(f"Precision: {precision:.4f}")
+    print(f"Recall: {recall:.4f}")
+    print(f"F1 Score: {f1:.4f}")
+    
+    # Save metrics to JSON
+    os.makedirs(METRICS_DIR, exist_ok=True)
+    timestamp = np.datetime64('now').astype(str).replace(':', '-')
+    metrics_file = os.path.join(METRICS_DIR, f"metrics_{timestamp}.json")
+    
+    metrics_data = {
+        "timestamp": timestamp,
         "confusion_matrix": cm,
-        "accuracy": acc,
-        "previous_accuracy": prev_acc,
-        "n_samples": len(y_true)
+        "accuracy": float(accuracy),
+        "precision": float(precision),
+        "recall": float(recall),
+        "f1": float(f1),
+        "n_samples": int(len(y_true))
     }
-
-    # Save current metrics with timestamped filename
-    metrics_file = os.path.join(
-        METRICS_DIR, 
-        f"metrics_{pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')}.json"
-    )
+    
     with open(metrics_file, "w") as f:
-        json.dump(metrics, f, indent=2)
-
+        json.dump(metrics_data, f, indent=2)
     print(f"Saved metrics to {metrics_file}")
+    
+    # Log metrics with MLflow
+    with mlflow.start_run():
+        mlflow.log_metric("accuracy", accuracy)
+        mlflow.log_metric("precision", precision)
+        mlflow.log_metric("recall", recall)
+        mlflow.log_metric("f1", f1)
+        mlflow.log_metric("n_samples", len(y_true))
+        
+        # Log confusion matrix as a JSON artifact
+        cm_path = os.path.join(METRICS_DIR, f"confusion_matrix_{timestamp}.json")
+        with open(cm_path, "w") as f:
+            json.dump({"confusion_matrix": cm}, f)
+        mlflow.log_artifact(cm_path)
+        
+        # Log model
+        mlflow.sklearn.log_model(classifier, "stance_classifier")
+        
+        print("Logged metrics and model to MLflow")
 
 if __name__ == "__main__":
     run()
