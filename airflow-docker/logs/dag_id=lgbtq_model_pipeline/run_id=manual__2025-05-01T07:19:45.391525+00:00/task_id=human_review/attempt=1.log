@@ -1,0 +1,21 @@
+[2025-05-01T07:19:47.617+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.human_review manual__2025-05-01T07:19:45.391525+00:00 [queued]>
+[2025-05-01T07:19:47.620+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.human_review manual__2025-05-01T07:19:45.391525+00:00 [queued]>
+[2025-05-01T07:19:47.620+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2025-05-01T07:19:47.626+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): human_review> on 2025-05-01 07:19:45.391525+00:00
+[2025-05-01T07:19:47.629+0000] {standard_task_runner.py:57} INFO - Started process 178 to run task
+[2025-05-01T07:19:47.631+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'lgbtq_model_pipeline', 'human_review', 'manual__2025-05-01T07:19:45.391525+00:00', '--job-id', '84', '--raw', '--subdir', 'DAGS_FOLDER/lgbtq_model_pipeline.py', '--cfg-path', '/tmp/tmpi34pben_']
+[2025-05-01T07:19:47.633+0000] {standard_task_runner.py:85} INFO - Job 84: Subtask human_review
+[2025-05-01T07:19:47.677+0000] {task_command.py:416} INFO - Running <TaskInstance: lgbtq_model_pipeline.human_review manual__2025-05-01T07:19:45.391525+00:00 [running]> on host 90b0bbad4be4
+[2025-05-01T07:19:47.721+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='lgbtq_model_pipeline' AIRFLOW_CTX_TASK_ID='human_review' AIRFLOW_CTX_EXECUTION_DATE='2025-05-01T07:19:45.391525+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-05-01T07:19:45.391525+00:00'
+[2025-05-01T07:19:47.722+0000] {logging_mixin.py:154} INFO - 👀 Checking for enough articles in review queue...
+[2025-05-01T07:19:47.723+0000] {logging_mixin.py:154} INFO - ✅ Found 5 files — simulating human review...
+[2025-05-01T07:19:47.723+0000] {logging_mixin.py:154} INFO - Moved article_6_2025-05-01T07:19:47.227360.json to new_data/
+[2025-05-01T07:19:47.723+0000] {logging_mixin.py:154} INFO - Moved article_153_2025-05-01T07:19:47.228053.json to new_data/
+[2025-05-01T07:19:47.723+0000] {logging_mixin.py:154} INFO - Moved article_198_2025-05-01T07:19:47.229158.json to new_data/
+[2025-05-01T07:19:47.723+0000] {logging_mixin.py:154} INFO - Moved article_24_2025-05-01T07:19:47.224977.json to new_data/
+[2025-05-01T07:19:47.723+0000] {logging_mixin.py:154} INFO - Moved article_211_2025-05-01T07:19:47.228627.json to new_data/
+[2025-05-01T07:19:47.723+0000] {logging_mixin.py:154} INFO - Review complete.
+[2025-05-01T07:19:47.723+0000] {python.py:194} INFO - Done. Returned value was: None
+[2025-05-01T07:19:47.729+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=lgbtq_model_pipeline, task_id=human_review, execution_date=20250501T071945, start_date=20250501T071947, end_date=20250501T071947
+[2025-05-01T07:19:47.773+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-05-01T07:19:47.790+0000] {taskinstance.py:2778} INFO - 1 downstream tasks scheduled from follow-on schedule check

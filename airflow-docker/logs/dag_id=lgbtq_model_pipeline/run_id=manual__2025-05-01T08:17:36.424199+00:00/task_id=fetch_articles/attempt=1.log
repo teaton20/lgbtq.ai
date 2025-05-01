@@ -1,0 +1,38 @@
+[2025-05-01T08:17:38.841+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.fetch_articles manual__2025-05-01T08:17:36.424199+00:00 [queued]>
+[2025-05-01T08:17:38.846+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.fetch_articles manual__2025-05-01T08:17:36.424199+00:00 [queued]>
+[2025-05-01T08:17:38.846+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2025-05-01T08:17:38.853+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): fetch_articles> on 2025-05-01 08:17:36.424199+00:00
+[2025-05-01T08:17:38.858+0000] {standard_task_runner.py:57} INFO - Started process 189 to run task
+[2025-05-01T08:17:38.860+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'lgbtq_model_pipeline', 'fetch_articles', 'manual__2025-05-01T08:17:36.424199+00:00', '--job-id', '138', '--raw', '--subdir', 'DAGS_FOLDER/lgbtq_model_pipeline.py', '--cfg-path', '/tmp/tmpegt23w1_']
+[2025-05-01T08:17:38.865+0000] {standard_task_runner.py:85} INFO - Job 138: Subtask fetch_articles
+[2025-05-01T08:17:38.889+0000] {task_command.py:416} INFO - Running <TaskInstance: lgbtq_model_pipeline.fetch_articles manual__2025-05-01T08:17:36.424199+00:00 [running]> on host 5de5a5cb0459
+[2025-05-01T08:17:38.933+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='lgbtq_model_pipeline' AIRFLOW_CTX_TASK_ID='fetch_articles' AIRFLOW_CTX_EXECUTION_DATE='2025-05-01T08:17:36.424199+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-05-01T08:17:36.424199+00:00'
+[2025-05-01T08:17:38.934+0000] {logging_mixin.py:154} INFO - Fetching CSV data from Google Sheets...
+[2025-05-01T08:17:39.905+0000] {logging_mixin.py:154} INFO - 📊 Columns from Google Sheet: ['date', 'title', 'url', 'publication', 'author', 'stance', 'topic_category', 'content']
+[2025-05-01T08:17:39.909+0000] {logging_mixin.py:154} INFO - Generating embeddings...
+[2025-05-01T08:17:39.913+0000] {SentenceTransformer.py:208} INFO - Use pytorch device_name: cpu
+[2025-05-01T08:17:39.913+0000] {SentenceTransformer.py:216} INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-05-01T08:17:41.516+0000] {file_download.py:1670} WARNING - Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+[2025-05-01T08:17:51.620+0000] {logging_mixin.py:154} INFO - Loading classifier...
+[2025-05-01T08:17:51.623+0000] {logging_mixin.py:154} INFO - Predicting stances...
+[2025-05-01T08:17:51.623+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/tasks/fetch_articles.py", line 37, in run
+    predictions = classifier.predict(embeddings)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sklearn/linear_model/_base.py", line 451, in predict
+    scores = self.decision_function(X)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sklearn/linear_model/_base.py", line 432, in decision_function
+    X = self._validate_data(X, accept_sparse="csr", reset=False)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sklearn/base.py", line 626, in _validate_data
+    self._check_n_features(X, reset=reset)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sklearn/base.py", line 415, in _check_n_features
+    raise ValueError(
+ValueError: X has 384 features, but LogisticRegression is expecting 128 features as input.
+[2025-05-01T08:17:51.629+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=lgbtq_model_pipeline, task_id=fetch_articles, execution_date=20250501T081736, start_date=20250501T081738, end_date=20250501T081751
+[2025-05-01T08:17:51.636+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 138 for task fetch_articles (X has 384 features, but LogisticRegression is expecting 128 features as input.; 189)
+[2025-05-01T08:17:51.684+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2025-05-01T08:17:51.704+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

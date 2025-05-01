@@ -1,0 +1,25 @@
+[2025-05-01T09:16:52.790+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.fetch_articles manual__2025-05-01T09:16:50.448634+00:00 [queued]>
+[2025-05-01T09:16:52.794+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.fetch_articles manual__2025-05-01T09:16:50.448634+00:00 [queued]>
+[2025-05-01T09:16:52.794+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2025-05-01T09:16:52.800+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): fetch_articles> on 2025-05-01 09:16:50.448634+00:00
+[2025-05-01T09:16:52.804+0000] {standard_task_runner.py:57} INFO - Started process 323 to run task
+[2025-05-01T09:16:52.807+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'lgbtq_model_pipeline', 'fetch_articles', 'manual__2025-05-01T09:16:50.448634+00:00', '--job-id', '167', '--raw', '--subdir', 'DAGS_FOLDER/lgbtq_model_pipeline.py', '--cfg-path', '/tmp/tmpeha3_avs']
+[2025-05-01T09:16:52.811+0000] {standard_task_runner.py:85} INFO - Job 167: Subtask fetch_articles
+[2025-05-01T09:16:52.836+0000] {task_command.py:416} INFO - Running <TaskInstance: lgbtq_model_pipeline.fetch_articles manual__2025-05-01T09:16:50.448634+00:00 [running]> on host 8e9fbf3c94e4
+[2025-05-01T09:16:52.872+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='lgbtq_model_pipeline' AIRFLOW_CTX_TASK_ID='fetch_articles' AIRFLOW_CTX_EXECUTION_DATE='2025-05-01T09:16:50.448634+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-05-01T09:16:50.448634+00:00'
+[2025-05-01T09:16:52.873+0000] {logging_mixin.py:154} INFO - Fetching CSV data from Google Sheets...
+[2025-05-01T09:16:53.999+0000] {logging_mixin.py:154} INFO - Generating embeddings...
+[2025-05-01T09:16:54.002+0000] {SentenceTransformer.py:208} INFO - Use pytorch device_name: cpu
+[2025-05-01T09:16:54.002+0000] {SentenceTransformer.py:216} INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-05-01T09:16:55.721+0000] {logging_mixin.py:154} INFO - Loading classifier...
+[2025-05-01T09:16:55.724+0000] {logging_mixin.py:154} INFO - Predicting stances...
+[2025-05-01T09:16:55.726+0000] {logging_mixin.py:154} INFO - Saved article to /opt/***/review_queue/article_24_2025-05-01T09:16:55.724865.json
+[2025-05-01T09:16:55.727+0000] {logging_mixin.py:154} INFO - Saved article to /opt/***/review_queue/article_6_2025-05-01T09:16:55.726366.json
+[2025-05-01T09:16:55.728+0000] {logging_mixin.py:154} INFO - Saved article to /opt/***/review_queue/article_153_2025-05-01T09:16:55.727558.json
+[2025-05-01T09:16:55.729+0000] {logging_mixin.py:154} INFO - Saved article to /opt/***/review_queue/article_211_2025-05-01T09:16:55.728536.json
+[2025-05-01T09:16:55.730+0000] {logging_mixin.py:154} INFO - Saved article to /opt/***/review_queue/article_198_2025-05-01T09:16:55.729546.json
+[2025-05-01T09:16:55.730+0000] {logging_mixin.py:154} INFO - Finished processing 5 articles.
+[2025-05-01T09:16:55.730+0000] {python.py:194} INFO - Done. Returned value was: None
+[2025-05-01T09:16:55.736+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=lgbtq_model_pipeline, task_id=fetch_articles, execution_date=20250501T091650, start_date=20250501T091652, end_date=20250501T091655
+[2025-05-01T09:16:55.778+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-05-01T09:16:55.794+0000] {taskinstance.py:2778} INFO - 1 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,26 @@
+[2025-05-01T09:15:06.997+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.fetch_articles manual__2025-05-01T09:15:03.983301+00:00 [queued]>
+[2025-05-01T09:15:07.001+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.fetch_articles manual__2025-05-01T09:15:03.983301+00:00 [queued]>
+[2025-05-01T09:15:07.001+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2025-05-01T09:15:07.009+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): fetch_articles> on 2025-05-01 09:15:03.983301+00:00
+[2025-05-01T09:15:07.019+0000] {standard_task_runner.py:57} INFO - Started process 189 to run task
+[2025-05-01T09:15:07.033+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'lgbtq_model_pipeline', 'fetch_articles', 'manual__2025-05-01T09:15:03.983301+00:00', '--job-id', '160', '--raw', '--subdir', 'DAGS_FOLDER/lgbtq_model_pipeline.py', '--cfg-path', '/tmp/tmpwf1mo7fa']
+[2025-05-01T09:15:07.038+0000] {standard_task_runner.py:85} INFO - Job 160: Subtask fetch_articles
+[2025-05-01T09:15:07.076+0000] {task_command.py:416} INFO - Running <TaskInstance: lgbtq_model_pipeline.fetch_articles manual__2025-05-01T09:15:03.983301+00:00 [running]> on host 8e9fbf3c94e4
+[2025-05-01T09:15:07.123+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='lgbtq_model_pipeline' AIRFLOW_CTX_TASK_ID='fetch_articles' AIRFLOW_CTX_EXECUTION_DATE='2025-05-01T09:15:03.983301+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-05-01T09:15:03.983301+00:00'
+[2025-05-01T09:15:07.124+0000] {logging_mixin.py:154} INFO - Fetching CSV data from Google Sheets...
+[2025-05-01T09:15:08.254+0000] {logging_mixin.py:154} INFO - Generating embeddings...
+[2025-05-01T09:15:08.256+0000] {SentenceTransformer.py:208} INFO - Use pytorch device_name: cpu
+[2025-05-01T09:15:08.256+0000] {SentenceTransformer.py:216} INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-05-01T09:15:09.678+0000] {file_download.py:1670} WARNING - Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+[2025-05-01T09:15:18.939+0000] {logging_mixin.py:154} INFO - Loading classifier...
+[2025-05-01T09:15:18.941+0000] {logging_mixin.py:154} INFO - Predicting stances...
+[2025-05-01T09:15:18.946+0000] {logging_mixin.py:154} INFO - Saved article to /opt/***/review_queue/article_24_2025-05-01T09:15:18.943485.json
+[2025-05-01T09:15:18.947+0000] {logging_mixin.py:154} INFO - Saved article to /opt/***/review_queue/article_6_2025-05-01T09:15:18.946472.json
+[2025-05-01T09:15:18.948+0000] {logging_mixin.py:154} INFO - Saved article to /opt/***/review_queue/article_153_2025-05-01T09:15:18.947427.json
+[2025-05-01T09:15:18.949+0000] {logging_mixin.py:154} INFO - Saved article to /opt/***/review_queue/article_211_2025-05-01T09:15:18.948412.json
+[2025-05-01T09:15:18.950+0000] {logging_mixin.py:154} INFO - Saved article to /opt/***/review_queue/article_198_2025-05-01T09:15:18.949817.json
+[2025-05-01T09:15:18.950+0000] {logging_mixin.py:154} INFO - Finished processing 5 articles.
+[2025-05-01T09:15:18.951+0000] {python.py:194} INFO - Done. Returned value was: None
+[2025-05-01T09:15:18.959+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=lgbtq_model_pipeline, task_id=fetch_articles, execution_date=20250501T091503, start_date=20250501T091506, end_date=20250501T091518
+[2025-05-01T09:15:19.012+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-05-01T09:15:19.032+0000] {taskinstance.py:2778} INFO - 1 downstream tasks scheduled from follow-on schedule check

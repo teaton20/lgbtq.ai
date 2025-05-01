@@ -1,0 +1,19 @@
+{
+  "confusion_matrix": [
+    [
+      12,
+      0
+    ],
+    [
+      0,
+      8
+    ]
+  ],
+  "accuracy": 1.0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1_score": 1.0,
+  "auc": 1.0,
+  "previous_accuracy": 1.0,
+  "n_samples": 20
+}
