@@ -1,8 +1,8 @@
+from metaflow import FlowSpec, step
 import os
-import shutil 
 import json
+import shutil
 import numpy as np
-import pandas as pd
 import joblib
 from sklearn.linear_model import LogisticRegression
 
@@ -10,72 +10,97 @@ PRODUCTION_DATA_DIR = "/opt/airflow/production_data"
 NEW_DATA_DIR = "/opt/airflow/new_data"
 ALL_DATA_DIR = "/opt/airflow/all_data"
 MODEL_DIR = "/opt/airflow/models"
-CLASSIFIER_PATH = "/opt/airflow/models/classifier.joblib"
+MODEL_PATH = os.path.join(MODEL_DIR, "classifier.joblib")
+TRIGGER_THRESHOLD = 5
 
-REVIEW_THRESHOLD = 5
+class RetrainFlow(FlowSpec):
 
-def combine_data():
-    """Combine all JSON files from production and new data into ALL_DATA_DIR."""
-    os.makedirs(ALL_DATA_DIR, exist_ok=True)
+    @step
+    def start(self):
+        # Check trigger condition
+        self.new_files = [f for f in os.listdir(NEW_DATA_DIR) if f.endswith(".json")]
+        if len(self.new_files) != TRIGGER_THRESHOLD:
+            print(f"Trigger not met: {len(self.new_files)}/{TRIGGER_THRESHOLD} in new_data.")
+            self.do_retrain = False
+        else:
+            self.do_retrain = True
+        self.next(self.combine_data)
 
-    # Copy production data
-    for f in os.listdir(PRODUCTION_DATA_DIR):
-        if f.endswith(".json"):
-            src = os.path.join(PRODUCTION_DATA_DIR, f)
-            dst = os.path.join(ALL_DATA_DIR, f)
-            if not os.path.exists(dst):
-                shutil.copy(src, dst)
+    @step
+    def combine_data(self):
+        if not self.do_retrain:
+            print("Skipping combine step.")
+            self.next(self.end)
+            return
 
-    # Move new data
-    for f in os.listdir(NEW_DATA_DIR):
-        if f.endswith(".json"):
-            src = os.path.join(NEW_DATA_DIR, f)
-            dst = os.path.join(ALL_DATA_DIR, f)
-            if not os.path.exists(dst):
-                shutil.move(src, dst)
+        os.makedirs(ALL_DATA_DIR, exist_ok=True)
 
-def load_training_data():
-    """Load embeddings and labels from ALL_DATA_DIR."""
-    X = []
-    y = []
-    for f in os.listdir(ALL_DATA_DIR):
-        if f.endswith(".json"):
-            with open(os.path.join(ALL_DATA_DIR, f), "r") as file:
-                data = json.load(file)
-            # Only use entries with both embedding and stance_encoded
-            if "embedding" in data and "predicted_label" in data:
-                X.append(data["embedding"])
-                y.append(data["stance_encoded"])
-    return np.array(X), np.array(y)
-            
-def run():
-    print("🔁 Starting retraining process...")
-   
-    # Check if there are exactly 5 new articles in new_data
-    new_files = [f for f in os.listdir(NEW_DATA_DIR) if f.endswith(".json")]
-    if len(new_files) != REVIEW_THRESHOLD:
-        print(f"Trigger not met: {len(new_files)}/{REVIEW_THRESHOLD} articles in new_data.")
-        return
-    
-    print("Combining production and new data into all_data...")
-    combine_data()
+        # Copy production data
+        for f in os.listdir(PRODUCTION_DATA_DIR):
+            if f.endswith(".json"):
+                src = os.path.join(PRODUCTION_DATA_DIR, f)
+                dst = os.path.join(ALL_DATA_DIR, f)
+                if not os.path.exists(dst):
+                    shutil.copy(src, dst)
 
-    print("Loading all training data...")
-    X, y = load_training_data()
-    if len(X) == 0:
-        print("No data found for retraining.")
-        return
+        # Move new data
+        for f in os.listdir(NEW_DATA_DIR):
+            if f.endswith(".json"):
+                src = os.path.join(NEW_DATA_DIR, f)
+                dst = os.path.join(ALL_DATA_DIR, f)
+                if not os.path.exists(dst):
+                    shutil.move(src, dst)
 
-    print(f"Retraining classifier on {len(X)} samples...")
-    # Load previous model if it exists, otherwise create a new one
-    if os.path.exists(CLASSIFIER_PATH):
-        print(f"Loading previous model from {CLASSIFIER_PATH}")
-        classifier = joblib.load(CLASSIFIER_PATH)        
-    classifier.fit(X, y)
+        print("Combined production and new data into all_data.")
+        self.next(self.load_data)
 
-    os.makedirs(MODEL_DIR, exist_ok=True)
-    joblib.dump(classifier, CLASSIFIER_PATH)
-    print(f"Saved retrained classifier to {CLASSIFIER_PATH}")
+    @step
+    def load_data(self):
+        if not self.do_retrain:
+            print("Skipping load_data step.")
+            self.next(self.end)
+            return
+
+        X = []
+        y = []
+        for f in os.listdir(ALL_DATA_DIR):
+            if f.endswith(".json"):
+                with open(os.path.join(ALL_DATA_DIR, f), "r") as file:
+                    data = json.load(file)
+                if "embedding" in data and "stance_encoded" in data:
+                    X.append(data["embedding"])
+                    y.append(data["stance_encoded"])
+        self.X = np.array(X)
+        self.y = np.array(y)
+        if len(self.X) == 0:
+            print("No data found for retraining.")
+            self.do_retrain = False
+        self.next(self.retrain_model)
+
+    @step
+    def retrain_model(self):
+        if not self.do_retrain:
+            print("Skipping retrain_model step.")
+            self.next(self.end)
+            return
+
+        print(f"Retraining classifier on {len(self.X)} samples...")
+        os.makedirs(MODEL_DIR, exist_ok=True)
+        # Load previous model if exists, else create new
+        if os.path.exists(MODEL_PATH):
+            print(f"Loading previous model from {MODEL_PATH}")
+            classifier = joblib.load(MODEL_PATH)
+        else:
+            print("No previous model found, creating a new one.")
+            classifier = LogisticRegression(max_iter=1000)
+        classifier.fit(self.X, self.y)
+        joblib.dump(classifier, MODEL_PATH)
+        print(f"Saved retrained classifier to {MODEL_PATH}")
+        self.next(self.end)
+
+    @step
+    def end(self):
+        print("Retrain flow complete.")
 
 if __name__ == "__main__":
-    run()
+    RetrainFlow()
