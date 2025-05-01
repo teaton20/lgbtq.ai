@@ -26,6 +26,7 @@ def decide_branch():
     print(f"🔢 Previous Accuracy: {prev['accuracy']:.4f}")
     print(f"🔢 New Accuracy:      {new['accuracy']:.4f}")
 
+    # force deploy_model to trigger to verify that it works!
     return "deploy_model"
     
     # You can swap this out for f1_score, auc, etc.
