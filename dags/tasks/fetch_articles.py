@@ -20,7 +20,7 @@ def run():
 
     # Basic filtering and combining
     sample = df.sample(n=CHUNK_SIZE, random_state=42)
-    sample["full_text"] = sample["title"].fillna("") + " " + sample["text"].fillna("")
+    sample["full_text"] = sample["title"].fillna("") + " " + sample["content"].fillna("")
 
     # Tokenize and embed using SentenceTransformer
     print("Generating embeddings...")
@@ -46,7 +46,7 @@ def run():
             "source": row.get("source", ""),
             "author": row.get("author", ""),
             "embedding": embeddings[i].tolist(),
-            "predicted_label": predictions[i],
+            "predicted_label": int(predictions[i]),
         }
         out_path = os.path.join(REVIEW_QUEUE_DIR, f"article_{idx}_{datetime.now().isoformat()}.json")
         with open(out_path, "w") as f:
