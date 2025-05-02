@@ -4,24 +4,27 @@ import faiss
 import numpy as np
 import json
 import os
+from pathlib import Path
 from sentence_transformers import SentenceTransformer
 
-INDEX_PATH = "embeddings/index.pkl"
-ARTICLES_PATH = "articles.json"
+# Adjust this to your actual location
+FRONTEND_DIR = Path("/Users/teato/airflow/airflow-docker/frontend")
+INDEX_PATH = FRONTEND_DIR / "semantic_index.pkl"
+ARTICLES_PATH = FRONTEND_DIR / "semantic_articles.json"
 
 # Load FAISS index
 def load_faiss_index():
     if not os.path.exists(INDEX_PATH):
         raise FileNotFoundError(f"FAISS index not found at {INDEX_PATH}")
-    return faiss.read_index(INDEX_PATH)
+    return faiss.read_index(str(INDEX_PATH))
 
 # Load metadata (articles list)
 def load_articles():
     with open(ARTICLES_PATH, "r") as f:
         return json.load(f)
 
-# Load embedding model
-model = SentenceTransformer("all-MiniLM-L6-v2")  # or whatever you used during training
+# Load embedding model and data
+model = SentenceTransformer("all-MiniLM-L6-v2")  # match training
 faiss_index = load_faiss_index()
 articles = load_articles()
 
