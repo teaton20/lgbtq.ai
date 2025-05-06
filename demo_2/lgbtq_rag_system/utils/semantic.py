@@ -8,7 +8,7 @@ from pathlib import Path
 from sentence_transformers import SentenceTransformer
 
 # Adjust this to your actual location
-FRONTEND_DIR = Path("/Users/teato/airflow/airflow-docker/frontend")
+FRONTEND_DIR = Path("../../../airflow-docker/frontend")
 INDEX_PATH = FRONTEND_DIR / "semantic_index.pkl"
 ARTICLES_PATH = FRONTEND_DIR / "semantic_articles.json"
 
