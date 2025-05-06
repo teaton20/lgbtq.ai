@@ -17,7 +17,8 @@ from tasks import (
 with DAG(
     "lgbtq_model_pipeline",
     start_date=datetime(2025, 1, 1),
-    schedule_interval="@daily", # Can change this to desired schedule
+    #schedule_interval="@daily", # Can change this to desired schedule
+    schedule_interval="0 */12 * * *",
     catchup=False,
     tags=["lgbtq_ai"]
 ) as dag:
