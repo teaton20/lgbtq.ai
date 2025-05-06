@@ -1,35 +1,40 @@
-# utils/semantic.py
+# lgbtq_rag_system/utils/semantic.py
 
-import faiss
-import numpy as np
-import json
 import os
+import json
+import numpy as np
 from pathlib import Path
 from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
 
 # Adjust this to your actual location
-FRONTEND_DIR = Path("../../../airflow-docker/frontend")
-INDEX_PATH = FRONTEND_DIR / "semantic_index.pkl"
+CURRENT_DIR = Path(__file__).resolve()
+FRONTEND_DIR = CURRENT_DIR.parents[3] / "airflow-docker" / "frontend"
 ARTICLES_PATH = FRONTEND_DIR / "semantic_articles.json"
+EMBEDDINGS_PATH = FRONTEND_DIR / "embeddings" / "article_embeddings.npy"
 
-# Load FAISS index
-def load_faiss_index():
-    if not os.path.exists(INDEX_PATH):
-        raise FileNotFoundError(f"FAISS index not found at {INDEX_PATH}")
-    return faiss.read_index(str(INDEX_PATH))
+# Load SentenceTransformer model (must match model used during training)
+model = SentenceTransformer("all-MiniLM-L6-v2")  # Replace with actual model !!!!
 
-# Load metadata (articles list)
-def load_articles():
+# Load articles and embeddings
+def load_articles_with_embeddings():
     with open(ARTICLES_PATH, "r") as f:
-        return json.load(f)
+        articles = json.load(f)
 
-# Load embedding model and data
-model = SentenceTransformer("all-MiniLM-L6-v2")  # match training
-faiss_index = load_faiss_index()
-articles = load_articles()
+    # Filter only those that include an embedding
+    return [a for a in articles if "embedding" in a]
 
+# Main semantic search
 def semantic_search(query, top_k=3):
-    query_embedding = model.encode([query], normalize_embeddings=True)
-    distances, indices = faiss_index.search(np.array(query_embedding).astype('float32'), top_k)
-    results = [articles[i] for i in indices[0] if i < len(articles)]
-    return results
+    articles = load_articles_with_embeddings()
+    if not articles:
+        print("⚠️ No articles with embeddings found.")
+        return []
+
+    query_emb = model.encode([query])[0]  # shape: (dim,)
+    article_embs = np.array([a["embedding"] for a in articles])
+
+    similarities = cosine_similarity([query_emb], article_embs)[0]
+    top_indices = np.argsort(similarities)[::-1][:top_k]
+
+    return [articles[i] for i in top_indices]

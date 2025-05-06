@@ -1046,3 +1046,47 @@ As of March 2025, some cities in Florida have also begun providing HRT services 
 Please note that laws and regulations can change over time.
 2025-05-01 17:13:53,838 127.0.0.1 - - [01/May/2025 17:13:53] "POST / HTTP/1.1" 200 -
 2025-05-01 17:13:53,877 127.0.0.1 - - [01/May/2025 17:13:53] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 15:06:34,014 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2025-05-06 15:06:34,015 [33mPress CTRL+C to quit[0m
+2025-05-06 15:06:34,016  * Restarting with stat
+2025-05-06 15:06:38,437  * Debugger is active!
+2025-05-06 15:06:38,453  * Debugger PIN: 915-410-737
+2025-05-06 15:11:10,487 127.0.0.1 - - [06/May/2025 15:11:10] "GET / HTTP/1.1" 200 -
+2025-05-06 15:11:10,519 127.0.0.1 - - [06/May/2025 15:11:10] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 15:11:10,615 127.0.0.1 - - [06/May/2025 15:11:10] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-06 15:11:26,304 User query: what protections do I have as a trans person in California?
+2025-05-06 15:11:26,312 127.0.0.1 - - [06/May/2025 15:11:26] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+2025-05-06 15:11:26,329 127.0.0.1 - - [06/May/2025 15:11:26] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-05-06 15:11:26,329 127.0.0.1 - - [06/May/2025 15:11:26] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-05-06 15:11:26,351 127.0.0.1 - - [06/May/2025 15:11:26] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=xyaX1O0CWYjusJAB9cBl HTTP/1.1" 200 -
+2025-05-06 15:11:26,417 127.0.0.1 - - [06/May/2025 15:11:26] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-05-06 15:14:10,000  * Detected change in '/Users/teato/Documents/GitHub/msds603/lgbtq.ai/demo_2/lgbtq_rag_system/utils/semantic.py', reloading
+2025-05-06 15:14:10,480  * Restarting with stat
+2025-05-06 15:14:15,793  * Debugger is active!
+2025-05-06 15:14:15,807  * Debugger PIN: 915-410-737
+2025-05-06 15:14:15,833 User query: what protections do I have as a trans person in California?
+2025-05-06 15:14:15,836 Found 0 matching articles via semantic search.
+2025-05-06 15:14:15,837 LLM Response: I'm sorry, I couldn't find any articles matching your query. Please try using different keywords or rephrasing your question.
+2025-05-06 15:14:15,839 127.0.0.1 - - [06/May/2025 15:14:15] "POST / HTTP/1.1" 200 -
+2025-05-06 15:14:15,871 127.0.0.1 - - [06/May/2025 15:14:15] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 15:14:27,344 User query: what kind of protections do I have as a trans person in California?
+2025-05-06 15:14:27,352 Found 0 matching articles via semantic search.
+2025-05-06 15:14:27,353 LLM Response: I'm sorry, I couldn't find any articles matching your query. Please try using different keywords or rephrasing your question.
+2025-05-06 15:14:27,353 127.0.0.1 - - [06/May/2025 15:14:27] "POST / HTTP/1.1" 200 -
+2025-05-06 15:14:27,367 127.0.0.1 - - [06/May/2025 15:14:27] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 15:14:32,982 User query: hello
+2025-05-06 15:14:32,988 Found 0 matching articles via semantic search.
+2025-05-06 15:14:32,989 LLM Response: I'm sorry, I couldn't find any articles matching your query. Please try using different keywords or rephrasing your question.
+2025-05-06 15:14:32,989 127.0.0.1 - - [06/May/2025 15:14:32] "POST / HTTP/1.1" 200 -
+2025-05-06 15:14:33,003 127.0.0.1 - - [06/May/2025 15:14:33] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 15:14:40,250 User query: hello
+2025-05-06 15:14:40,256 Found 0 matching articles via semantic search.
+2025-05-06 15:14:40,257 LLM Response: I'm sorry, I couldn't find any articles matching your query. Please try using different keywords or rephrasing your question.
+2025-05-06 15:14:40,258 127.0.0.1 - - [06/May/2025 15:14:40] "POST / HTTP/1.1" 200 -
+2025-05-06 15:14:40,271 127.0.0.1 - - [06/May/2025 15:14:40] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-06 15:15:07,354 User query: what recent trans related events have happened in Florida?
+2025-05-06 15:15:07,362 Found 0 matching articles via semantic search.
+2025-05-06 15:15:07,363 LLM Response: I'm sorry, I couldn't find any articles matching your query. Please try using different keywords or rephrasing your question.
+2025-05-06 15:15:07,364 127.0.0.1 - - [06/May/2025 15:15:07] "POST / HTTP/1.1" 200 -
+2025-05-06 15:15:07,376 127.0.0.1 - - [06/May/2025 15:15:07] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -

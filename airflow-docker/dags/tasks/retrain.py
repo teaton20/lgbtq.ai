@@ -7,7 +7,7 @@ import joblib
 from sklearn.linear_model import LogisticRegression
 from datetime import datetime
 
-# Directories
+# directories
 PRODUCTION_DATA_DIR = "/opt/airflow/production_data"
 NEW_DATA_DIR = "/opt/airflow/new_data"
 ALL_DATA_DIR = "/opt/airflow/all_data"

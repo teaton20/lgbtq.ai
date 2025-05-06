@@ -1,4 +1,5 @@
 # lgbtq_rag_system/utils/prompt.py
+
 def compose_prompt(user_query, articles):
     prompt_lines = [
         "Incorporate the knowledge below for your response:\n"

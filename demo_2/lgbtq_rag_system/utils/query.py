@@ -1,4 +1,5 @@
 # lgbtq_rag_system/utils/query.py
+
 import re
 
 # Simple set of stopwords; extend as needed.

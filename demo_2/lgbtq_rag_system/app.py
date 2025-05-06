@@ -1,4 +1,5 @@
 # lgbtq_rag_system/app.py
+
 from flask import Flask, render_template, request
 import json
 import logging
@@ -6,7 +7,7 @@ import os
 
 from utils import prompt as prompt_util
 from model import llama_runner
-from utils import semantic as semantic_util  # <-- NEW: import semantic retriever
+from utils import semantic as semantic_util
 
 app = Flask(__name__)
 
