@@ -33,3 +33,8 @@
 [2025-05-07T11:57:40.775+0000] {logging_mixin.py:154} INFO - [2025-05-07T11:57:40.775+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/tasks/fetch_articles.py
 [2025-05-07T11:57:42.869+0000] {processor.py:841} WARNING - No viable dags retrieved from /opt/airflow/dags/tasks/fetch_articles.py
 [2025-05-07T11:57:42.883+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/tasks/fetch_articles.py took 2.122 seconds
+[2025-05-07T11:58:12.938+0000] {processor.py:157} INFO - Started process (PID=23173) to work on /opt/airflow/dags/tasks/fetch_articles.py
+[2025-05-07T11:58:12.939+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/tasks/fetch_articles.py for tasks to queue
+[2025-05-07T11:58:12.940+0000] {logging_mixin.py:154} INFO - [2025-05-07T11:58:12.939+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/tasks/fetch_articles.py
+[2025-05-07T11:58:14.998+0000] {processor.py:841} WARNING - No viable dags retrieved from /opt/airflow/dags/tasks/fetch_articles.py
+[2025-05-07T11:58:15.010+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/tasks/fetch_articles.py took 2.078 seconds
