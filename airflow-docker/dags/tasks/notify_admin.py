@@ -10,6 +10,7 @@ def run():
     if os.path.exists(METADATA_PATH):
         with open(METADATA_PATH, "r") as f:
             metadata = json.load(f)
+        print("💌 Sending email to team...")
         print(f"""
 📢 A new model was deployed!
 🆕 Path:     {metadata['deployed_model_path']}

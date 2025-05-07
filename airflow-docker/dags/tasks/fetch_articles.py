@@ -106,9 +106,14 @@ def article_already_exists(article_index):
             return True
     return False
 
+# placeholder just for this task to skip for now.
+# rest of DAG can be run by manually putting .json files for new articles
+# into the 'review_queue' directory.
 def run():
     print("⏭️ Skipping article fetch task (mock run).")
 
+# actual run() function to rename to run() when we're ready to actually use
+# this task
 def actual_run():
     print("📥 Fetching CSV data from Google Sheets...")
 

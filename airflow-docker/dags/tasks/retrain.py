@@ -21,8 +21,8 @@ MODEL_DIR = "/opt/airflow/models"
 REVIEW_THRESHOLD = 5
 
 # Training hyperparameters
-BATCH_SIZE = 2  # Reduced from 4 to 2
-NUM_EPOCHS = 1  # Reduced from 10 to 5
+BATCH_SIZE = 2
+NUM_EPOCHS = 1
 CHECKPOINT_EVERY = 1  # Save model every N epochs
 
 # Ensure necessary directories exist
@@ -141,7 +141,7 @@ def train_triplet_model():
         total_loss = 0
         batch_count = 0
         total_batches = len(dataloader)
-        progress_intervals = 10  # Only log 10 times per epoch (10%, 20%, ..., 100%)
+        progress_intervals = 10  # Logs progress 10 times per epoch (10%, 20%, ..., 100%)
 
         for i, batch in enumerate(dataloader):
             percent_done = int((i + 1) * 100 / total_batches)
@@ -150,7 +150,6 @@ def train_triplet_model():
             if percent_done % (100 // progress_intervals) == 0 and (i + 1) != total_batches:
                 print(f"📊 Epoch {epoch+1}/{NUM_EPOCHS} — {percent_done}% complete ({i+1}/{total_batches} batches)")
 
-            # 🧠 Move everything below INSIDE the loop:
             # Forward pass
             anchor = model(
                 batch["anchor"]["input_ids"].squeeze(1),
@@ -210,7 +209,6 @@ def train_triplet_model():
     with open(os.path.join(MODEL_DIR, "retrained_flag.txt"), "w") as f:
         f.write(model_path)
 
-# Make function available as a task for the Airflow DAG
 def run(**kwargs):
     try:
         result = train_triplet_model()
@@ -220,6 +218,5 @@ def run(**kwargs):
         cleanup_memory()
         return "error"
 
-# For direct execution
 if __name__ == "__main__":
     run()

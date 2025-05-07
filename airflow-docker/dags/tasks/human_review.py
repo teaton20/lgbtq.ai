@@ -16,6 +16,10 @@ def article_id_exists(article_id):
                 return True
     return False
 
+# for now this is simulating that we went in and labeled these new data that 
+# were placed in the review_queue, so this is simulating that we're doing that
+# so that the next task can trigger.
+
 def run():
     print("👀 Checking for enough articles in review queue...")
 

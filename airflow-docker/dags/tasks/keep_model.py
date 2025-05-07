@@ -9,4 +9,4 @@ def run():
         os.remove(METADATA_PATH)
         print("🧹 Removed stale deployment metadata.")
     else:
-        print("📁 No deployment metadata to clean up.")
+        print("🕳️ No deployment metadata to clean up.")
