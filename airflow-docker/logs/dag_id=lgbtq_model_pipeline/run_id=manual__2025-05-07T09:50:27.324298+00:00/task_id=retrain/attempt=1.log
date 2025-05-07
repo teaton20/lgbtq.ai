@@ -1,0 +1,31 @@
+[2025-05-07T09:50:35.071+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.retrain manual__2025-05-07T09:50:27.324298+00:00 [queued]>
+[2025-05-07T09:50:35.076+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.retrain manual__2025-05-07T09:50:27.324298+00:00 [queued]>
+[2025-05-07T09:50:35.076+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2025-05-07T09:50:35.082+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): retrain> on 2025-05-07 09:50:27.324298+00:00
+[2025-05-07T09:50:35.088+0000] {standard_task_runner.py:57} INFO - Started process 15713 to run task
+[2025-05-07T09:50:35.091+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'lgbtq_model_pipeline', 'retrain', 'manual__2025-05-07T09:50:27.324298+00:00', '--job-id', '74', '--raw', '--subdir', 'DAGS_FOLDER/lgbtq_model_pipeline.py', '--cfg-path', '/tmp/tmp3w1pf02g']
+[2025-05-07T09:50:35.093+0000] {standard_task_runner.py:85} INFO - Job 74: Subtask retrain
+[2025-05-07T09:50:35.135+0000] {task_command.py:416} INFO - Running <TaskInstance: lgbtq_model_pipeline.retrain manual__2025-05-07T09:50:27.324298+00:00 [running]> on host 6fdcfcafebfc
+[2025-05-07T09:50:35.184+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='lgbtq_model_pipeline' AIRFLOW_CTX_TASK_ID='retrain' AIRFLOW_CTX_EXECUTION_DATE='2025-05-07T09:50:27.324298+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-05-07T09:50:27.324298+00:00'
+[2025-05-07T09:50:35.185+0000] {logging_mixin.py:154} INFO - 📦 Combining data...
+[2025-05-07T09:50:35.572+0000] {logging_mixin.py:154} INFO - 📚 Loading labeled data...
+[2025-05-07T09:50:35.906+0000] {logging_mixin.py:154} INFO - 🧠 Initial memory usage: 32.5%
+[2025-05-07T09:50:35.906+0000] {logging_mixin.py:154} INFO - 🧠 Preparing triplet training data...
+[2025-05-07T09:50:37.267+0000] {logging_mixin.py:154} INFO - 🔍 Loading encoder from local cache...
+[2025-05-07T09:50:37.493+0000] {logging_mixin.py:154} INFO - 🖥️ Using device: cpu
+[2025-05-07T09:50:37.495+0000] {logging_mixin.py:154} INFO - 📊 Using gradient accumulation: effective batch size = 8
+[2025-05-07T09:50:37.684+0000] {logging_mixin.py:154} INFO - 🚀 Training triplet model...
+[2025-05-07T09:52:32.718+0000] {logging_mixin.py:154} INFO - 🧠 Memory usage: 83.9%
+[2025-05-07T09:54:48.512+0000] {logging_mixin.py:154} INFO - 🧠 Memory usage: 86.4%
+[2025-05-07T09:57:34.662+0000] {logging_mixin.py:154} INFO - 🧠 Memory usage: 85.8%
+[2025-05-07T10:00:03.642+0000] {logging_mixin.py:154} INFO - 🧠 Memory usage: 86.1%
+[2025-05-07T10:01:40.677+0000] {logging_mixin.py:154} INFO - 🧠 Memory usage: 84.6%
+[2025-05-07T10:03:59.746+0000] {logging_mixin.py:154} INFO - 🧠 Memory usage: 85.8%
+[2025-05-07T10:04:17.700+0000] {logging_mixin.py:154} INFO - 📈 Epoch 1/1: Loss=0.5128
+[2025-05-07T10:04:17.700+0000] {logging_mixin.py:154} INFO - 🧠 Memory usage: 83.0%
+[2025-05-07T10:04:17.869+0000] {logging_mixin.py:154} INFO - 💾 Saved checkpoint to /opt/***/models/checkpoint_model_20250507095037_epoch1.joblib
+[2025-05-07T10:04:18.129+0000] {logging_mixin.py:154} INFO - ✅ Saved final model to /opt/***/models/production_model_20250507095037.joblib
+[2025-05-07T10:04:18.165+0000] {python.py:194} INFO - Done. Returned value was: None
+[2025-05-07T10:04:18.175+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=lgbtq_model_pipeline, task_id=retrain, execution_date=20250507T095027, start_date=20250507T095035, end_date=20250507T100418
+[2025-05-07T10:04:18.266+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-05-07T10:04:18.305+0000] {taskinstance.py:2778} INFO - 1 downstream tasks scheduled from follow-on schedule check

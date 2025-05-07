@@ -7,8 +7,11 @@
   "stance": "Pro",
   "topic_category": "18",
   "content": "TRANSGENDER RIGHTS: Both Senate Bill 1 and House Bill 267 would ban transgender girls and women from playing girls\u2019 and women\u2019s sports, while Senate Bill 39 would ban the state and its health plans for paying for gender-affirming care, and Senate Bill 185 would ban the state from paying for gender- affirming care for prisoners. Senate Bill 30 would ban physicians from prescribing drugs that block puberty to transgender youth.\n\n",
+  "publishedAt": NaN,
+  "source": NaN,
+  "summary": NaN,
   "full_text": "Georgia lawmakers spurn DEI ban and consider sports betting at deadline TRANSGENDER RIGHTS: Both Senate Bill 1 and House Bill 267 would ban transgender girls and women from playing girls\u2019 and women\u2019s sports, while Senate Bill 39 would ban the state and its health plans for paying for gender-affirming care, and Senate Bill 185 would ban the state from paying for gender- affirming care for prisoners. Senate Bill 30 would ban physicians from prescribing drugs that block puberty to transgender youth.\n\n",
-  "stance_encoded": 1,
+  "stance_encoded": 1.0,
   "true_label": 1,
   "embedding": [
     -0.10445058345794678,

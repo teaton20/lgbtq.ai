@@ -4,36 +4,59 @@ import json
 from datetime import datetime
 
 MODEL_DIR = "/opt/airflow/models"
-NEW_MODEL_PATH = os.path.join(MODEL_DIR, "classifier.joblib")
-TIMESTAMP = datetime.now().strftime('%Y%m%d%H%M%S')
-DEPLOYED_MODEL_PATH = os.path.join(MODEL_DIR, f"production_model_{TIMESTAMP}.joblib")
+METRICS_PATH = "/opt/airflow/metrics/model_metrics.json"
 
 def run():
     print("🚀 Deploying new model...")
 
-    # Backup old production model if it exists
+    # Load path to best model from metrics
+    if not os.path.exists(METRICS_PATH):
+        raise FileNotFoundError(f"No metrics file found at {METRICS_PATH}")
+
+    with open(METRICS_PATH) as f:
+        metrics = json.load(f)
+    
+    best_model_name = metrics.get("best_model")
+    if not best_model_name:
+        raise ValueError("❌ No 'best_model' key found in metrics file.")
+
+    best_model_path = os.path.join(MODEL_DIR, best_model_name)
+    if not os.path.exists(best_model_path):
+        raise FileNotFoundError(f"❌ Best model file not found at {best_model_path}")
+
+    # Generate deployment path with new timestamp
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    deployed_model_path = os.path.join(MODEL_DIR, f"production_model_{timestamp}.joblib")
+
+    # Backup old production model
     old_model_path = os.path.join(MODEL_DIR, "production_model.joblib")
     if os.path.exists(old_model_path):
-        backup_path = os.path.join(
-            MODEL_DIR, f"production_model_backup_{TIMESTAMP}.joblib"
-        )
+        backup_path = os.path.join(MODEL_DIR, f"production_model_backup_{timestamp}.joblib")
         shutil.copy(old_model_path, backup_path)
         print(f"🛡️ Backed up previous production model to {backup_path}")
 
-    # Copy new model into timestamped production path
-    shutil.copy(NEW_MODEL_PATH, DEPLOYED_MODEL_PATH)
-    print(f"✅ New model deployed to {DEPLOYED_MODEL_PATH}")
+    # Copy best model to new production location
+    shutil.copy(best_model_path, deployed_model_path)
+    print(f"✅ New model deployed to {deployed_model_path}")
 
     # Save deployment metadata
     metadata = {
-        "deployed_model_path": DEPLOYED_MODEL_PATH,
+        "deployed_model_path": deployed_model_path,
         "deployed_at": datetime.now().isoformat(),
-        "source_model_path": NEW_MODEL_PATH,
+        "source_model_path": best_model_path,
         "deployment_reason": "automated pipeline decision"
     }
-
-    metadata_path = os.path.join(MODEL_DIR, "deployment_metadata.json")
-    with open(metadata_path, "w") as f:
+    with open(os.path.join(MODEL_DIR, "deployment_metadata.json"), "w") as f:
         json.dump(metadata, f, indent=2)
 
-    print(f"📝 Saved deployment metadata to {metadata_path}")
+    print("📝 Saved deployment metadata")
+
+    with open(os.path.join(MODEL_DIR, "latest_production_model.txt"), "w") as f:
+        f.write(os.path.basename(deployed_model_path))
+
+    # Update symlink to always point to the newest deployed model
+    symlink_path = os.path.join(MODEL_DIR, "production_model.joblib")
+    if os.path.islink(symlink_path) or os.path.exists(symlink_path):
+        os.remove(symlink_path)
+    os.symlink(deployed_model_path, symlink_path)
+    print(f"🔗 Updated symlink: production_model.joblib → {deployed_model_path}")

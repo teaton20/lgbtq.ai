@@ -1,0 +1,28 @@
+[2025-05-07T10:45:59.022+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.get_metrics manual__2025-05-07T10:45:39.295086+00:00 [queued]>
+[2025-05-07T10:45:59.026+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.get_metrics manual__2025-05-07T10:45:39.295086+00:00 [queued]>
+[2025-05-07T10:45:59.027+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2025-05-07T10:45:59.034+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): get_metrics> on 2025-05-07 10:45:39.295086+00:00
+[2025-05-07T10:45:59.042+0000] {standard_task_runner.py:57} INFO - Started process 18648 to run task
+[2025-05-07T10:45:59.055+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'lgbtq_model_pipeline', 'get_metrics', 'manual__2025-05-07T10:45:39.295086+00:00', '--job-id', '100', '--raw', '--subdir', 'DAGS_FOLDER/lgbtq_model_pipeline.py', '--cfg-path', '/tmp/tmpwoyirzzb']
+[2025-05-07T10:45:59.058+0000] {standard_task_runner.py:85} INFO - Job 100: Subtask get_metrics
+[2025-05-07T10:45:59.120+0000] {task_command.py:416} INFO - Running <TaskInstance: lgbtq_model_pipeline.get_metrics manual__2025-05-07T10:45:39.295086+00:00 [running]> on host 6fdcfcafebfc
+[2025-05-07T10:45:59.223+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='lgbtq_model_pipeline' AIRFLOW_CTX_TASK_ID='get_metrics' AIRFLOW_CTX_EXECUTION_DATE='2025-05-07T10:45:39.295086+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-05-07T10:45:39.295086+00:00'
+[2025-05-07T10:45:59.225+0000] {logging_mixin.py:154} INFO - 📏 Evaluating latest models...
+[2025-05-07T10:45:59.229+0000] {logging_mixin.py:154} INFO - 📥 Loading model from /opt/***/models/production_model_20250507101952.joblib
+[2025-05-07T10:46:00.467+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/tasks/get_metrics.py", line 93, in run
+    new_acc = evaluate_model(os.path.join(MODEL_DIR, new_model))
+  File "/opt/airflow/dags/tasks/get_metrics.py", line 71, in evaluate_model
+    texts, labels = load_articles()
+  File "/opt/airflow/dags/tasks/get_metrics.py", line 23, in load_articles
+    texts, labels = []
+ValueError: not enough values to unpack (expected 2, got 0)
+[2025-05-07T10:46:00.476+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=lgbtq_model_pipeline, task_id=get_metrics, execution_date=20250507T104539, start_date=20250507T104559, end_date=20250507T104600
+[2025-05-07T10:46:00.491+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 100 for task get_metrics (not enough values to unpack (expected 2, got 0); 18648)
+[2025-05-07T10:46:00.532+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2025-05-07T10:46:00.559+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

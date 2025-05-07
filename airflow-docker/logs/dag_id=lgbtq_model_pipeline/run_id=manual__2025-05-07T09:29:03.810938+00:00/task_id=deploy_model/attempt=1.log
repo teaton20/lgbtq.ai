@@ -1,0 +1,27 @@
+[2025-05-07T09:30:02.864+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.deploy_model manual__2025-05-07T09:29:03.810938+00:00 [queued]>
+[2025-05-07T09:30:02.872+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.deploy_model manual__2025-05-07T09:29:03.810938+00:00 [queued]>
+[2025-05-07T09:30:02.872+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2025-05-07T09:30:02.880+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): deploy_model> on 2025-05-07 09:29:03.810938+00:00
+[2025-05-07T09:30:02.890+0000] {standard_task_runner.py:57} INFO - Started process 14618 to run task
+[2025-05-07T09:30:02.895+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'lgbtq_model_pipeline', 'deploy_model', 'manual__2025-05-07T09:29:03.810938+00:00', '--job-id', '65', '--raw', '--subdir', 'DAGS_FOLDER/lgbtq_model_pipeline.py', '--cfg-path', '/tmp/tmpzx0ofz1u']
+[2025-05-07T09:30:02.899+0000] {standard_task_runner.py:85} INFO - Job 65: Subtask deploy_model
+[2025-05-07T09:30:02.972+0000] {task_command.py:416} INFO - Running <TaskInstance: lgbtq_model_pipeline.deploy_model manual__2025-05-07T09:29:03.810938+00:00 [running]> on host 6fdcfcafebfc
+[2025-05-07T09:30:03.019+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='lgbtq_model_pipeline' AIRFLOW_CTX_TASK_ID='deploy_model' AIRFLOW_CTX_EXECUTION_DATE='2025-05-07T09:29:03.810938+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-05-07T09:29:03.810938+00:00'
+[2025-05-07T09:30:03.020+0000] {logging_mixin.py:154} INFO - 🚀 Deploying new model...
+[2025-05-07T09:30:03.021+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/tasks/deploy_model.py", line 24, in run
+    shutil.copy(NEW_MODEL_PATH, DEPLOYED_MODEL_PATH)
+  File "/usr/local/lib/python3.8/shutil.py", line 418, in copy
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  File "/usr/local/lib/python3.8/shutil.py", line 264, in copyfile
+    with open(src, 'rb') as fsrc, open(dst, 'wb') as fdst:
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/models/classifier.joblib'
+[2025-05-07T09:30:03.027+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=lgbtq_model_pipeline, task_id=deploy_model, execution_date=20250507T092903, start_date=20250507T093002, end_date=20250507T093003
+[2025-05-07T09:30:03.033+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 65 for task deploy_model ([Errno 2] No such file or directory: '/opt/airflow/models/classifier.joblib'; 14618)
+[2025-05-07T09:30:03.077+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2025-05-07T09:30:03.094+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

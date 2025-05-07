@@ -1,97 +1,137 @@
 import os
 import json
-import pandas as pd
+import torch
 import joblib
-from sklearn.metrics import (
-    confusion_matrix,
-    accuracy_score,
-    precision_score,
-    recall_score,
-    f1_score,
-    roc_auc_score,
-)
+import numpy as np
 from datetime import datetime
+from sklearn.metrics import accuracy_score
+from sklearn.metrics.pairwise import cosine_similarity
+from transformers import AutoTokenizer
+from model_code.model import TripletNet, encode_texts
 
-MODEL_PATH = "/opt/airflow/models/classifier.joblib"
-VAL_DATA_PATH = "/opt/airflow/validation/val_data.json"
+ALL_DATA_DIR = "/opt/airflow/all_data"
+MODEL_DIR = "/opt/airflow/models"
 METRICS_DIR = "/opt/airflow/metrics"
-LATEST_METRICS_POINTER = os.path.join(METRICS_DIR, "latest_metrics.json")
+HF_MODEL_CACHE = "/opt/airflow/hf_model"
+HF_MODEL_ID = "sentence-transformers/all-MiniLM-L6-v2"
 
-def load_previous_metrics():
-    if not os.path.exists(LATEST_METRICS_POINTER):
-        return None
-    with open(LATEST_METRICS_POINTER, "r") as f:
-        return json.load(f)
+os.makedirs(METRICS_DIR, exist_ok=True)
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+def load_articles():
+    texts, labels = [], []
+    for f in os.listdir(ALL_DATA_DIR):
+        if f.endswith(".json"):
+            with open(os.path.join(ALL_DATA_DIR, f)) as file:
+                data = json.load(file)
+                if "content" in data and "true_label" in data:
+                    label_raw = data["true_label"]
+                    # Normalize label to lowercase string
+                    if isinstance(label_raw, int):
+                        label = "pro" if label_raw == 1 else "anti" if label_raw == 0 else None
+                    elif isinstance(label_raw, str):
+                        label = label_raw.strip().lower()
+                    else:
+                        label = None
+                    if label in ["pro", "anti"]:
+                        texts.append(data["content"])
+                        labels.append(label)
+    return texts, labels
+
+def classify_from_centroids(embeddings, labels, train_embeddings, train_labels):
+    train_embeddings = np.array(train_embeddings)
+    labels = np.array(labels)
+    train_labels = np.array(train_labels)
+
+    pro_mask = train_labels == "pro"
+    anti_mask = train_labels == "anti"
+
+    if not np.any(pro_mask) or not np.any(anti_mask):
+        print("⚠️ Skipping evaluation — missing 'pro' or 'anti' samples.")
+        return None  # signal to skip
+
+    pro_centroid = train_embeddings[pro_mask].mean(axis=0)
+    anti_centroid = train_embeddings[anti_mask].mean(axis=0)
+
+    pro_sim = cosine_similarity(embeddings, [pro_centroid]).squeeze()
+    anti_sim = cosine_similarity(embeddings, [anti_centroid]).squeeze()
+
+    preds = ["pro" if p > a else "anti" for p, a in zip(pro_sim, anti_sim)]
+    return preds
+
+def evaluate_model(model_path):
+    print(f"📥 Loading model from {model_path}")
+    model = TripletNet().to(device)
+    model.load_state_dict(joblib.load(model_path))
+    model.eval()
+
+    tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
+
+    texts, labels = load_articles()
+    embeddings = encode_texts(model, tokenizer, texts, batch_size=16, device=device)
+
+    pred_labels = classify_from_centroids(embeddings, labels, embeddings, labels)
+    if pred_labels is None:
+        return None  # Not enough data for proper evaluation
+
+    return accuracy_score(labels, pred_labels)
+
+def get_comparison_models():
+    """Returns (new_model, production_model)."""
+    joblibs = sorted([f for f in os.listdir(MODEL_DIR) if f.endswith(".joblib")])
+    if len(joblibs) == 0:
+        raise ValueError("No model files found.")
+
+    new_model = joblibs[-1]
+
+    try:
+        with open(os.path.join(MODEL_DIR, "latest_production_model.txt")) as f:
+            prod_model = f.read().strip()
+    except FileNotFoundError:
+        prod_model = None
+
+    return new_model, prod_model
 
 def run():
-    print("📊 Running get_metrics task...")
+    print("📏 Evaluating latest models...")
 
-    os.makedirs(METRICS_DIR, exist_ok=True)
+    flag_path = os.path.join(MODEL_DIR, "retrained_flag.txt")
+    if not os.path.exists(flag_path):
+        print("⏭️ No new model retrained. Skipping evaluation.")
+        return "no_new_model"
 
-    # Load classifier
-    if not os.path.exists(MODEL_PATH):
-        print("❌ No model found. Skipping.")
-        return
-    classifier = joblib.load(MODEL_PATH)
+    joblibs = sorted([f for f in os.listdir(MODEL_DIR) if f.endswith(".joblib")])
+    if len(joblibs) < 2:
+        print("⏭️ Not enough models to compare. Skipping evaluation.")
+        return "not_enough_models"
 
-    # Load validation data
-    if not os.path.exists(VAL_DATA_PATH):
-        print("❌ No validation data found.")
-        return
-    with open(VAL_DATA_PATH, "r") as f:
-        val_data = json.load(f)
+    new_model = joblibs[-1]
+    prev_model = joblibs[-2]
 
-    X = [item["embedding"] for item in val_data]
-    y_true = [item["true_label"] for item in val_data]
+    if new_model == prev_model:
+        print("⏭️ No new model to evaluate.")
+        return "no_new_model"
 
-    y_pred = classifier.predict(X)
-    y_prob = classifier.predict_proba(X)[:, 1]
+    new_acc = evaluate_model(os.path.join(MODEL_DIR, new_model))
+    if new_acc is None:
+        print("⚠️ Skipping evaluation. Not enough diversity in labels.")
+        return "not_enough_label_diversity"
 
-    # Compute metrics
-    cm = confusion_matrix(y_true, y_pred).tolist()
-    acc = accuracy_score(y_true, y_pred)
-    precision = precision_score(y_true, y_pred, zero_division=0)
-    recall = recall_score(y_true, y_pred, zero_division=0)
-    f1 = f1_score(y_true, y_pred, zero_division=0)
-    auc = roc_auc_score(y_true, y_prob)
+    print(f"🔍 Accuracy of latest model ({new_model}): {new_acc:.3f}")
 
-    prev_metrics = load_previous_metrics()
-    prev_acc = prev_metrics.get("accuracy") if prev_metrics else None
+    prev_acc = evaluate_model(os.path.join(MODEL_DIR, prev_model))
+    prev_acc = prev_acc if prev_acc is not None else 0
+    print(f"📊 Accuracy of previous model ({prev_model}): {prev_acc:.3f}")
 
-    print(f"📈 Confusion Matrix:\n{cm}")
-    print(f"Accuracy: {acc:.4f}")
-    print(f"Precision: {precision:.4f}")
-    print(f"Recall: {recall:.4f}")
-    print(f"F1 Score: {f1:.4f}")
-    print(f"AUC: {auc:.4f}")
-    if prev_acc is not None:
-        print(f"Previous Accuracy: {prev_acc:.4f}")
-        print(f"Accuracy Change: {acc - prev_acc:+.4f}")
+    best_model = new_model if new_acc >= prev_acc else prev_model
+    with open(os.path.join(METRICS_DIR, "model_metrics.json"), "w") as f:
+        json.dump({
+            "best_model": best_model,
+            "new_accuracy": new_acc,
+            "prev_accuracy": prev_acc,
+            "timestamp": datetime.now().isoformat()
+        }, f, indent=2)
 
-    # Save metrics
-    metrics = {
-        "confusion_matrix": cm,
-        "accuracy": acc,
-        "precision": precision,
-        "recall": recall,
-        "f1_score": f1,
-        "auc": auc,
-        "previous_accuracy": prev_acc,
-        "n_samples": len(y_true),
-        "evaluated_at": datetime.now().isoformat()
-    }
-
-    timestamped_path = os.path.join(
-        METRICS_DIR, f"metrics_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-    )
-    with open(timestamped_path, "w") as f:
-        json.dump(metrics, f, indent=2)
-
-    with open(LATEST_METRICS_POINTER, "w") as f:
-        json.dump(metrics, f, indent=2)
-
-    print(f"✅ Saved metrics to {timestamped_path}")
-    print(f"🔗 Updated latest_metrics.json for deployment reference.")
-
-if __name__ == "__main__":
-    run()
+    print(f"✅ Selected model: {best_model}")
+    return "metrics_recorded"

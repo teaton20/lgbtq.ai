@@ -37,6 +37,7 @@ services:
       - ./review_queue:/opt/airflow/review_queue
       - ./validation:/opt/airflow/validation
       - ./frontend:/opt/airflow/frontend
+      - ./hf_model:/opt/airflow/hf_model
     ports:
       - "8080:8080"
     command: webserver
@@ -64,6 +65,7 @@ services:
       - ./review_queue:/opt/airflow/review_queue
       - ./validation:/opt/airflow/validation
       - ./frontend:/opt/airflow/frontend
+      - ./hf_model:/opt/airflow/hf_model
     command: scheduler
 
   airflow-init:

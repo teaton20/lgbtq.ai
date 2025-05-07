@@ -1,0 +1,68 @@
+[2025-05-07T01:22:52.779+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.human_review manual__2025-05-07T01:19:42.807328+00:00 [queued]>
+[2025-05-07T01:22:52.785+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.human_review manual__2025-05-07T01:19:42.807328+00:00 [queued]>
+[2025-05-07T01:22:52.785+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2025-05-07T01:22:52.791+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): human_review> on 2025-05-07 01:19:42.807328+00:00
+[2025-05-07T01:22:52.796+0000] {standard_task_runner.py:57} INFO - Started process 470 to run task
+[2025-05-07T01:22:52.799+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'lgbtq_model_pipeline', 'human_review', 'manual__2025-05-07T01:19:42.807328+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/lgbtq_model_pipeline.py', '--cfg-path', '/tmp/tmpv71218fk']
+[2025-05-07T01:22:52.801+0000] {standard_task_runner.py:85} INFO - Job 4: Subtask human_review
+[2025-05-07T01:22:52.825+0000] {task_command.py:416} INFO - Running <TaskInstance: lgbtq_model_pipeline.human_review manual__2025-05-07T01:19:42.807328+00:00 [running]> on host ba7fb2e9095e
+[2025-05-07T01:22:52.859+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='lgbtq_model_pipeline' AIRFLOW_CTX_TASK_ID='human_review' AIRFLOW_CTX_EXECUTION_DATE='2025-05-07T01:19:42.807328+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-05-07T01:19:42.807328+00:00'
+[2025-05-07T01:22:52.859+0000] {logging_mixin.py:154} INFO - 👀 Checking for enough articles in review queue...
+[2025-05-07T01:22:52.862+0000] {logging_mixin.py:154} INFO - ✅ Found 50 files — simulating human review...
+[2025-05-07T01:22:52.862+0000] {logging_mixin.py:154} INFO - 💌 Sending email to team...
+[2025-05-07T01:22:52.862+0000] {logging_mixin.py:154} INFO - hiyyyy time 2 label these new entries babe okthxbye
+[2025-05-07T01:22:52.863+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_248 — already exists in new_data.
+[2025-05-07T01:22:52.863+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_245 — already exists in new_data.
+[2025-05-07T01:22:52.863+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_245 — already exists in new_data.
+[2025-05-07T01:22:52.863+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_245 — already exists in new_data.
+[2025-05-07T01:22:52.864+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_244 — already exists in new_data.
+[2025-05-07T01:22:52.864+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_244 — already exists in new_data.
+[2025-05-07T01:22:52.864+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_244 — already exists in new_data.
+[2025-05-07T01:22:52.864+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_248 — already exists in new_data.
+[2025-05-07T01:22:52.864+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_246 — already exists in new_data.
+[2025-05-07T01:22:52.865+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_246 — already exists in new_data.
+[2025-05-07T01:22:52.865+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_248 — already exists in new_data.
+[2025-05-07T01:22:52.865+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_245 — already exists in new_data.
+[2025-05-07T01:22:52.865+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_248 — already exists in new_data.
+[2025-05-07T01:22:52.866+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_248 — already exists in new_data.
+[2025-05-07T01:22:52.866+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_247 — already exists in new_data.
+[2025-05-07T01:22:52.866+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_246 — already exists in new_data.
+[2025-05-07T01:22:52.866+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_244 — already exists in new_data.
+[2025-05-07T01:22:52.866+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_245 — already exists in new_data.
+[2025-05-07T01:22:52.867+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_247 — already exists in new_data.
+[2025-05-07T01:22:52.867+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_246 — already exists in new_data.
+[2025-05-07T01:22:52.867+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_247 — already exists in new_data.
+[2025-05-07T01:22:52.867+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_248 — already exists in new_data.
+[2025-05-07T01:22:52.867+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_248 — already exists in new_data.
+[2025-05-07T01:22:52.868+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_246 — already exists in new_data.
+[2025-05-07T01:22:52.868+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_246 — already exists in new_data.
+[2025-05-07T01:22:52.868+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_247 — already exists in new_data.
+[2025-05-07T01:22:52.868+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_245 — already exists in new_data.
+[2025-05-07T01:22:52.868+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_245 — already exists in new_data.
+[2025-05-07T01:22:52.869+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_248 — already exists in new_data.
+[2025-05-07T01:22:52.869+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_247 — already exists in new_data.
+[2025-05-07T01:22:52.869+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_247 — already exists in new_data.
+[2025-05-07T01:22:52.869+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_246 — already exists in new_data.
+[2025-05-07T01:22:52.870+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_247 — already exists in new_data.
+[2025-05-07T01:22:52.870+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_246 — already exists in new_data.
+[2025-05-07T01:22:52.870+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_244 — already exists in new_data.
+[2025-05-07T01:22:52.870+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_245 — already exists in new_data.
+[2025-05-07T01:22:52.872+0000] {logging_mixin.py:154} INFO - 📤 Reviewed + moved article_249_2025-05-07T01:22:50.184343.json → new_data/
+[2025-05-07T01:22:52.872+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_245 — already exists in new_data.
+[2025-05-07T01:22:52.873+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_248 — already exists in new_data.
+[2025-05-07T01:22:52.873+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_246 — already exists in new_data.
+[2025-05-07T01:22:52.873+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_247 — already exists in new_data.
+[2025-05-07T01:22:52.873+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_244 — already exists in new_data.
+[2025-05-07T01:22:52.874+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_246 — already exists in new_data.
+[2025-05-07T01:22:52.874+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_245 — already exists in new_data.
+[2025-05-07T01:22:52.874+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_244 — already exists in new_data.
+[2025-05-07T01:22:52.874+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_247 — already exists in new_data.
+[2025-05-07T01:22:52.875+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_248 — already exists in new_data.
+[2025-05-07T01:22:52.875+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_247 — already exists in new_data.
+[2025-05-07T01:22:52.875+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_249 — already exists in new_data.
+[2025-05-07T01:22:52.875+0000] {logging_mixin.py:154} INFO - ⚠️ Skipping duplicate article_244 — already exists in new_data.
+[2025-05-07T01:22:52.875+0000] {logging_mixin.py:154} INFO - 🧠 Human review simulated for this batch.
+[2025-05-07T01:22:52.875+0000] {python.py:194} INFO - Done. Returned value was: None
+[2025-05-07T01:22:52.881+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=lgbtq_model_pipeline, task_id=human_review, execution_date=20250507T011942, start_date=20250507T012252, end_date=20250507T012252
+[2025-05-07T01:22:52.899+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-05-07T01:22:52.912+0000] {taskinstance.py:2778} INFO - 1 downstream tasks scheduled from follow-on schedule check

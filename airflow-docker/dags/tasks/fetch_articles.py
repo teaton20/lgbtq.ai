@@ -107,6 +107,9 @@ def article_already_exists(article_index):
     return False
 
 def run():
+    print("⏭️ Skipping article fetch task (mock run).")
+
+def actual_run():
     print("📥 Fetching CSV data from Google Sheets...")
 
     os.makedirs(REVIEW_QUEUE_DIR, exist_ok=True)

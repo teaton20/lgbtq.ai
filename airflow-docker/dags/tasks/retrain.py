@@ -1,136 +1,225 @@
+# Import the optimized retrain.py content here
 import os
 import shutil
 import json
-import numpy as np
-import pandas as pd
 import joblib
-from sklearn.linear_model import LogisticRegression
+import torch
+import numpy as np
+import gc
 from datetime import datetime
+from torch.utils.data import DataLoader
+from model_code.model import TripletNet, TripletLoss, get_triplet_dataset
+import psutil  # for memory diagnostics
+from tqdm.auto import tqdm as notebook_tqdm
+from airflow.exceptions import AirflowSkipException
 
-# directories
+# Directory paths
 PRODUCTION_DATA_DIR = "/opt/airflow/production_data"
 NEW_DATA_DIR = "/opt/airflow/new_data"
 ALL_DATA_DIR = "/opt/airflow/all_data"
 MODEL_DIR = "/opt/airflow/models"
-FRONTEND_DIR = "/opt/airflow/frontend"
-CLASSIFIER_PATH = os.path.join(MODEL_DIR, "classifier.joblib")
-
 REVIEW_THRESHOLD = 5
 
+# Training hyperparameters
+BATCH_SIZE = 2  # Reduced from 4 to 2
+NUM_EPOCHS = 1  # Reduced from 10 to 5
+CHECKPOINT_EVERY = 1  # Save model every N epochs
+
+# Ensure necessary directories exist
+os.makedirs(MODEL_DIR, exist_ok=True)
+os.makedirs(ALL_DATA_DIR, exist_ok=True)
+
 def combine_data():
-    os.makedirs(ALL_DATA_DIR, exist_ok=True)
+    """Merge production and new data into ALL_DATA_DIR, deduplicating on article_id."""
+    files_moved = 0
 
     for f in os.listdir(PRODUCTION_DATA_DIR):
         if f.endswith(".json"):
-            src = os.path.join(PRODUCTION_DATA_DIR, f)
-            dst = os.path.join(ALL_DATA_DIR, f)
-            if not os.path.exists(dst):
-                shutil.copy(src, dst)
+            shutil.copy(os.path.join(PRODUCTION_DATA_DIR, f), os.path.join(ALL_DATA_DIR, f))
 
     for f in os.listdir(NEW_DATA_DIR):
         if f.endswith(".json"):
-            try:
-                article_id = f.split("_")[1]
-            except IndexError:
-                print(f"⚠️ Skipping malformed filename: {f}")
-                continue
+            article_id = f.split("_")[1]
             if any(existing.startswith(f"article_{article_id}_") for existing in os.listdir(ALL_DATA_DIR)):
                 print(f"⚠️ Skipping duplicate article_{article_id}")
                 continue
             shutil.move(os.path.join(NEW_DATA_DIR, f), os.path.join(ALL_DATA_DIR, f))
+            files_moved += 1
 
-def load_training_data():
-    X, y = [], []
+    return files_moved
+
+def load_data():
+    """Load content and true_label fields from articles."""
+    texts, labels = [], []
     for f in os.listdir(ALL_DATA_DIR):
         if f.endswith(".json"):
-            with open(os.path.join(ALL_DATA_DIR, f), "r") as file:
+            with open(os.path.join(ALL_DATA_DIR, f)) as file:
                 data = json.load(file)
-            if "embedding" in data and "true_label" in data:
-                X.append(data["embedding"])
-                y.append(data["true_label"])
-    return np.array(X), np.array(y)
+                if "content" in data and "true_label" in data:
+                    texts.append(data["content"])
+                    labels.append(data["true_label"])
+    return texts, labels
 
-def run():
-    print("🔁 Starting retraining process...")
+def cleanup_memory():
+    """Force garbage collection and clear CUDA cache if available"""
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+    elif torch.backends.mps.is_available():
+        # No explicit cleaning for MPS, but gc should help
+        pass
 
-    new_files = [f for f in os.listdir(NEW_DATA_DIR) if f.endswith(".json")]
-    if len(new_files) < REVIEW_THRESHOLD:
-        print(f"Trigger not met: only {len(new_files)} articles in new_data.")
-        return
+def train_triplet_model():
+    print("📦 Combining data...")
 
-    print("📦 Combining production and new data into all_data...")
-    combine_data()
+    # Remove old retrained flag at the start
+    flag_path = os.path.join(MODEL_DIR, "retrained_flag.txt")
+    if os.path.exists(flag_path):
+        os.remove(flag_path)
 
-    print("📊 Loading training data...")
-    X, y = load_training_data()
-    if len(X) == 0:
-        print("❌ No data found for retraining.")
-        return
+    files_moved = combine_data()
 
-    print(f"🧠 Retraining classifier on {len(X)} samples...")
-    if os.path.exists(CLASSIFIER_PATH):
-        classifier = joblib.load(CLASSIFIER_PATH)
-        backup_path = os.path.join(MODEL_DIR, f"classifier_backup_{datetime.now().strftime('%Y%m%d%H%M%S')}.joblib")
-        shutil.copy(CLASSIFIER_PATH, backup_path)
-        print(f"🛡️ Backed up model to {backup_path}")
+    if files_moved == 0:
+        print("⏭️ No new labeled data to retrain on.")
+        return "no_new_data"
+
+    print("📚 Loading labeled data...")
+    texts, labels = load_data()
+    if len(texts) < REVIEW_THRESHOLD:
+        print(f"⏹️ Not enough total data to retrain (found {len(texts)} items).")
+        return "not_enough_data"
+
+    # Print memory usage
+    print(f"🧠 Initial memory usage: {psutil.virtual_memory().percent}%")
+    
+    print("🧠 Preparing triplet training data...")
+    triplet_dataset = get_triplet_dataset(texts, labels)
+    
+    # Important: Clear references to large data when no longer needed
+    del texts
+    del labels
+    cleanup_memory()
+    
+    # Use a smaller batch size and more workers for better memory management
+    dataloader = DataLoader(
+        triplet_dataset, 
+        batch_size=BATCH_SIZE, 
+        shuffle=True,
+        pin_memory=False  # Set to True only if using CUDA and have enough memory
+    )
+
+    print("🔍 Loading encoder from local cache...")
+    model = TripletNet()
+    
+    # Determine device and optimize memory usage
+    if torch.cuda.is_available():
+        device = torch.device('cuda')
+        # Set to use less memory at the expense of some speed
+        torch.backends.cudnn.benchmark = False
+    elif torch.backends.mps.is_available():
+        device = torch.device('mps')
     else:
-        classifier = LogisticRegression()
+        device = torch.device('cpu')
+    
+    print(f"🖥️ Using device: {device}")
+    model.to(device)
+    model.train()
+    
+    # Use gradient accumulation to simulate larger batches without memory impact
+    GRAD_ACCUMULATION_STEPS = 4
+    effective_batch_size = BATCH_SIZE * GRAD_ACCUMULATION_STEPS
+    print(f"📊 Using gradient accumulation: effective batch size = {effective_batch_size}")
+    
+    optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+    loss_fn = TripletLoss()
 
-    classifier.fit(X, y)
-    joblib.dump(classifier, CLASSIFIER_PATH)
-    print(f"✅ Saved classifier to {CLASSIFIER_PATH}")
+    # Create timestamp for model naming
+    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    
+    print("🚀 Training triplet model...")
+    for epoch in range(NUM_EPOCHS):
+        total_loss = 0
+        batch_count = 0
+        total_batches = len(dataloader)
+        progress_intervals = 10  # Only log 10 times per epoch (10%, 20%, ..., 100%)
 
-    print("📈 Saving predictions...")
-    y_prob = classifier.predict_proba(X)[:, 1]
-    y_pred = classifier.predict(X)
-    predictions_df = pd.DataFrame({"y_true": y, "y_pred": y_pred, "y_prob": y_prob})
-    predictions_dir = "/opt/airflow/predictions"
-    os.makedirs(predictions_dir, exist_ok=True)
-    predictions_df.to_parquet(os.path.join(predictions_dir, "latest_predictions.parquet"), index=False)
+        for i, batch in enumerate(dataloader):
+            percent_done = int((i + 1) * 100 / total_batches)
+            
+            # Log only on each X% step
+            if percent_done % (100 // progress_intervals) == 0 and (i + 1) != total_batches:
+                print(f"📊 Epoch {epoch+1}/{NUM_EPOCHS} — {percent_done}% complete ({i+1}/{total_batches} batches)")
 
-    # 🔍 Build Semantic Index for RAG
+            # 🧠 Move everything below INSIDE the loop:
+            # Forward pass
+            anchor = model(
+                batch["anchor"]["input_ids"].squeeze(1),
+                batch["anchor"]["attention_mask"].squeeze(1)
+            )
+            positive = model(
+                batch["positive"]["input_ids"].squeeze(1),
+                batch["positive"]["attention_mask"].squeeze(1)
+            )
+            negative = model(
+                batch["negative"]["input_ids"].squeeze(1),
+                batch["negative"]["attention_mask"].squeeze(1)
+            )
+
+            # Loss + optimizer step
+            loss = loss_fn(anchor, positive, negative) / GRAD_ACCUMULATION_STEPS
+            loss.backward()
+
+            if (i + 1) % GRAD_ACCUMULATION_STEPS == 0 or (i + 1) == len(dataloader):
+                optimizer.step()
+                optimizer.zero_grad()
+                if (i + 1) % 10 == 0:
+                    print(f"🧠 Memory usage: {psutil.virtual_memory().percent}%")
+                cleanup_memory()
+
+            total_loss += loss.item() * GRAD_ACCUMULATION_STEPS
+            batch_count += 1
+
+            # Free memory
+            for key in batch:
+                for subkey in batch[key]:
+                    if device.type != 'cpu':
+                        batch[key][subkey] = batch[key][subkey].cpu()
+    
+        avg_loss = total_loss / batch_count if batch_count > 0 else 0
+        print(f"📈 Epoch {epoch + 1}/{NUM_EPOCHS}: Loss={avg_loss:.4f}")
+        print(f"🧠 Memory usage: {psutil.virtual_memory().percent}%")
+        
+        # Save checkpoint if needed
+        if (epoch + 1) % CHECKPOINT_EVERY == 0:
+            checkpoint_path = os.path.join(MODEL_DIR, f"checkpoint_model_{timestamp}_epoch{epoch+1}.joblib")
+            # Move model to CPU for saving to avoid OOM
+            model.cpu()
+            joblib.dump(model.state_dict(), checkpoint_path)
+            print(f"💾 Saved checkpoint to {checkpoint_path}")
+            # Move model back to device
+            model.to(device)
+            # Clear memory after saving
+            cleanup_memory()
+
+    # Save final model
+    model.cpu()  # Move to CPU before saving
+    model_path = os.path.join(MODEL_DIR, f"production_model_{timestamp}.joblib")
+    joblib.dump(model.state_dict(), model_path)
+    print(f"✅ Saved final model to {model_path}")
+
+    with open(os.path.join(MODEL_DIR, "retrained_flag.txt"), "w") as f:
+        f.write(model_path)
+
+# Make function available as a task for the Airflow DAG
+def run(**kwargs):
     try:
-        from sentence_transformers import SentenceTransformer
-        import faiss
-
-        print("📚 Building semantic index for frontend...")
-        model = SentenceTransformer("all-MiniLM-L6-v2")
-        texts, metadata = [], []
-
-        for f in os.listdir(ALL_DATA_DIR):
-            if f.endswith(".json"):
-                with open(os.path.join(ALL_DATA_DIR, f), "r") as file:
-                    article = json.load(file)
-                if "content" in article:
-                    texts.append(article["content"])
-                    metadata.append({
-                        "title": article.get("title", ""),
-                        "summary": article.get("summary", ""),
-                        "content": article.get("content", ""),
-                        "tags": article.get("tags", []),
-                        "date": article.get("date", ""),
-                        "url": article.get("url", "")
-                    })
-
-        if not texts:
-            print("⚠️ No valid content found for embeddings.")
-            return
-
-        vectors = model.encode(texts)
-        index = faiss.IndexFlatL2(vectors.shape[1])
-        index.add(vectors)
-
-        # Save paths for frontend compatibility
-        os.makedirs(FRONTEND_DIR, exist_ok=True)
-        with open(os.path.join(FRONTEND_DIR, "semantic_articles.json"), "w") as f:
-            json.dump(metadata, f, indent=2)
-        faiss.write_index(index, os.path.join(FRONTEND_DIR, "semantic_index.faiss"))
-
-        print("✅ Semantic index and metadata saved for frontend.")
-
+        result = train_triplet_model()
+        return result if result else "trained"
     except Exception as e:
-        print(f"❌ Semantic index creation failed: {e}")
+        print(f"❌ Training failed with error: {str(e)}")
+        cleanup_memory()
+        return "error"
 
+# For direct execution
 if __name__ == "__main__":
-    print("🚀 Starting retrain.run() from __main__")
     run()

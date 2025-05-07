@@ -6,10 +6,14 @@ REVIEW_QUEUE_DIR = "/opt/airflow/review_queue"
 NEW_DATA_DIR = "/opt/airflow/new_data"
 REVIEW_THRESHOLD = 5
 
-def article_id_in_new_data(article_id):
-    for f in os.listdir(NEW_DATA_DIR):
-        if f.startswith(f"article_{article_id}_"):
-            return True
+def article_id_exists(article_id):
+    search_dirs = [NEW_DATA_DIR, "/opt/airflow/all_data", "/opt/airflow/production_data"]
+    for dir_path in search_dirs:
+        if not os.path.exists(dir_path):
+            continue
+        for f in os.listdir(dir_path):
+            if f.startswith(f"article_{article_id}_"):
+                return True
     return False
 
 def run():
@@ -24,7 +28,7 @@ def run():
         print(f"✅ Found {len(files)} files — simulating human review...")
 
         print("💌 Sending email to team...")
-        print("hiyyyy time 2 label these new entries babe okthxbye")
+        print("hiyyyy time 2 label these new entries babe okthxbye") # this should be an actual email at some point
 
         reviewed = 0
         for f in files:
@@ -37,7 +41,7 @@ def run():
                 print(f"⚠️ Skipping malformed filename: {f}")
                 continue
 
-            if article_id_in_new_data(article_id):
+            if article_id_exists(article_id):
                 print(f"⚠️ Skipping duplicate article_{article_id} — already exists in new_data.")
                 continue
 
