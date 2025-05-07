@@ -18,7 +18,7 @@ def run():
 📝 Reason:   {metadata['deployment_reason']}
         """)
     else:
-        print("ℹ️ No new model was deployed in this run. Nothing to notify.")
+        print("🕳️ No new model was deployed in this run. Nothing to notify.")
 
 if __name__ == "__main__":
     run()
