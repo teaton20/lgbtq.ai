@@ -106,6 +106,8 @@ def article_already_exists(article_index):
             return True
     return False
 
+# ---------------------------------------------
+
 # placeholder just for this task to skip for now.
 # rest of DAG can be run by manually putting .json files for new articles
 # into the 'review_queue' directory.
