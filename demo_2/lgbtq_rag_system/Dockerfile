@@ -25,6 +25,11 @@ COPY requirements.txt .
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip install -r requirements.txt
 
+# Install system dependencies and SSL certificates
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
 # Now copy the full app (this breaks cache only if your code changes)
 COPY . .
 
