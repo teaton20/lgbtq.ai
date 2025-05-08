@@ -9,14 +9,27 @@
     --transition-duration: 0.3s;
 }
 
-/* Body styling: a gentle gradient background with a fixed attachment */
+@keyframes pulseGradient {
+    0% {
+        background-position: 50% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 50% 50%;
+    }
+}
+
+
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
     color: var(--font-color);
     background: linear-gradient(135deg, var(--trans-blue) 25%, var(--trans-white) 50%, var(--trans-pink) 75%);
-    background-size: cover;
+    background-size: 200% 200%; /* Extra size for movement */
     background-attachment: fixed;
+    animation: pulseGradient 8s ease-in-out infinite;
 }
 
 /* Header styling */
