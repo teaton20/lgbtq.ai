@@ -53622,3 +53622,50 @@ File Path                                  PID    Runtime      # DAGs    # Error
 /opt/airflow/dags/tasks/fetch_articles.py                           0           0  2.30s           2025-05-08T08:08:49
 /opt/airflow/dags/lgbtq_model_pipeline.py                           1           0  2.11s           2025-05-08T08:08:49
 ================================================================================
+[2025-05-08T08:09:49.255+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/tasks/fetch_articles.py                           0           0  2.43s           2025-05-08T08:09:21
+/opt/airflow/dags/lgbtq_model_pipeline.py                           1           0  2.50s           2025-05-08T08:09:22
+================================================================================
+[2025-05-08T08:10:19.838+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/tasks/fetch_articles.py                           0           0  3.34s           2025-05-08T08:09:55
+/opt/airflow/dags/lgbtq_model_pipeline.py                           1           0  3.14s           2025-05-08T08:09:55
+================================================================================
+[2025-05-08T08:10:50.240+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/tasks/fetch_articles.py                           0           0  2.11s           2025-05-08T08:10:28
+/opt/airflow/dags/lgbtq_model_pipeline.py                           1           0  2.28s           2025-05-08T08:10:28
+================================================================================
+[2025-05-08T08:11:20.733+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/tasks/fetch_articles.py                           0           0  2.19s           2025-05-08T08:11:00
+/opt/airflow/dags/lgbtq_model_pipeline.py                           1           0  2.49s           2025-05-08T08:11:00
+================================================================================
+[2025-05-08T08:11:21.748+0000] {manager.py:755} INFO - Searching for files in /opt/airflow/dags
+[2025-05-08T08:11:21.808+0000] {manager.py:758} INFO - There are 2 files in /opt/airflow/dags
+[2025-05-08T08:11:51.625+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/tasks/fetch_articles.py                           0           0  2.46s           2025-05-08T08:11:33
+/opt/airflow/dags/lgbtq_model_pipeline.py                           1           0  2.64s           2025-05-08T08:11:33
+================================================================================
