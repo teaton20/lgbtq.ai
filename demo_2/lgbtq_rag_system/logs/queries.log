@@ -1809,3 +1809,72 @@ It's important to stay informed, to support organizations fighting for transgend
 
 2025-05-08 02:04:29,880 127.0.0.1 - - [08/May/2025 02:04:29] "POST / HTTP/1.1" 200 -
 2025-05-08 02:04:29,897 127.0.0.1 - - [08/May/2025 02:04:29] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-08 03:20:33,527 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2025-05-08 03:20:33,527 [33mPress CTRL+C to quit[0m
+2025-05-08 03:20:33,528  * Restarting with stat
+2025-05-08 03:20:38,079  * Debugger is active!
+2025-05-08 03:20:38,093  * Debugger PIN: 915-410-737
+2025-05-08 03:21:31,634 127.0.0.1 - - [08/May/2025 03:21:31] "GET / HTTP/1.1" 200 -
+2025-05-08 03:21:31,741 127.0.0.1 - - [08/May/2025 03:21:31] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-05-08 03:21:43,515 User query: what protections do I have as a trans person in florida?
+2025-05-08 03:21:46,903 Found 3 matching articles via semantic search.
+2025-05-08 03:21:52,066 User query: what protections do I have as a trans person in florida?
+2025-05-08 03:21:53,450 Found 3 matching articles via semantic search.
+2025-05-08 03:22:07,000 LLM Response: I understand you're looking for information about your rights as a transgender person in Florida, and that must be really concerning given the current climate. 
+
+Unfortunately, the situation in Florida right now is very difficult for transgender individuals.  
+
+Here's what we know based on recent events:
+
+* **Bathroom Access:**  A new law restricting bathroom use based on sex assigned at birth has been passed, and there have already been arrests made for violating it. This means you could face legal repercussions simply for using the restroom that aligns with your gender identity. 
+* **Workplace Protections:** A recently proposed bill, SB 440, could allow employers to misgender you and refuse to use your preferred pronouns. This means you could face harassment and discrimination in your workplace without legal recourse.
+* **Education:** There's increasing pressure on schools to restrict discussions about gender identity and expression. This can create a hostile environment for transgender students and prevent them from feeling safe and supported.
+* **Healthcare:** Access to healthcare is becoming increasingly difficult for transgender individuals in Florida, with some medical providers refusing to offer gender-affirming care.
+
+**It's important to know that you are not alone.** There are organizations working to protect the rights of transgender people in Florida, and they can provide valuable support and resources. 
+
+Here are some organizations you can reach out to:
+
+* **Equality Florida:** https://www.eqfl.org/
+* **The Human Rights Campaign:** https://www.hrc.org/
+* **The ACLU of Florida:** https://www.aclufl.org/
+
+These organizations can offer legal advice, connect you with support groups, and help you navigate the challenges you may face. 
+
+Remember, your safety and well-being are paramount. Please reach out for help if you need it.  
+
+
+It's heartbreaking to see these attacks on transgender rights happening.  It's crucial that we stand up for each other and fight for a more inclusive and just world for all. 
+
+
+2025-05-08 03:22:07,004 127.0.0.1 - - [08/May/2025 03:22:07] "POST / HTTP/1.1" 200 -
+2025-05-08 03:22:11,501 LLM Response: I understand you're looking for information about your rights as a transgender person in Florida, and I want to be as helpful as possible. Unfortunately, the current situation in Florida is very challenging for transgender individuals. 
+
+Based on recent events, here's what I can tell you:
+
+* **Bathroom Access:**  There is a law in Florida that restricts transgender people from using the restroom that aligns with their gender identity. Marcy Rheintgen's arrest is a stark example of how this law can be enforced.
+
+* **Workplace Protections:**  A new bill, SB 440, has been passed that allows employers to misgender transgender employees and prohibits them from being required to use someone's preferred pronouns. This means your employer may not be legally obligated to respect your identity at work.
+
+* **Education:** Teachers are facing threats of investigation for using a student's chosen name and pronouns, creating a hostile and unsafe environment for transgender youth.
+
+* **Healthcare:** Access to healthcare for transgender individuals, especially youth, is being severely restricted in Florida. Many providers are ceasing to offer gender-affirming care, leaving many without access to essential medical services.
+
+Overall, the legal landscape in Florida is becoming increasingly hostile towards transgender people. 
+
+**It's crucial to know that you are not alone.** Organizations like the ACLU and Equality Florida are working to fight these discriminatory laws and provide support to transgender individuals in Florida. 
+
+**Here are some resources that may be helpful:**
+
+* **The ACLU of Florida:** https://www.aclufl.org/
+* **Equality Florida:** https://www.eqfl.org/
+* **The National Center for Transgender Equality:** https://transequality.org/
+
+Remember, your safety and well-being are paramount. If you are facing discrimination or harassment, please reach out for help. 
+
+
+
+
+2025-05-08 03:22:11,503 127.0.0.1 - - [08/May/2025 03:22:11] "POST / HTTP/1.1" 200 -
+2025-05-08 03:22:11,531 127.0.0.1 - - [08/May/2025 03:22:11] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
