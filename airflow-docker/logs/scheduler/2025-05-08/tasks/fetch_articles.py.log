@@ -3216,3 +3216,5 @@
 [2025-05-08T05:52:04.719+0000] {processor.py:157} INFO - Started process (PID=61612) to work on /opt/airflow/dags/tasks/fetch_articles.py
 [2025-05-08T05:52:04.721+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/tasks/fetch_articles.py for tasks to queue
 [2025-05-08T05:52:04.724+0000] {logging_mixin.py:154} INFO - [2025-05-08T05:52:04.723+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/tasks/fetch_articles.py
+[2025-05-08T05:52:07.425+0000] {processor.py:841} WARNING - No viable dags retrieved from /opt/airflow/dags/tasks/fetch_articles.py
+[2025-05-08T05:52:07.445+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/tasks/fetch_articles.py took 2.733 seconds
