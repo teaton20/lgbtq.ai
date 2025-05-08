@@ -4,7 +4,7 @@ from google.auth.transport.requests import Request
 import json
 
 # Set your endpoint details
-DEDICATED_DNS = "https://6681289058808758272.us-central1-1095727476793.prediction.vertexai.goog/v1/projects/1095727476793/locations/us-central1/endpoints/6681289058808758272:predict"
+DEDICATED_DNS = "https://5270536475534950400.us-central1-544847253323.prediction.vertexai.goog/v1/projects/544847253323/locations/us-central1/endpoints/5270536475534950400:predict"
 
 # Function to get access token
 def get_access_token():
