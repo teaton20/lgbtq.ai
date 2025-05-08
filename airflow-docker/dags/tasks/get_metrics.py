@@ -8,8 +8,16 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics.pairwise import cosine_similarity
 from transformers import AutoTokenizer
 from model_code.model import TripletNet, encode_texts
+from pymongo import MongoClient
+from dotenv import load_dotenv
 
-ALL_DATA_DIR = "/opt/airflow/all_data"
+# Load environment and connect to MongoDB
+load_dotenv()
+MONGO_URI = os.getenv("MONGO_URI")
+client = MongoClient(MONGO_URI)
+db = client["lgbtq-ai_db"]
+all_data = db["all_data"]
+
 MODEL_DIR = "/opt/airflow/models"
 METRICS_DIR = "/opt/airflow/metrics"
 HF_MODEL_CACHE = "/opt/airflow/hf_model"
@@ -21,22 +29,19 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def load_articles():
     texts, labels = [], []
-    for f in os.listdir(ALL_DATA_DIR):
-        if f.endswith(".json"):
-            with open(os.path.join(ALL_DATA_DIR, f)) as file:
-                data = json.load(file)
-                if "content" in data and "true_label" in data:
-                    label_raw = data["true_label"]
-                    # Normalize label to lowercase string
-                    if isinstance(label_raw, int):
-                        label = "pro" if label_raw == 1 else "anti" if label_raw == 0 else None
-                    elif isinstance(label_raw, str):
-                        label = label_raw.strip().lower()
-                    else:
-                        label = None
-                    if label in ["pro", "anti"]:
-                        texts.append(data["content"])
-                        labels.append(label)
+    cursor = all_data.find({"content": {"$exists": True}, "true_label": {"$exists": True}})
+    for data in cursor:
+        label_raw = data["true_label"]
+        # Normalize label to lowercase string
+        if isinstance(label_raw, int):
+            label = "pro" if label_raw == 1 else "anti" if label_raw == 0 else None
+        elif isinstance(label_raw, str):
+            label = label_raw.strip().lower()
+        else:
+            label = None
+        if label in ["pro", "anti"]:
+            texts.append(data["content"])
+            labels.append(label)
     return texts, labels
 
 def classify_from_centroids(embeddings, labels, train_embeddings, train_labels):
@@ -49,7 +54,7 @@ def classify_from_centroids(embeddings, labels, train_embeddings, train_labels):
 
     if not np.any(pro_mask) or not np.any(anti_mask):
         print("⚠️ Skipping evaluation — missing 'pro' or 'anti' samples.")
-        return None  # signal to skip
+        return None
 
     pro_centroid = train_embeddings[pro_mask].mean(axis=0)
     anti_centroid = train_embeddings[anti_mask].mean(axis=0)
@@ -66,22 +71,25 @@ def evaluate_model(model_path):
     model.load_state_dict(joblib.load(model_path))
     model.eval()
 
-    tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
+    tokenizer = AutoTokenizer.from_pretrained(HF_MODEL_ID, cache_dir=HF_MODEL_CACHE)
 
     texts, labels = load_articles()
+    if not texts:
+        print("🕳️ No articles to evaluate on.")
+        return None
+
     embeddings = encode_texts(model, tokenizer, texts, batch_size=16, device=device)
 
     pred_labels = classify_from_centroids(embeddings, labels, embeddings, labels)
     if pred_labels is None:
-        return None  # Not enough data for proper evaluation
+        return None
 
     return accuracy_score(labels, pred_labels)
 
 def get_comparison_models():
-    """Returns (new_model, production_model)."""
     joblibs = sorted([f for f in os.listdir(MODEL_DIR) if f.endswith(".joblib")])
     if len(joblibs) == 0:
-        raise ValueError("No model files found.")
+        raise ValueError("🕳️ No model files found.")
 
     new_model = joblibs[-1]
 
@@ -110,7 +118,7 @@ def run():
     prev_model = joblibs[-2]
 
     if new_model == prev_model:
-        print("⏭️ No new model to evaluate.")
+        print("🕳️ No new model to evaluate.")
         return "no_new_model"
 
     new_acc = evaluate_model(os.path.join(MODEL_DIR, new_model))
