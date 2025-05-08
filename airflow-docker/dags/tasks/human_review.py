@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 REVIEW_THRESHOLD = 5
 
 # MongoDB connection setup
-load_dotenv()
+load_dotenv(dotenv_path="/opt/airflow/.env")
 MONGO_URI = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URI)
 db = client["lgbtq-ai_db"]

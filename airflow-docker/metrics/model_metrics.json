@@ -1,6 +1,6 @@
 {
-  "best_model": "production_model_backup_20250507113907.joblib",
+  "best_model": "production_model_backup_20250508053742.joblib",
   "new_accuracy": 0.642570281124498,
-  "prev_accuracy": 0.5140562248995983,
-  "timestamp": "2025-05-08T05:31:49.585099"
+  "prev_accuracy": 0.642570281124498,
+  "timestamp": "2025-05-08T09:55:44.539846"
 }

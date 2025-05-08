@@ -11,7 +11,7 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 
 # Load .env and connect to MongoDB
-load_dotenv()
+load_dotenv(dotenv_path="/opt/airflow/.env")
 MONGO_URI = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URI)
 db = client["lgbtq-ai_db"]
@@ -36,19 +36,19 @@ CHECKPOINT_EVERY = 1  # Save model every n epochs
 os.makedirs(MODEL_DIR, exist_ok=True)
 
 def combine_data():
-    """Move new_data articles into all_data if not already present (by _id)."""
+    """Move new_data articles into all_data if not already present (by uid)."""
     files_moved = 0
     cursor = new_data.find()
 
     for article in cursor:
-        if not article.get("_id"):
+        uid = article.get("uid")
+        if not uid:
             continue
-        article_id = article["_id"]
-        if all_data.find_one({"_id": article_id}):
-            print(f"⚠️ Skipping duplicate article {article_id}")
+        if all_data.find_one({"uid": uid}):
+            print(f"⚠️ Skipping duplicate article with uid {uid}")
             continue
         all_data.insert_one(article)
-        new_data.delete_one({"_id": article_id})
+        new_data.delete_one({"_id": article["_id"]})
         files_moved += 1
 
     return files_moved
@@ -78,15 +78,21 @@ def train_triplet_model():
 
     files_moved = combine_data()
 
+    total_labeled = all_data.count_documents({
+        "content": {"$exists": True},
+        "true_label": {"$exists": True}
+    })
+
     if files_moved == 0:
         print("🕳️ No new labeled data to retrain on.")
         return "no_new_data"
 
+    if total_labeled < REVIEW_THRESHOLD:
+        print(f"⏹️ Not enough total data to retrain (found {total_labeled} items, need at least {REVIEW_THRESHOLD}).")
+        return "not_enough_data"
+
     print("📚 Loading labeled data...")
     texts, labels = load_data()
-    if len(texts) < REVIEW_THRESHOLD:
-        print(f"⏹️ Not enough total data to retrain (found {len(texts)} items).")
-        return "not_enough_data"
 
     print(f"🧠 Initial memory usage: {psutil.virtual_memory().percent}%")
     print("🧠 Preparing triplet training data...")

@@ -12,7 +12,7 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 
 # Load environment and connect to MongoDB
-load_dotenv()
+load_dotenv(dotenv_path="/opt/airflow/.env")
 MONGO_URI = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URI)
 db = client["lgbtq-ai_db"]

@@ -10,7 +10,7 @@ HF_MODEL_ID = "sentence-transformers/all-MiniLM-L6-v2"
 HF_MODEL_CACHE = "/opt/airflow/hf_model"
 
 # Load environment variables
-load_dotenv()
+load_dotenv(dotenv_path="/opt/airflow/.env")
 MONGO_URI = os.getenv("MONGO_URI")
 
 # MongoDB setup

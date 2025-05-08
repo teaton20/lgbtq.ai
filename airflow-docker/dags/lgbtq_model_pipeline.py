@@ -1,9 +1,9 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator, BranchPythonOperator
-from airflow.operators.empty import EmptyOperator
 from datetime import datetime
 from tasks import (
-    fetch_articles,
+    fetch_articles_rss,
+    fetch_articles_api,
     human_review,
     get_embeddings,
     retrain,
@@ -22,9 +22,14 @@ with DAG(
     tags=["lgbtq_ai"]
 ) as dag:
 
-    t1 = PythonOperator(
-        task_id="fetch_articles",
-        python_callable=fetch_articles
+    t1a = PythonOperator(
+        task_id="fetch_articles_rss",
+        python_callable=fetch_articles_rss
+    )
+
+    t1b = PythonOperator(
+        task_id="fetch_articles_api",
+        python_callable=fetch_articles_api
     )
 
     t2 = PythonOperator(
@@ -68,7 +73,7 @@ with DAG(
         trigger_rule="none_failed_min_one_success"
     )
 
-    # Define DAG flow
-    t1 >> t2 >> t3 >> t4 >> t5 >> branch
+    # DAG flow
+    [t1a, t1b] >> t2 >> t3 >> t4 >> t5 >> branch
     branch >> t6a >> t7
     branch >> t6b >> t7
