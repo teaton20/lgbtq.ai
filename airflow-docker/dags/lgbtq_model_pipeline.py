@@ -5,6 +5,7 @@ from datetime import datetime
 from tasks import (
     fetch_articles,
     human_review,
+    get_embeddings,
     retrain,
     get_metrics,
     deploy_model,
@@ -16,12 +17,11 @@ from tasks import (
 with DAG(
     "lgbtq_model_pipeline",
     start_date=datetime(2025, 1, 1),
-    schedule_interval="@daily", # Can change this to desired schedule
+    schedule_interval="@daily",
     catchup=False,
     tags=["lgbtq_ai"]
 ) as dag:
 
-    # Define tasks
     t1 = PythonOperator(
         task_id="fetch_articles",
         python_callable=fetch_articles
@@ -32,12 +32,17 @@ with DAG(
         python_callable=human_review
     )
 
-    t3 = PythonOperator(
+    t3 = PythonOperator(  # new get_embeddings step
+        task_id="get_embeddings",
+        python_callable=get_embeddings
+    )
+
+    t4 = PythonOperator(
         task_id="retrain",
         python_callable=retrain
     )
 
-    t4 = PythonOperator(
+    t5 = PythonOperator(
         task_id="get_metrics",
         python_callable=get_metrics
     )
@@ -47,23 +52,23 @@ with DAG(
         python_callable=decide_branch
     )
 
-    t5a = PythonOperator(
+    t6a = PythonOperator(
         task_id="deploy_model",
         python_callable=deploy_model
     )
 
-    t5b = PythonOperator(
+    t6b = PythonOperator(
         task_id="keep_model",
         python_callable=keep_model
     )
 
-    t6 = PythonOperator(
+    t7 = PythonOperator(
         task_id="notify_admin",
         python_callable=notify_admin,
         trigger_rule="none_failed_min_one_success"
     )
 
-    # Set task dependencies
-    t1 >> t2 >> t3 >> t4 >> branch
-    branch >> t5a >> t6
-    branch >> t5b >> t6
+    # Define DAG flow
+    t1 >> t2 >> t3 >> t4 >> t5 >> branch
+    branch >> t6a >> t7
+    branch >> t6b >> t7

@@ -51,6 +51,19 @@ def run():
 
     print("📝 Saved deployment metadata")
 
+    # Sync new training files from all_data to production_data (append-only)
+    ALL_DATA_DIR = "/opt/airflow/all_data"
+    PRODUCTION_DATA_DIR = "/opt/airflow/production_data"
+    os.makedirs(PRODUCTION_DATA_DIR, exist_ok=True)
+
+    added = 0
+    for f in os.listdir(ALL_DATA_DIR):
+        if f.endswith(".json") and not os.path.exists(os.path.join(PRODUCTION_DATA_DIR, f)):
+            shutil.copy(os.path.join(ALL_DATA_DIR, f), os.path.join(PRODUCTION_DATA_DIR, f))
+            added += 1
+
+    print(f"📁 Appended {added} new file(s) to production_data/")
+
     with open(os.path.join(MODEL_DIR, "latest_production_model.txt"), "w") as f:
         f.write(os.path.basename(deployed_model_path))
 

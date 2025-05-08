@@ -1,0 +1,20 @@
+[2025-05-08T05:04:18.837+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.get_embeddings manual__2025-05-08T05:04:11.619667+00:00 [queued]>
+[2025-05-08T05:04:18.843+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.get_embeddings manual__2025-05-08T05:04:11.619667+00:00 [queued]>
+[2025-05-08T05:04:18.843+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2025-05-08T05:04:18.852+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): get_embeddings> on 2025-05-08 05:04:11.619667+00:00
+[2025-05-08T05:04:18.859+0000] {standard_task_runner.py:57} INFO - Started process 59134 to run task
+[2025-05-08T05:04:18.862+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'lgbtq_model_pipeline', 'get_embeddings', 'manual__2025-05-08T05:04:11.619667+00:00', '--job-id', '206', '--raw', '--subdir', 'DAGS_FOLDER/lgbtq_model_pipeline.py', '--cfg-path', '/tmp/tmpostoph_g']
+[2025-05-08T05:04:18.864+0000] {standard_task_runner.py:85} INFO - Job 206: Subtask get_embeddings
+[2025-05-08T05:04:18.902+0000] {task_command.py:416} INFO - Running <TaskInstance: lgbtq_model_pipeline.get_embeddings manual__2025-05-08T05:04:11.619667+00:00 [running]> on host 6fdcfcafebfc
+[2025-05-08T05:04:18.950+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='lgbtq_model_pipeline' AIRFLOW_CTX_TASK_ID='get_embeddings' AIRFLOW_CTX_EXECUTION_DATE='2025-05-08T05:04:11.619667+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-05-08T05:04:11.619667+00:00'
+[2025-05-08T05:04:18.952+0000] {logging_mixin.py:154} INFO - 🧠 Starting embedding task on new_data articles...
+[2025-05-08T05:04:19.956+0000] {logging_mixin.py:154} INFO - ✅ Embedded title for article_246_2025-05-01T11:34:01.781868.json
+[2025-05-08T05:04:20.012+0000] {logging_mixin.py:154} INFO - ✅ Embedded title for article_247_2025-05-01T11:34:01.868304.json
+[2025-05-08T05:04:20.072+0000] {logging_mixin.py:154} INFO - ✅ Embedded title for article_245_2025-05-01T11:34:01.715287.json
+[2025-05-08T05:04:20.109+0000] {logging_mixin.py:154} INFO - ✅ Embedded title for article_249_2025-05-07T01:56:38.664134.json
+[2025-05-08T05:04:20.171+0000] {logging_mixin.py:154} INFO - ✅ Embedded title for article_248_2025-05-01T11:34:01.995211.json
+[2025-05-08T05:04:20.171+0000] {logging_mixin.py:154} INFO - 📦 Embedded 5 article(s) into their JSON files.
+[2025-05-08T05:04:20.175+0000] {python.py:194} INFO - Done. Returned value was: embeddings_stored
+[2025-05-08T05:04:20.193+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=lgbtq_model_pipeline, task_id=get_embeddings, execution_date=20250508T050411, start_date=20250508T050418, end_date=20250508T050420
+[2025-05-08T05:04:20.245+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-05-08T05:04:20.269+0000] {taskinstance.py:2778} INFO - 1 downstream tasks scheduled from follow-on schedule check

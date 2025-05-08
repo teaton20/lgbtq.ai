@@ -1,5 +1,4 @@
 import os
-import shutil
 import json
 
 REVIEW_QUEUE_DIR = "/opt/airflow/review_queue"

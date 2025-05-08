@@ -1,6 +1,6 @@
 from .fetch_articles import run as fetch_articles
 from .human_review import run as human_review
-# Import with explicit filename to avoid confusion
+from .get_embeddings import run as get_embeddings
 from .retrain import train_triplet_model as retrain
 from .get_metrics import run as get_metrics
 from .deploy_model import run as deploy_model

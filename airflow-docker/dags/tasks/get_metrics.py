@@ -98,12 +98,12 @@ def run():
 
     flag_path = os.path.join(MODEL_DIR, "retrained_flag.txt")
     if not os.path.exists(flag_path):
-        print("⏭️ No new model retrained. Skipping evaluation.")
+        print("🕳️ No new model retrained. Skipping evaluation.")
         return "no_new_model"
 
     joblibs = sorted([f for f in os.listdir(MODEL_DIR) if f.endswith(".joblib")])
     if len(joblibs) < 2:
-        print("⏭️ Not enough models to compare. Skipping evaluation.")
+        print("🕳️ Not enough models to compare. Skipping evaluation.")
         return "not_enough_models"
 
     new_model = joblibs[-1]

@@ -1,17 +1,13 @@
-# Import the optimized retrain.py content here
 import os
 import shutil
 import json
 import joblib
 import torch
-import numpy as np
 import gc
 from datetime import datetime
 from torch.utils.data import DataLoader
 from model_code.model import TripletNet, TripletLoss, get_triplet_dataset
-import psutil  # for memory diagnostics
-from tqdm.auto import tqdm as notebook_tqdm
-from airflow.exceptions import AirflowSkipException
+import psutil
 
 # Directory paths
 PRODUCTION_DATA_DIR = "/opt/airflow/production_data"
@@ -20,10 +16,15 @@ ALL_DATA_DIR = "/opt/airflow/all_data"
 MODEL_DIR = "/opt/airflow/models"
 REVIEW_THRESHOLD = 5
 
-# Training hyperparameters
+# --------------------------------------------------------
+
+# Training hyperparameters - edit these to your liking!
+
 BATCH_SIZE = 2
 NUM_EPOCHS = 1
-CHECKPOINT_EVERY = 1  # Save model every N epochs
+CHECKPOINT_EVERY = 1  # Save model every n epochs
+
+# --------------------------------------------------------
 
 # Ensure necessary directories exist
 os.makedirs(MODEL_DIR, exist_ok=True)
@@ -80,7 +81,7 @@ def train_triplet_model():
     files_moved = combine_data()
 
     if files_moved == 0:
-        print("⏭️ No new labeled data to retrain on.")
+        print("🕳️ No new labeled data to retrain on.")
         return "no_new_data"
 
     print("📚 Loading labeled data...")
@@ -141,15 +142,15 @@ def train_triplet_model():
         total_loss = 0
         batch_count = 0
         total_batches = len(dataloader)
-        progress_intervals = 10  # Logs progress 10 times per epoch (10%, 20%, ..., 100%)
+        last_logged_percent = -1
 
         for i, batch in enumerate(dataloader):
             percent_done = int((i + 1) * 100 / total_batches)
-            
-            # Log only on each X% step
-            if percent_done % (100 // progress_intervals) == 0 and (i + 1) != total_batches:
-                print(f"📊 Epoch {epoch+1}/{NUM_EPOCHS} — {percent_done}% complete ({i+1}/{total_batches} batches)")
+            bucket = percent_done // 10  # 0–10 for 0–100%
 
+            if bucket > last_logged_percent and bucket < 10:
+                print(f"📊 Epoch {epoch+1}/{NUM_EPOCHS} — {bucket * 10}% complete ({i+1}/{total_batches} batches)")
+                last_logged_percent = bucket
             # Forward pass
             anchor = model(
                 batch["anchor"]["input_ids"].squeeze(1),
