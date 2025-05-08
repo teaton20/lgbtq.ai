@@ -1,799 +1,0 @@
-[2025-05-01T10:58:56.497+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.fetch_articles manual__2025-05-01T10:58:53.838532+00:00 [queued]>
-[2025-05-01T10:58:56.501+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: lgbtq_model_pipeline.fetch_articles manual__2025-05-01T10:58:53.838532+00:00 [queued]>
-[2025-05-01T10:58:56.501+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
-[2025-05-01T10:58:56.506+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): fetch_articles> on 2025-05-01 10:58:53.838532+00:00
-[2025-05-01T10:58:56.511+0000] {standard_task_runner.py:57} INFO - Started process 309 to run task
-[2025-05-01T10:58:56.515+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'lgbtq_model_pipeline', 'fetch_articles', 'manual__2025-05-01T10:58:53.838532+00:00', '--job-id', '215', '--raw', '--subdir', 'DAGS_FOLDER/lgbtq_model_pipeline.py', '--cfg-path', '/tmp/tmp2qh2aedp']
-[2025-05-01T10:58:56.519+0000] {standard_task_runner.py:85} INFO - Job 215: Subtask fetch_articles
-[2025-05-01T10:58:56.543+0000] {task_command.py:416} INFO - Running <TaskInstance: lgbtq_model_pipeline.fetch_articles manual__2025-05-01T10:58:53.838532+00:00 [running]> on host f13b619dbab8
-[2025-05-01T10:58:56.578+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='lgbtq_model_pipeline' AIRFLOW_CTX_TASK_ID='fetch_articles' AIRFLOW_CTX_EXECUTION_DATE='2025-05-01T10:58:53.838532+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-05-01T10:58:53.838532+00:00'
-[2025-05-01T10:58:56.579+0000] {logging_mixin.py:154} INFO - 📥 Fetching CSV data from Google Sheets...
-[2025-05-01T10:58:57.389+0000] {SentenceTransformer.py:208} INFO - Use pytorch device_name: cpu
-[2025-05-01T10:58:57.390+0000] {SentenceTransformer.py:216} INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
-[2025-05-01T10:58:58.534+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:58:58.639+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.67it/s]
-[2025-05-01T10:58:58.643+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.29it/s]
-[2025-05-01T10:58:58.665+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_0.json
-[2025-05-01T10:58:58.674+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:58:58.860+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  5.49it/s]
-[2025-05-01T10:58:58.860+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  5.48it/s]
-[2025-05-01T10:58:58.861+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_1.json
-[2025-05-01T10:58:58.863+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:58:59.012+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  6.71it/s]
-[2025-05-01T10:58:59.012+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  6.69it/s]
-[2025-05-01T10:58:59.015+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_2.json
-[2025-05-01T10:58:59.016+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:58:59.148+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.60it/s]
-[2025-05-01T10:58:59.148+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.58it/s]
-[2025-05-01T10:58:59.150+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_3.json
-[2025-05-01T10:58:59.151+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:58:59.298+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  6.83it/s]
-[2025-05-01T10:58:59.299+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  6.80it/s]
-[2025-05-01T10:58:59.301+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_4.json
-[2025-05-01T10:58:59.302+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:58:59.385+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.03it/s]
-[2025-05-01T10:58:59.387+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_5.json
-[2025-05-01T10:58:59.388+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:58:59.487+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 10.09it/s]
-[2025-05-01T10:58:59.489+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_6.json
-[2025-05-01T10:58:59.491+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:58:59.588+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 10.35it/s]
-[2025-05-01T10:58:59.590+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_7.json
-[2025-05-01T10:58:59.591+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:58:59.647+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 18.18it/s]
-[2025-05-01T10:58:59.649+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_8.json
-[2025-05-01T10:58:59.651+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:58:59.711+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 16.60it/s]
-[2025-05-01T10:58:59.714+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_9.json
-[2025-05-01T10:58:59.715+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:58:59.780+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 15.37it/s]
-[2025-05-01T10:58:59.783+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_10.json
-[2025-05-01T10:58:59.784+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:58:59.842+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 17.52it/s]
-[2025-05-01T10:58:59.843+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_11.json
-[2025-05-01T10:58:59.844+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:58:59.915+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.31it/s]
-[2025-05-01T10:58:59.916+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_12.json
-[2025-05-01T10:58:59.917+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:58:59.977+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 16.81it/s]
-[2025-05-01T10:58:59.979+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_13.json
-[2025-05-01T10:58:59.981+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:00.066+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.75it/s]
-[2025-05-01T10:59:00.069+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_14.json
-[2025-05-01T10:59:00.070+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:00.170+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 10.01it/s]
-[2025-05-01T10:59:00.173+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_15.json
-[2025-05-01T10:59:00.174+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:00.257+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.07it/s]
-[2025-05-01T10:59:00.259+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_16.json
-[2025-05-01T10:59:00.260+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:00.336+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.09it/s]
-[2025-05-01T10:59:00.338+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_17.json
-[2025-05-01T10:59:00.340+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:00.426+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.72it/s]
-[2025-05-01T10:59:00.428+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_18.json
-[2025-05-01T10:59:00.430+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:00.525+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 10.48it/s]
-[2025-05-01T10:59:00.528+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_19.json
-[2025-05-01T10:59:00.530+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:00.616+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.63it/s]
-[2025-05-01T10:59:00.618+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_20.json
-[2025-05-01T10:59:00.620+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:00.725+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.47it/s]
-[2025-05-01T10:59:00.726+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.43it/s]
-[2025-05-01T10:59:00.727+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_21.json
-[2025-05-01T10:59:00.728+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:00.804+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.19it/s]
-[2025-05-01T10:59:00.806+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_22.json
-[2025-05-01T10:59:00.807+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:00.923+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.67it/s]
-[2025-05-01T10:59:00.923+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.64it/s]
-[2025-05-01T10:59:00.924+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_23.json
-[2025-05-01T10:59:00.926+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:00.989+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 15.93it/s]
-[2025-05-01T10:59:00.991+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_24.json
-[2025-05-01T10:59:00.992+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:01.054+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 16.21it/s]
-[2025-05-01T10:59:01.056+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_25.json
-[2025-05-01T10:59:01.057+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:01.129+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.10it/s]
-[2025-05-01T10:59:01.132+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_26.json
-[2025-05-01T10:59:01.133+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:01.222+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.29it/s]
-[2025-05-01T10:59:01.224+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_27.json
-[2025-05-01T10:59:01.225+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:01.362+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.34it/s]
-[2025-05-01T10:59:01.362+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.31it/s]
-[2025-05-01T10:59:01.365+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_28.json
-[2025-05-01T10:59:01.367+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:01.493+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.96it/s]
-[2025-05-01T10:59:01.493+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.93it/s]
-[2025-05-01T10:59:01.495+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_29.json
-[2025-05-01T10:59:01.497+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:01.589+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 10.83it/s]
-[2025-05-01T10:59:01.591+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_30.json
-[2025-05-01T10:59:01.592+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:01.833+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  4.16it/s]
-[2025-05-01T10:59:01.833+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  4.15it/s]
-[2025-05-01T10:59:01.834+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_31.json
-[2025-05-01T10:59:01.836+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:01.961+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.00it/s]
-[2025-05-01T10:59:01.962+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.97it/s]
-[2025-05-01T10:59:01.963+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_32.json
-[2025-05-01T10:59:01.965+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:02.117+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  6.55it/s]
-[2025-05-01T10:59:02.118+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  6.53it/s]
-[2025-05-01T10:59:02.119+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_33.json
-[2025-05-01T10:59:02.120+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:02.232+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.96it/s]
-[2025-05-01T10:59:02.233+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.92it/s]
-[2025-05-01T10:59:02.234+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_34.json
-[2025-05-01T10:59:02.235+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:02.354+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.46it/s]
-[2025-05-01T10:59:02.354+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.43it/s]
-[2025-05-01T10:59:02.356+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_35.json
-[2025-05-01T10:59:02.357+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:02.454+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 10.37it/s]
-[2025-05-01T10:59:02.455+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_36.json
-[2025-05-01T10:59:02.457+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:02.588+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.66it/s]
-[2025-05-01T10:59:02.588+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.63it/s]
-[2025-05-01T10:59:02.590+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_37.json
-[2025-05-01T10:59:02.592+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:02.729+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.33it/s]
-[2025-05-01T10:59:02.729+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.30it/s]
-[2025-05-01T10:59:02.730+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_38.json
-[2025-05-01T10:59:02.732+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:02.841+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.15it/s]
-[2025-05-01T10:59:02.841+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.12it/s]
-[2025-05-01T10:59:02.843+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_39.json
-[2025-05-01T10:59:02.844+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:02.948+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.67it/s]
-[2025-05-01T10:59:02.948+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.63it/s]
-[2025-05-01T10:59:02.949+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_40.json
-[2025-05-01T10:59:02.951+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:03.046+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 10.56it/s]
-[2025-05-01T10:59:03.048+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_41.json
-[2025-05-01T10:59:03.050+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:03.168+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.49it/s]
-[2025-05-01T10:59:03.168+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.47it/s]
-[2025-05-01T10:59:03.169+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_42.json
-[2025-05-01T10:59:03.171+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:03.325+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  6.49it/s]
-[2025-05-01T10:59:03.326+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  6.46it/s]
-[2025-05-01T10:59:03.327+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_43.json
-[2025-05-01T10:59:03.329+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:03.471+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.05it/s]
-[2025-05-01T10:59:03.471+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.03it/s]
-[2025-05-01T10:59:03.474+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_44.json
-[2025-05-01T10:59:03.476+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:03.557+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.39it/s]
-[2025-05-01T10:59:03.561+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_45.json
-[2025-05-01T10:59:03.563+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:03.672+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.14it/s]
-[2025-05-01T10:59:03.673+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.11it/s]
-[2025-05-01T10:59:03.675+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_46.json
-[2025-05-01T10:59:03.677+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:03.763+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.74it/s]
-[2025-05-01T10:59:03.764+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_47.json
-[2025-05-01T10:59:03.766+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:03.866+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 10.01it/s]
-[2025-05-01T10:59:03.868+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_48.json
-[2025-05-01T10:59:03.869+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:04.008+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.24it/s]
-[2025-05-01T10:59:04.008+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.22it/s]
-[2025-05-01T10:59:04.009+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_49.json
-[2025-05-01T10:59:04.011+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:04.096+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.73it/s]
-[2025-05-01T10:59:04.099+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_50.json
-[2025-05-01T10:59:04.100+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:04.186+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.62it/s]
-[2025-05-01T10:59:04.189+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_51.json
-[2025-05-01T10:59:04.191+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:04.313+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.18it/s]
-[2025-05-01T10:59:04.313+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.15it/s]
-[2025-05-01T10:59:04.315+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_52.json
-[2025-05-01T10:59:04.317+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:04.398+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.28it/s]
-[2025-05-01T10:59:04.401+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_53.json
-[2025-05-01T10:59:04.403+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:04.480+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.97it/s]
-[2025-05-01T10:59:04.482+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_54.json
-[2025-05-01T10:59:04.484+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:04.570+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.63it/s]
-[2025-05-01T10:59:04.572+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_55.json
-[2025-05-01T10:59:04.573+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:04.635+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 16.19it/s]
-[2025-05-01T10:59:04.637+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_56.json
-[2025-05-01T10:59:04.638+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:04.741+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.70it/s]
-[2025-05-01T10:59:04.742+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.66it/s]
-[2025-05-01T10:59:04.743+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_57.json
-[2025-05-01T10:59:04.744+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:04.835+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.20it/s]
-[2025-05-01T10:59:04.837+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_58.json
-[2025-05-01T10:59:04.839+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:04.927+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.36it/s]
-[2025-05-01T10:59:04.928+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_59.json
-[2025-05-01T10:59:04.930+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:05.004+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.51it/s]
-[2025-05-01T10:59:05.006+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_60.json
-[2025-05-01T10:59:05.008+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:05.081+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.73it/s]
-[2025-05-01T10:59:05.083+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_61.json
-[2025-05-01T10:59:05.085+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:05.155+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.37it/s]
-[2025-05-01T10:59:05.157+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_62.json
-[2025-05-01T10:59:05.158+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:05.223+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 15.52it/s]
-[2025-05-01T10:59:05.226+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_63.json
-[2025-05-01T10:59:05.227+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:05.298+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.15it/s]
-[2025-05-01T10:59:05.300+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_64.json
-[2025-05-01T10:59:05.302+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:05.376+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.46it/s]
-[2025-05-01T10:59:05.379+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_65.json
-[2025-05-01T10:59:05.380+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:05.446+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 15.16it/s]
-[2025-05-01T10:59:05.449+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_66.json
-[2025-05-01T10:59:05.450+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:05.518+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.82it/s]
-[2025-05-01T10:59:05.521+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_67.json
-[2025-05-01T10:59:05.522+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:05.589+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.85it/s]
-[2025-05-01T10:59:05.591+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_68.json
-[2025-05-01T10:59:05.592+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:05.669+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.03it/s]
-[2025-05-01T10:59:05.672+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_69.json
-[2025-05-01T10:59:05.673+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:05.786+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.91it/s]
-[2025-05-01T10:59:05.786+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.88it/s]
-[2025-05-01T10:59:05.788+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_70.json
-[2025-05-01T10:59:05.790+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:05.870+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.52it/s]
-[2025-05-01T10:59:05.871+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_71.json
-[2025-05-01T10:59:05.873+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:05.948+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.39it/s]
-[2025-05-01T10:59:05.949+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_72.json
-[2025-05-01T10:59:05.951+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:06.023+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.90it/s]
-[2025-05-01T10:59:06.024+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_73.json
-[2025-05-01T10:59:06.026+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:06.096+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.26it/s]
-[2025-05-01T10:59:06.099+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_74.json
-[2025-05-01T10:59:06.100+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:06.169+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.53it/s]
-[2025-05-01T10:59:06.172+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_75.json
-[2025-05-01T10:59:06.173+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:06.247+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.65it/s]
-[2025-05-01T10:59:06.249+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_76.json
-[2025-05-01T10:59:06.250+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:06.324+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.46it/s]
-[2025-05-01T10:59:06.326+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_77.json
-[2025-05-01T10:59:06.327+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:06.405+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.89it/s]
-[2025-05-01T10:59:06.407+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_78.json
-[2025-05-01T10:59:06.409+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:06.478+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.53it/s]
-[2025-05-01T10:59:06.479+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_79.json
-[2025-05-01T10:59:06.480+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:06.560+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.55it/s]
-[2025-05-01T10:59:06.564+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_80.json
-[2025-05-01T10:59:06.565+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:06.654+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.27it/s]
-[2025-05-01T10:59:06.657+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_81.json
-[2025-05-01T10:59:06.658+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:06.748+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.08it/s]
-[2025-05-01T10:59:06.750+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_82.json
-[2025-05-01T10:59:06.752+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:06.841+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.23it/s]
-[2025-05-01T10:59:06.842+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_83.json
-[2025-05-01T10:59:06.843+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:06.919+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.19it/s]
-[2025-05-01T10:59:06.922+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_84.json
-[2025-05-01T10:59:06.923+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:07.004+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.49it/s]
-[2025-05-01T10:59:07.006+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_85.json
-[2025-05-01T10:59:07.007+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:07.078+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.07it/s]
-[2025-05-01T10:59:07.080+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_86.json
-[2025-05-01T10:59:07.081+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:07.161+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.59it/s]
-[2025-05-01T10:59:07.163+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_87.json
-[2025-05-01T10:59:07.164+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:07.233+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.51it/s]
-[2025-05-01T10:59:07.234+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_88.json
-[2025-05-01T10:59:07.236+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:07.321+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.80it/s]
-[2025-05-01T10:59:07.323+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_89.json
-[2025-05-01T10:59:07.324+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:07.396+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.94it/s]
-[2025-05-01T10:59:07.399+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_90.json
-[2025-05-01T10:59:07.400+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:07.478+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.80it/s]
-[2025-05-01T10:59:07.480+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_91.json
-[2025-05-01T10:59:07.482+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:07.556+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.49it/s]
-[2025-05-01T10:59:07.558+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_92.json
-[2025-05-01T10:59:07.560+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:07.635+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.28it/s]
-[2025-05-01T10:59:07.638+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_93.json
-[2025-05-01T10:59:07.639+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:07.714+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.38it/s]
-[2025-05-01T10:59:07.716+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_94.json
-[2025-05-01T10:59:07.718+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:07.796+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.84it/s]
-[2025-05-01T10:59:07.798+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_95.json
-[2025-05-01T10:59:07.799+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:07.880+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.42it/s]
-[2025-05-01T10:59:07.882+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_96.json
-[2025-05-01T10:59:07.883+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:07.955+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.83it/s]
-[2025-05-01T10:59:07.958+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_97.json
-[2025-05-01T10:59:07.959+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:08.023+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 15.71it/s]
-[2025-05-01T10:59:08.025+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_98.json
-[2025-05-01T10:59:08.026+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:08.095+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.66it/s]
-[2025-05-01T10:59:08.097+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_99.json
-[2025-05-01T10:59:08.098+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:08.172+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.68it/s]
-[2025-05-01T10:59:08.173+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_100.json
-[2025-05-01T10:59:08.175+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:08.240+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 15.39it/s]
-[2025-05-01T10:59:08.243+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_101.json
-[2025-05-01T10:59:08.244+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:08.324+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.54it/s]
-[2025-05-01T10:59:08.326+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_102.json
-[2025-05-01T10:59:08.328+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:08.402+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.45it/s]
-[2025-05-01T10:59:08.405+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_103.json
-[2025-05-01T10:59:08.406+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:08.479+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.82it/s]
-[2025-05-01T10:59:08.481+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_104.json
-[2025-05-01T10:59:08.482+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:08.560+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.86it/s]
-[2025-05-01T10:59:08.564+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_105.json
-[2025-05-01T10:59:08.565+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:08.636+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.17it/s]
-[2025-05-01T10:59:08.638+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_106.json
-[2025-05-01T10:59:08.640+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:08.714+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.55it/s]
-[2025-05-01T10:59:08.716+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_107.json
-[2025-05-01T10:59:08.717+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:08.799+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.19it/s]
-[2025-05-01T10:59:08.802+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_108.json
-[2025-05-01T10:59:08.803+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:08.887+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.97it/s]
-[2025-05-01T10:59:08.889+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_109.json
-[2025-05-01T10:59:08.890+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:08.961+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.15it/s]
-[2025-05-01T10:59:08.964+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_110.json
-[2025-05-01T10:59:08.965+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:09.045+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.50it/s]
-[2025-05-01T10:59:09.047+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_111.json
-[2025-05-01T10:59:09.048+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:09.118+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.29it/s]
-[2025-05-01T10:59:09.120+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_112.json
-[2025-05-01T10:59:09.121+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:09.203+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.31it/s]
-[2025-05-01T10:59:09.205+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_113.json
-[2025-05-01T10:59:09.207+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:09.276+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.49it/s]
-[2025-05-01T10:59:09.278+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_114.json
-[2025-05-01T10:59:09.280+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:09.352+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.83it/s]
-[2025-05-01T10:59:09.355+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_115.json
-[2025-05-01T10:59:09.357+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:09.444+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.63it/s]
-[2025-05-01T10:59:09.446+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_116.json
-[2025-05-01T10:59:09.447+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:09.519+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.00it/s]
-[2025-05-01T10:59:09.521+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_117.json
-[2025-05-01T10:59:09.522+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:09.592+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.32it/s]
-[2025-05-01T10:59:09.595+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_118.json
-[2025-05-01T10:59:09.597+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:09.667+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.18it/s]
-[2025-05-01T10:59:09.669+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_119.json
-[2025-05-01T10:59:09.671+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:09.748+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.00it/s]
-[2025-05-01T10:59:09.750+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_120.json
-[2025-05-01T10:59:09.752+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:09.822+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.16it/s]
-[2025-05-01T10:59:09.825+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_121.json
-[2025-05-01T10:59:09.826+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:09.897+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.24it/s]
-[2025-05-01T10:59:09.900+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_122.json
-[2025-05-01T10:59:09.901+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:09.978+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.95it/s]
-[2025-05-01T10:59:09.981+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_123.json
-[2025-05-01T10:59:09.983+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:10.055+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.92it/s]
-[2025-05-01T10:59:10.056+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_124.json
-[2025-05-01T10:59:10.058+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:10.130+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.83it/s]
-[2025-05-01T10:59:10.133+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_125.json
-[2025-05-01T10:59:10.134+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:10.207+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.74it/s]
-[2025-05-01T10:59:10.209+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_126.json
-[2025-05-01T10:59:10.210+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:10.287+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.00it/s]
-[2025-05-01T10:59:10.289+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_127.json
-[2025-05-01T10:59:10.291+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:10.373+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.20it/s]
-[2025-05-01T10:59:10.375+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_128.json
-[2025-05-01T10:59:10.376+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:10.449+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.68it/s]
-[2025-05-01T10:59:10.451+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_129.json
-[2025-05-01T10:59:10.452+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:10.529+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.14it/s]
-[2025-05-01T10:59:10.530+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_130.json
-[2025-05-01T10:59:10.531+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:10.605+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.69it/s]
-[2025-05-01T10:59:10.607+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_131.json
-[2025-05-01T10:59:10.609+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:10.686+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.91it/s]
-[2025-05-01T10:59:10.688+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_132.json
-[2025-05-01T10:59:10.689+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:10.795+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.47it/s]
-[2025-05-01T10:59:10.795+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.44it/s]
-[2025-05-01T10:59:10.796+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_133.json
-[2025-05-01T10:59:10.798+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:10.878+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.55it/s]
-[2025-05-01T10:59:10.882+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_134.json
-[2025-05-01T10:59:10.884+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:10.964+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.52it/s]
-[2025-05-01T10:59:10.965+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_135.json
-[2025-05-01T10:59:10.967+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:11.039+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.77it/s]
-[2025-05-01T10:59:11.042+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_136.json
-[2025-05-01T10:59:11.043+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:11.117+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.52it/s]
-[2025-05-01T10:59:11.119+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_137.json
-[2025-05-01T10:59:11.121+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:11.194+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.70it/s]
-[2025-05-01T10:59:11.198+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_138.json
-[2025-05-01T10:59:11.199+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:11.278+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.62it/s]
-[2025-05-01T10:59:11.280+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_139.json
-[2025-05-01T10:59:11.281+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:11.421+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.19it/s]
-[2025-05-01T10:59:11.421+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  7.17it/s]
-[2025-05-01T10:59:11.423+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_140.json
-[2025-05-01T10:59:11.425+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:11.508+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.07it/s]
-[2025-05-01T10:59:11.509+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_141.json
-[2025-05-01T10:59:11.511+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:11.619+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.26it/s]
-[2025-05-01T10:59:11.619+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.23it/s]
-[2025-05-01T10:59:11.621+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_142.json
-[2025-05-01T10:59:11.622+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:11.706+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.94it/s]
-[2025-05-01T10:59:11.709+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_143.json
-[2025-05-01T10:59:11.710+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:11.804+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 10.71it/s]
-[2025-05-01T10:59:11.806+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_144.json
-[2025-05-01T10:59:11.808+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:11.901+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 10.75it/s]
-[2025-05-01T10:59:11.903+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_145.json
-[2025-05-01T10:59:11.904+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:11.978+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.61it/s]
-[2025-05-01T10:59:11.980+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_146.json
-[2025-05-01T10:59:11.982+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:12.055+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.77it/s]
-[2025-05-01T10:59:12.056+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_147.json
-[2025-05-01T10:59:12.058+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:12.125+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 15.00it/s]
-[2025-05-01T10:59:12.126+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_148.json
-[2025-05-01T10:59:12.128+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:12.197+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.50it/s]
-[2025-05-01T10:59:12.199+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_149.json
-[2025-05-01T10:59:12.200+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:12.269+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.51it/s]
-[2025-05-01T10:59:12.271+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_150.json
-[2025-05-01T10:59:12.273+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:12.351+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.73it/s]
-[2025-05-01T10:59:12.353+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_151.json
-[2025-05-01T10:59:12.354+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:12.431+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.08it/s]
-[2025-05-01T10:59:12.432+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_152.json
-[2025-05-01T10:59:12.433+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:12.503+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.47it/s]
-[2025-05-01T10:59:12.505+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_153.json
-[2025-05-01T10:59:12.507+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:12.581+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.39it/s]
-[2025-05-01T10:59:12.583+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_154.json
-[2025-05-01T10:59:12.584+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:12.653+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.50it/s]
-[2025-05-01T10:59:12.655+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_155.json
-[2025-05-01T10:59:12.656+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:12.728+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.92it/s]
-[2025-05-01T10:59:12.730+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_156.json
-[2025-05-01T10:59:12.731+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:12.803+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.87it/s]
-[2025-05-01T10:59:12.805+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_157.json
-[2025-05-01T10:59:12.806+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:12.895+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.35it/s]
-[2025-05-01T10:59:12.896+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_158.json
-[2025-05-01T10:59:12.897+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:12.971+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.56it/s]
-[2025-05-01T10:59:12.973+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_159.json
-[2025-05-01T10:59:12.974+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:13.047+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.78it/s]
-[2025-05-01T10:59:13.048+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_160.json
-[2025-05-01T10:59:13.050+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:13.117+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.82it/s]
-[2025-05-01T10:59:13.119+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_161.json
-[2025-05-01T10:59:13.120+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:13.194+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.50it/s]
-[2025-05-01T10:59:13.196+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_162.json
-[2025-05-01T10:59:13.197+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:13.273+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.18it/s]
-[2025-05-01T10:59:13.275+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_163.json
-[2025-05-01T10:59:13.276+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:13.364+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.35it/s]
-[2025-05-01T10:59:13.366+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_164.json
-[2025-05-01T10:59:13.368+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:13.449+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.31it/s]
-[2025-05-01T10:59:13.451+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_165.json
-[2025-05-01T10:59:13.452+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:13.611+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  6.33it/s]
-[2025-05-01T10:59:13.611+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  6.31it/s]
-[2025-05-01T10:59:13.612+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_166.json
-[2025-05-01T10:59:13.614+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:13.688+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.55it/s]
-[2025-05-01T10:59:13.690+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_167.json
-[2025-05-01T10:59:13.692+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:13.761+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.54it/s]
-[2025-05-01T10:59:13.762+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_168.json
-[2025-05-01T10:59:13.764+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:13.846+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.21it/s]
-[2025-05-01T10:59:13.847+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_169.json
-[2025-05-01T10:59:13.849+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:13.972+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.13it/s]
-[2025-05-01T10:59:13.972+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.10it/s]
-[2025-05-01T10:59:13.974+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_170.json
-[2025-05-01T10:59:13.975+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:14.045+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.44it/s]
-[2025-05-01T10:59:14.048+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_171.json
-[2025-05-01T10:59:14.049+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:14.121+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.94it/s]
-[2025-05-01T10:59:14.123+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_172.json
-[2025-05-01T10:59:14.125+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:14.195+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.31it/s]
-[2025-05-01T10:59:14.197+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_173.json
-[2025-05-01T10:59:14.199+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:14.274+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.34it/s]
-[2025-05-01T10:59:14.275+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_174.json
-[2025-05-01T10:59:14.277+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:14.352+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.44it/s]
-[2025-05-01T10:59:14.354+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_175.json
-[2025-05-01T10:59:14.356+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:14.433+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.91it/s]
-[2025-05-01T10:59:14.435+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_176.json
-[2025-05-01T10:59:14.437+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:14.512+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.21it/s]
-[2025-05-01T10:59:14.515+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_177.json
-[2025-05-01T10:59:14.517+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:14.595+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.74it/s]
-[2025-05-01T10:59:14.597+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_178.json
-[2025-05-01T10:59:14.598+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:14.675+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.08it/s]
-[2025-05-01T10:59:14.676+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_179.json
-[2025-05-01T10:59:14.677+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:14.750+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.88it/s]
-[2025-05-01T10:59:14.751+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_180.json
-[2025-05-01T10:59:14.752+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:14.833+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.49it/s]
-[2025-05-01T10:59:14.834+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_181.json
-[2025-05-01T10:59:14.836+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:14.914+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.78it/s]
-[2025-05-01T10:59:14.917+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_182.json
-[2025-05-01T10:59:14.919+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:15.005+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.56it/s]
-[2025-05-01T10:59:15.007+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_183.json
-[2025-05-01T10:59:15.008+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:15.081+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.68it/s]
-[2025-05-01T10:59:15.084+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_184.json
-[2025-05-01T10:59:15.085+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:15.156+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.13it/s]
-[2025-05-01T10:59:15.157+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_185.json
-[2025-05-01T10:59:15.159+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:15.236+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.07it/s]
-[2025-05-01T10:59:15.238+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_186.json
-[2025-05-01T10:59:15.239+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:15.317+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.85it/s]
-[2025-05-01T10:59:15.320+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_187.json
-[2025-05-01T10:59:15.322+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:15.405+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.05it/s]
-[2025-05-01T10:59:15.406+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_188.json
-[2025-05-01T10:59:15.407+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:15.477+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.32it/s]
-[2025-05-01T10:59:15.479+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_189.json
-[2025-05-01T10:59:15.480+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:15.558+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.92it/s]
-[2025-05-01T10:59:15.560+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_190.json
-[2025-05-01T10:59:15.561+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:15.634+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.72it/s]
-[2025-05-01T10:59:15.637+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_191.json
-[2025-05-01T10:59:15.638+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:15.718+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.51it/s]
-[2025-05-01T10:59:15.720+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_192.json
-[2025-05-01T10:59:15.721+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:15.805+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.89it/s]
-[2025-05-01T10:59:15.808+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_193.json
-[2025-05-01T10:59:15.810+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:15.887+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.99it/s]
-[2025-05-01T10:59:15.889+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_194.json
-[2025-05-01T10:59:15.891+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:15.962+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.98it/s]
-[2025-05-01T10:59:15.964+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_195.json
-[2025-05-01T10:59:15.965+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:16.047+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.31it/s]
-[2025-05-01T10:59:16.049+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_196.json
-[2025-05-01T10:59:16.050+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:16.119+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.61it/s]
-[2025-05-01T10:59:16.120+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_197.json
-[2025-05-01T10:59:16.122+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:16.194+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.80it/s]
-[2025-05-01T10:59:16.197+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_198.json
-[2025-05-01T10:59:16.198+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:16.270+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.95it/s]
-[2025-05-01T10:59:16.271+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_199.json
-[2025-05-01T10:59:16.273+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:16.355+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.20it/s]
-[2025-05-01T10:59:16.356+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_200.json
-[2025-05-01T10:59:16.358+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:16.430+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.90it/s]
-[2025-05-01T10:59:16.431+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_201.json
-[2025-05-01T10:59:16.433+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:16.500+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.81it/s]
-[2025-05-01T10:59:16.503+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_202.json
-[2025-05-01T10:59:16.504+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:16.582+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.88it/s]
-[2025-05-01T10:59:16.585+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_203.json
-[2025-05-01T10:59:16.586+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:16.657+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.04it/s]
-[2025-05-01T10:59:16.659+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_204.json
-[2025-05-01T10:59:16.660+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:16.751+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.07it/s]
-[2025-05-01T10:59:16.753+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_205.json
-[2025-05-01T10:59:16.755+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:16.844+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.29it/s]
-[2025-05-01T10:59:16.847+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_206.json
-[2025-05-01T10:59:16.848+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:16.941+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 10.86it/s]
-[2025-05-01T10:59:16.942+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_207.json
-[2025-05-01T10:59:16.943+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:17.017+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.68it/s]
-[2025-05-01T10:59:17.019+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_208.json
-[2025-05-01T10:59:17.020+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:17.094+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.54it/s]
-[2025-05-01T10:59:17.097+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_209.json
-[2025-05-01T10:59:17.099+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:17.175+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.16it/s]
-[2025-05-01T10:59:17.176+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_210.json
-[2025-05-01T10:59:17.178+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:17.249+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.04it/s]
-[2025-05-01T10:59:17.251+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_211.json
-[2025-05-01T10:59:17.253+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:17.330+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.98it/s]
-[2025-05-01T10:59:17.332+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_212.json
-[2025-05-01T10:59:17.333+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:17.405+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.02it/s]
-[2025-05-01T10:59:17.407+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_213.json
-[2025-05-01T10:59:17.408+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:17.487+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.83it/s]
-[2025-05-01T10:59:17.488+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_214.json
-[2025-05-01T10:59:17.489+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:17.562+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.82it/s]
-[2025-05-01T10:59:17.563+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_215.json
-[2025-05-01T10:59:17.565+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:17.636+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.11it/s]
-[2025-05-01T10:59:17.637+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_216.json
-[2025-05-01T10:59:17.639+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:17.716+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.03it/s]
-[2025-05-01T10:59:17.717+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_217.json
-[2025-05-01T10:59:17.718+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:17.791+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.87it/s]
-[2025-05-01T10:59:17.793+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_218.json
-[2025-05-01T10:59:17.794+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:17.865+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.29it/s]
-[2025-05-01T10:59:17.866+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_219.json
-[2025-05-01T10:59:17.867+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:17.947+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.55it/s]
-[2025-05-01T10:59:17.949+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_220.json
-[2025-05-01T10:59:17.950+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:18.018+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.83it/s]
-[2025-05-01T10:59:18.019+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_221.json
-[2025-05-01T10:59:18.020+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:18.091+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.13it/s]
-[2025-05-01T10:59:18.094+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_222.json
-[2025-05-01T10:59:18.095+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:18.164+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.48it/s]
-[2025-05-01T10:59:18.166+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_223.json
-[2025-05-01T10:59:18.167+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:18.238+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.17it/s]
-[2025-05-01T10:59:18.239+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_224.json
-[2025-05-01T10:59:18.240+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:18.318+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.00it/s]
-[2025-05-01T10:59:18.319+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_225.json
-[2025-05-01T10:59:18.320+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:18.395+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.44it/s]
-[2025-05-01T10:59:18.396+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_226.json
-[2025-05-01T10:59:18.398+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:18.468+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.39it/s]
-[2025-05-01T10:59:18.471+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_227.json
-[2025-05-01T10:59:18.472+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:18.540+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.73it/s]
-[2025-05-01T10:59:18.542+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_228.json
-[2025-05-01T10:59:18.543+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:18.616+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.79it/s]
-[2025-05-01T10:59:18.617+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_229.json
-[2025-05-01T10:59:18.619+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:18.688+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.38it/s]
-[2025-05-01T10:59:18.690+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_230.json
-[2025-05-01T10:59:18.691+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:18.765+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.51it/s]
-[2025-05-01T10:59:18.768+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_231.json
-[2025-05-01T10:59:18.769+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:18.831+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 16.24it/s]
-[2025-05-01T10:59:18.833+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_232.json
-[2025-05-01T10:59:18.834+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:18.924+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 11.17it/s]
-[2025-05-01T10:59:18.926+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_233.json
-[2025-05-01T10:59:18.927+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:19.008+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 12.45it/s]
-[2025-05-01T10:59:19.009+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_234.json
-[2025-05-01T10:59:19.010+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:19.078+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.82it/s]
-[2025-05-01T10:59:19.080+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_235.json
-[2025-05-01T10:59:19.081+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:19.153+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.92it/s]
-[2025-05-01T10:59:19.154+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_236.json
-[2025-05-01T10:59:19.156+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:19.228+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.93it/s]
-[2025-05-01T10:59:19.230+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_237.json
-[2025-05-01T10:59:19.231+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:19.281+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 20.42it/s]
-[2025-05-01T10:59:19.284+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_238.json
-[2025-05-01T10:59:19.286+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:19.362+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.22it/s]
-[2025-05-01T10:59:19.363+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_239.json
-[2025-05-01T10:59:19.365+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:19.435+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 14.26it/s]
-[2025-05-01T10:59:19.437+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_240.json
-[2025-05-01T10:59:19.439+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:19.514+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.27it/s]
-[2025-05-01T10:59:19.516+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_241.json
-[2025-05-01T10:59:19.518+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:19.595+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 13.11it/s]
-[2025-05-01T10:59:19.597+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_242.json
-[2025-05-01T10:59:19.599+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:19.706+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.35it/s]
-[2025-05-01T10:59:19.707+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.31it/s]
-[2025-05-01T10:59:19.712+0000] {logging_mixin.py:154} INFO - 🧱 Saved to production_data: /opt/***/production_data/article_243.json
-[2025-05-01T10:59:19.714+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:19.814+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 10.01it/s]
-[2025-05-01T10:59:19.817+0000] {logging_mixin.py:154} INFO - 📝 Saved to review_queue: /opt/***/review_queue/article_244_2025-05-01T10:59:19.712955.json
-[2025-05-01T10:59:19.819+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:19.923+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.62it/s]
-[2025-05-01T10:59:19.923+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  9.58it/s]
-[2025-05-01T10:59:19.925+0000] {logging_mixin.py:154} INFO - 📝 Saved to review_queue: /opt/***/review_queue/article_245_2025-05-01T10:59:19.817930.json
-[2025-05-01T10:59:19.927+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:20.041+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.78it/s]
-[2025-05-01T10:59:20.041+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.75it/s]
-[2025-05-01T10:59:20.043+0000] {logging_mixin.py:154} INFO - 📝 Saved to review_queue: /opt/***/review_queue/article_246_2025-05-01T10:59:19.926016.json
-[2025-05-01T10:59:20.045+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:20.157+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.98it/s]
-[2025-05-01T10:59:20.157+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00,  8.95it/s]
-[2025-05-01T10:59:20.159+0000] {logging_mixin.py:154} INFO - 📝 Saved to review_queue: /opt/***/review_queue/article_247_2025-05-01T10:59:20.043854.json
-[2025-05-01T10:59:20.161+0000] {logging_mixin.py:154} WARNING - Batches:   0%|          | 0/1 [00:00<?, ?it/s]
-[2025-05-01T10:59:20.253+0000] {logging_mixin.py:154} WARNING - Batches: 100%|##########| 1/1 [00:00<00:00, 10.85it/s]
-[2025-05-01T10:59:20.255+0000] {logging_mixin.py:154} INFO - 📝 Saved to review_queue: /opt/***/review_queue/article_248_2025-05-01T10:59:20.159598.json
-[2025-05-01T10:59:20.255+0000] {logging_mixin.py:154} INFO - 📦 Finished: 5 new, 244 production.
-[2025-05-01T10:59:20.256+0000] {python.py:194} INFO - Done. Returned value was: None
-[2025-05-01T10:59:20.266+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=lgbtq_model_pipeline, task_id=fetch_articles, execution_date=20250501T105853, start_date=20250501T105856, end_date=20250501T105920
-[2025-05-01T10:59:20.324+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
-[2025-05-01T10:59:20.345+0000] {taskinstance.py:2778} INFO - 1 downstream tasks scheduled from follow-on schedule check

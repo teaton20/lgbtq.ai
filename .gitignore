@@ -1,1 +1,5 @@
 mk2-site/node_modules/
+
+# Ignore all log files in Airflow
+airflow-docker/logs/*
+!airflow-docker/logs/.gitkeep
