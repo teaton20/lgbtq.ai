@@ -21,3 +21,4 @@ regex==2024.11.6
 
 # If needed for local LLM or fallback
 requests==2.32.3
+pymongo

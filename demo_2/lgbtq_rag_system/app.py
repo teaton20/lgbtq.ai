@@ -4,6 +4,7 @@ from flask import Flask, render_template, request
 import json
 import logging
 import os
+import traceback
 
 from utils import prompt as prompt_util
 from model import llama_runner
@@ -44,6 +45,13 @@ def index():
     
     # Always pass the query back to the template, even if empty
     return render_template('index.html', query=user_query, response=response_text)
+
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    # Log full traceback to Cloud Run logs
+    logging.error("Exception occurred", exc_info=True)
+    return "An error occurred: {}".format(str(e)), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 8080))
