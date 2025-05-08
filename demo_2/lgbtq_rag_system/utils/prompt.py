@@ -2,16 +2,19 @@
 
 def compose_prompt(user_query, articles):
     prompt_lines = [
-        "Incorporate the knowledge below for your response:\n"
+        "Refer to these current events as facts in your answer:\n"
     ]
     for i, article in enumerate(articles, start=1):
-        # Include key fields and truncate content to avoid overly long prompts.
+        # Extract and format key fields with the new structure
         article_str = (
-            f"Date: {article.get('date', 'N/A')}\n"
-            f"Tags: {', '.join(article.get('tags', []))}\n"
-            f"Content: {article.get('summary', article.get('content', ''))[:500]}...\n"
+            #f"Title: {article.get('title', 'N/A')}\n"
+            f" {article.get('date', 'N/A')}\n"
+            #f"Publication: {article.get('publication', 'N/A')}\n"
+            f" {article.get('full_text', '')[:500]}...\n"
         )
         prompt_lines.append(article_str)
-    prompt_lines.append("\n Using ONLY the above, give a brief answer to the following and provide only the answer:\n")
+
+    prompt_lines.append("\nYou have been asked to reply to a question in an organized manner. You are a kind and caring person, with a lot of heart. Answer this question:\n")
     prompt_lines.append(f"\"{user_query}\"")
     return "\n".join(prompt_lines)
+

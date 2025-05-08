@@ -21,11 +21,12 @@ conversation_context = []
 def index():
     response_text = ""
     user_query = ""
+
     if request.method == 'POST':
         user_query = request.form.get('query', '')
         logging.info("User query: " + user_query)
 
-        # 🔍 NEW: Use semantic retrieval to get top 3 relevant articles
+        # 🔍 Use semantic retrieval to get top 3 relevant articles
         matched_articles = semantic_util.semantic_search(user_query, top_k=3)
         logging.info(f"Found {len(matched_articles)} matching articles via semantic search.")
 
@@ -40,8 +41,8 @@ def index():
             response_text = llama_runner.run_llm(prompt_str)
         
         logging.info("LLM Response: " + response_text)
-        return render_template('index.html', query=user_query, response=response_text)
     
+    # Always pass the query back to the template, even if empty
     return render_template('index.html', query=user_query, response=response_text)
 
 if __name__ == '__main__':
