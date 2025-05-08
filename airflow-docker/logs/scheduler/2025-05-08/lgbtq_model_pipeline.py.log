@@ -4507,3 +4507,20 @@ airflow.exceptions.AirflowException: `python_callable` param must be callable
 [2025-05-08T05:50:28.060+0000] {logging_mixin.py:154} INFO - [2025-05-08T05:50:28.060+0000] {dag.py:2941} INFO - Sync 1 DAGs
 [2025-05-08T05:50:28.076+0000] {logging_mixin.py:154} INFO - [2025-05-08T05:50:28.076+0000] {dag.py:3722} INFO - Setting next_dagrun for lgbtq_model_pipeline to 2025-05-08T00:00:00+00:00, run_after=2025-05-09T00:00:00+00:00
 [2025-05-08T05:50:28.086+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/lgbtq_model_pipeline.py took 2.580 seconds
+[2025-05-08T05:50:58.424+0000] {processor.py:157} INFO - Started process (PID=61557) to work on /opt/airflow/dags/lgbtq_model_pipeline.py
+[2025-05-08T05:50:58.427+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/lgbtq_model_pipeline.py for tasks to queue
+[2025-05-08T05:50:58.430+0000] {logging_mixin.py:154} INFO - [2025-05-08T05:50:58.429+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/lgbtq_model_pipeline.py
+[2025-05-08T05:51:01.213+0000] {processor.py:839} INFO - DAG(s) dict_keys(['lgbtq_model_pipeline']) retrieved from /opt/airflow/dags/lgbtq_model_pipeline.py
+[2025-05-08T05:51:01.228+0000] {logging_mixin.py:154} INFO - [2025-05-08T05:51:01.227+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2025-05-08T05:51:01.242+0000] {logging_mixin.py:154} INFO - [2025-05-08T05:51:01.242+0000] {dag.py:3722} INFO - Setting next_dagrun for lgbtq_model_pipeline to 2025-05-08T00:00:00+00:00, run_after=2025-05-09T00:00:00+00:00
+[2025-05-08T05:51:01.253+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/lgbtq_model_pipeline.py took 2.841 seconds
+[2025-05-08T05:51:31.580+0000] {processor.py:157} INFO - Started process (PID=61583) to work on /opt/airflow/dags/lgbtq_model_pipeline.py
+[2025-05-08T05:51:31.585+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/lgbtq_model_pipeline.py for tasks to queue
+[2025-05-08T05:51:31.587+0000] {logging_mixin.py:154} INFO - [2025-05-08T05:51:31.586+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/lgbtq_model_pipeline.py
+[2025-05-08T05:51:34.330+0000] {processor.py:839} INFO - DAG(s) dict_keys(['lgbtq_model_pipeline']) retrieved from /opt/airflow/dags/lgbtq_model_pipeline.py
+[2025-05-08T05:51:34.346+0000] {logging_mixin.py:154} INFO - [2025-05-08T05:51:34.345+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2025-05-08T05:51:34.357+0000] {logging_mixin.py:154} INFO - [2025-05-08T05:51:34.357+0000] {dag.py:3722} INFO - Setting next_dagrun for lgbtq_model_pipeline to 2025-05-08T00:00:00+00:00, run_after=2025-05-09T00:00:00+00:00
+[2025-05-08T05:51:34.368+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/lgbtq_model_pipeline.py took 2.799 seconds
+[2025-05-08T05:52:04.719+0000] {processor.py:157} INFO - Started process (PID=61609) to work on /opt/airflow/dags/lgbtq_model_pipeline.py
+[2025-05-08T05:52:04.721+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/lgbtq_model_pipeline.py for tasks to queue
+[2025-05-08T05:52:04.724+0000] {logging_mixin.py:154} INFO - [2025-05-08T05:52:04.723+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/lgbtq_model_pipeline.py

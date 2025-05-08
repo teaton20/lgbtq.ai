@@ -51135,3 +51135,32 @@ File Path                                  PID    Runtime      # DAGs    # Error
 /opt/airflow/dags/tasks/fetch_articles.py                           0           0  2.53s           2025-05-08T05:50:28
 /opt/airflow/dags/lgbtq_model_pipeline.py                           1           0  2.65s           2025-05-08T05:50:28
 ================================================================================
+[2025-05-08T05:50:59.421+0000] {manager.py:755} INFO - Searching for files in /opt/airflow/dags
+[2025-05-08T05:50:59.474+0000] {manager.py:758} INFO - There are 2 files in /opt/airflow/dags
+[2025-05-08T05:51:01.215+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                    PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/tasks/fetch_articles.py                           0           0  2.80s           2025-05-08T05:51:01
+/opt/airflow/dags/lgbtq_model_pipeline.py  61557  2.84s             1           0  2.65s           2025-05-08T05:50:28
+================================================================================
+[2025-05-08T05:51:31.580+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                    PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/tasks/fetch_articles.py  61586  0.01s             0           0  2.80s           2025-05-08T05:51:01
+/opt/airflow/dags/lgbtq_model_pipeline.py  61583  0.06s             1           0  2.89s           2025-05-08T05:51:01
+================================================================================
+[2025-05-08T05:52:01.606+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/tasks/fetch_articles.py                           0           0  2.76s           2025-05-08T05:51:34
+/opt/airflow/dags/lgbtq_model_pipeline.py                           1           0  2.87s           2025-05-08T05:51:34
+================================================================================
