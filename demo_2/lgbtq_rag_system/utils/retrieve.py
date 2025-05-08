@@ -1,7 +1,6 @@
 # lgbtq_rag_system/utils/retrieve.py
 
 import numpy as np
-import faiss
 import pickle
 from sentence_transformers import SentenceTransformer
 
