@@ -27,7 +27,7 @@ REVIEW_THRESHOLD = 20
 # Training hyperparameters - edit these to your liking!
 
 BATCH_SIZE = 2
-NUM_EPOCHS = 1
+NUM_EPOCHS = 3
 CHECKPOINT_EVERY = 1  # Save model every n epochs
 
 # --------------------------------------------------------
