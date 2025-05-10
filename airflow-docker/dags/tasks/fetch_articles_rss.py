@@ -93,11 +93,11 @@ if Path(RSS_SEEN_FILE).exists():
 else:
     seen = set()
 
-def actual_run():
+def run():
     
     articles = []
     added = 0  # Counter for added articles
-    MAX_ARTICLES = 5 # setting the number of articles to grab, for testing purposes
+    MAX_ARTICLES = 200 # setting the number of articles to grab, for testing purposes
 
     for feed_url in RSS_FEEDS:
         if added >= MAX_ARTICLES:
@@ -167,8 +167,8 @@ def actual_run():
 
     print(f"Fetch Articles has concluded.")
 
-def run():
-    print("slay mawmaw")
+# def run():
+#     print("slay mawmaw")
 
 if __name__ == "__main__":
     run()

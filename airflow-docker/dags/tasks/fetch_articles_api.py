@@ -35,7 +35,7 @@ def fetch_articles_from_gnews():
     params = {
         "q": query,
         "lang": "en",
-        "max": 20,
+        "max": 200,
         "token": GNEWS_API_KEY
     }
     try:
@@ -79,7 +79,7 @@ def make_article_json(row):
         "embedding": None
     }
 
-def actual_run():
+def run():
     print("📥 Fetching CSV data from Google Sheets...")
     df = pd.read_csv(SHEET_CSV_URL)
 
@@ -109,8 +109,8 @@ def actual_run():
 
     print("📦 Finished GNews fetch.")
 
-def run():
-    print("🫡 skipping this one mawmawww 🗣️")
+# def run():
+#     print("🫡 skipping this one mawmawww 🗣️")
 
 if __name__ == "__main__":
     run()

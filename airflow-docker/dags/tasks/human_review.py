@@ -1,10 +1,10 @@
 import os
 import json
 from pymongo import MongoClient
-from bson.objectid import ObjectId
 from dotenv import load_dotenv
+from bson.objectid import ObjectId
 
-REVIEW_THRESHOLD = 5
+REVIEW_THRESHOLD = 100
 
 # MongoDB connection setup
 load_dotenv(dotenv_path="/opt/airflow/.env")
@@ -17,41 +17,46 @@ all_data = db["all_data"]
 production_data = db["production_data"]
 
 def article_id_exists(article_id):
-    """Check if article ID exists in any collection other than review_queue."""
+    """Check if article ID exists in other collections."""
     for collection in [new_data, all_data, production_data]:
         if collection.find_one({"_id": article_id}):
             return True
     return False
 
 def run():
-    print("👀 Checking for enough articles in review queue...")
+    print("👀 Checking review queue for labeled articles...")
 
     total_in_queue = review_queue.count_documents({})
-    if total_in_queue >= REVIEW_THRESHOLD:
-        print(f"✅ Found {total_in_queue} files — simulating human review...")
+    if total_in_queue < REVIEW_THRESHOLD:
+        print(f"⏳ Not enough files in review queue ({total_in_queue}/{REVIEW_THRESHOLD}). Waiting for more.")
+        return
 
-        print("💌 Sending email to team...")
-        print("hiyyyy time 2 label these new entries babe okthxbye")  # this should be an actual email at some point
+    # Only proceed with articles that have been manually labeled (true_label exists)
+    labeled_articles = review_queue.find({"true_label": {"$exists": True}})
+    labeled_count = review_queue.count_documents({"true_label": {"$exists": True}})
 
-        reviewed = 0
-        cursor = review_queue.find().limit(REVIEW_THRESHOLD)
+    if labeled_count < REVIEW_THRESHOLD:
+        print(f"✋ Waiting for manual labeling. Only {labeled_count}/{REVIEW_THRESHOLD} articles labeled.")
+        return
 
-        for article in cursor:
-            article_id = article.get("_id")
-            if not article_id:
-                print("⚠️ Skipping malformed article (no _id)")
-                continue
+    print(f"✅ Found {labeled_count} labeled articles. Moving to new_data...")
 
-            if article_id_exists(article_id):
-                print(f"⚠️ Skipping duplicate article {article_id} — already exists elsewhere.")
-                continue
+    for article in labeled_articles.limit(REVIEW_THRESHOLD):
+        article_id = article.get("_id")
 
-            article["true_label"] = article.get("predicted_label")
-            new_data.insert_one(article)
-            review_queue.delete_one({"_id": article_id})
-            print(f"📤 Reviewed + moved article {article_id} → new_data/")
-            reviewed += 1
+        if not article_id:
+            print("⚠️ Skipping malformed article (no _id)")
+            continue
 
-        print("🧠 Human review simulated for this batch.")
-    else:
-        print(f"⏳ Not enough files ({total_in_queue}/{REVIEW_THRESHOLD}). Waiting.")
+        if article_id_exists(article_id):
+            print(f"⚠️ Skipping duplicate article {article_id}")
+            continue
+
+        new_data.insert_one(article)
+        review_queue.delete_one({"_id": article_id})
+        print(f"📤 Moved labeled article {article_id} → new_data/")
+
+    print("🎯 Finished human_review processing.")
+
+if __name__ == "__main__":
+    run()
