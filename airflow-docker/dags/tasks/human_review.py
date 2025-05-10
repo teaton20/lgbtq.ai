@@ -4,7 +4,7 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 from bson.objectid import ObjectId
 
-REVIEW_THRESHOLD = 100
+REVIEW_THRESHOLD = 20
 
 # MongoDB connection setup
 load_dotenv(dotenv_path="/opt/airflow/.env")

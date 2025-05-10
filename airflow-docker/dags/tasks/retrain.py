@@ -20,7 +20,7 @@ all_data = db["all_data"]
 production_data = db["production_data"]
 
 MODEL_DIR = "/opt/airflow/models"
-REVIEW_THRESHOLD = 5
+REVIEW_THRESHOLD = 20
 
 # --------------------------------------------------------
 
@@ -76,19 +76,13 @@ def train_triplet_model():
     if os.path.exists(flag_path):
         os.remove(flag_path)
 
+    count_before = new_data.count_documents({})
+    print(f"🧮 new_data documents before move: {count_before}")
+
     files_moved = combine_data()
 
-    total_labeled = all_data.count_documents({
-        "content": {"$exists": True},
-        "true_label": {"$exists": True}
-    })
-
-    if files_moved == 0:
-        print("🕳️ No new labeled data to retrain on.")
-        return "no_new_data"
-
-    if total_labeled < REVIEW_THRESHOLD:
-        print(f"⏹️ Not enough total data to retrain (found {total_labeled} items, need at least {REVIEW_THRESHOLD}).")
+    if files_moved < REVIEW_THRESHOLD:
+        print(f"⏹️ Not enough new data to retrain (moved {files_moved}/{REVIEW_THRESHOLD}).")
         return "not_enough_data"
 
     print("📚 Loading labeled data...")
