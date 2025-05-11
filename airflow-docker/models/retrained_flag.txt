@@ -1,0 +1,1 @@
+/opt/airflow/models/production_model_20250511133104_epoch3_best.joblib

@@ -102,40 +102,51 @@ def get_comparison_models():
     return new_model, prod_model
 
 def run():
-    print("📏 Evaluating latest models...")
+    print("📏 Evaluating newly trained candidate model...")
 
-    flag_path = os.path.join(MODEL_DIR, "retrained_flag.txt")
-    if not os.path.exists(flag_path):
-        print("🕳️ No new model retrained. Skipping evaluation.")
+    best_candidate_path_txt = os.path.join(MODEL_DIR, "best_candidate_model.txt")
+    if not os.path.exists(best_candidate_path_txt):
+        print("🕳️ No candidate model to evaluate.")
         return "no_new_model"
 
-    joblibs = sorted([f for f in os.listdir(MODEL_DIR) if f.endswith(".joblib")])
-    if len(joblibs) < 2:
-        print("🕳️ Not enough models to compare. Skipping evaluation.")
+    with open(best_candidate_path_txt) as f:
+        new_model_name = f.read().strip()
+
+    new_model_path = os.path.join(MODEL_DIR, new_model_name)
+    if not os.path.exists(new_model_path):
+        print(f"❌ Model not found at {new_model_path}")
+        return "missing_model_file"
+
+    # Find the most recent deployed model as previous
+    backups = sorted([f for f in os.listdir(MODEL_DIR)
+                      if f.startswith("production_model_backup_") and f.endswith(".joblib")])
+    if not backups:
+        print("🕳️ No previous production model to compare with.")
         return "not_enough_models"
 
-    new_model = joblibs[-1]
-    prev_model = joblibs[-2]
+    prev_model_name = backups[-1]
+    prev_model_path = os.path.join(MODEL_DIR, prev_model_name)
 
-    if new_model == prev_model:
-        print("🕳️ No new model to evaluate.")
-        return "no_new_model"
-
-    new_acc = evaluate_model(os.path.join(MODEL_DIR, new_model))
+    # Evaluate both
+    new_acc = evaluate_model(new_model_path)
     if new_acc is None:
-        print("⚠️ Skipping evaluation. Not enough diversity in labels.")
+        print("⚠️ Not enough label diversity. Skipping.")
         return "not_enough_label_diversity"
 
-    print(f"🔍 Accuracy of latest model ({new_model}): {new_acc:.3f}")
+    print(f"🔍 Accuracy of new model ({new_model_name}): {new_acc:.3f}")
 
-    prev_acc = evaluate_model(os.path.join(MODEL_DIR, prev_model))
-    prev_acc = prev_acc if prev_acc is not None else 0
-    print(f"📊 Accuracy of previous model ({prev_model}): {prev_acc:.3f}")
+    prev_acc = evaluate_model(prev_model_path)
+    prev_acc = prev_acc if prev_acc is not None else 0.0
+    print(f"📊 Accuracy of previous model ({prev_model_name}): {prev_acc:.3f}")
 
-    best_model = new_model if new_acc >= prev_acc else prev_model
+    best_model = new_model_name if new_acc >= prev_acc else prev_model_name
+
+    # Save comparison result
     with open(os.path.join(METRICS_DIR, "model_metrics.json"), "w") as f:
         json.dump({
             "best_model": best_model,
+            "new_model": new_model_name,
+            "prev_model": prev_model_name,
             "new_accuracy": new_acc,
             "prev_accuracy": prev_acc,
             "timestamp": datetime.now().isoformat()

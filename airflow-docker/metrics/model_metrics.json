@@ -1,6 +1,8 @@
 {
-  "best_model": "production_model_backup_20250508053742.joblib",
-  "new_accuracy": 0.642570281124498,
-  "prev_accuracy": 0.642570281124498,
-  "timestamp": "2025-05-08T09:55:44.539846"
+  "best_model": "production_model_20250511133104_epoch3_best.joblib",
+  "new_model": "production_model_20250511133104_epoch3_best.joblib",
+  "prev_model": "production_model_backup_20250508053742.joblib",
+  "new_accuracy": 0.6506024096385542,
+  "prev_accuracy": 0.6465863453815262,
+  "timestamp": "2025-05-11T14:10:58.796990"
 }

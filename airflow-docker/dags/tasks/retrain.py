@@ -125,6 +125,10 @@ def train_triplet_model():
     loss_fn = TripletLoss()
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
 
+    best_loss = float("inf")
+    best_model_state = None
+    best_epoch = None
+
     print("🚀 Training triplet model...")
     for epoch in range(NUM_EPOCHS):
         total_loss = 0
@@ -183,13 +187,24 @@ def train_triplet_model():
             model.to(device)
             cleanup_memory()
 
-    model.cpu()
-    model_path = os.path.join(MODEL_DIR, f"production_model_{timestamp}.joblib")
-    joblib.dump(model.state_dict(), model_path)
-    print(f"✅ Saved final model to {model_path}")
+        if avg_loss < best_loss:
+            best_loss = avg_loss
+            best_model_state = model.state_dict()
+            best_epoch = epoch + 1
 
+    # Save best model
+    model.cpu()
+    best_model_filename = f"production_model_{timestamp}_epoch{best_epoch}_best.joblib"
+    best_model_path = os.path.join(MODEL_DIR, best_model_filename)
+    joblib.dump(best_model_state, best_model_path)
+    print(f"🏆 Saved best model (epoch {best_epoch}) to {best_model_path}")
+
+    # Save metadata for evaluation
     with open(os.path.join(MODEL_DIR, "retrained_flag.txt"), "w") as f:
-        f.write(model_path)
+        f.write(best_model_path)
+
+    with open(os.path.join(MODEL_DIR, "best_candidate_model.txt"), "w") as f:
+        f.write(best_model_filename)
 
 def run(**kwargs):
     try:
