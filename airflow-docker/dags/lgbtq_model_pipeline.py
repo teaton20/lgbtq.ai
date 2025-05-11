@@ -1,6 +1,8 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator, BranchPythonOperator
 from datetime import datetime
+from airflow.sensors.python import PythonSensor
+from sensors.review_threshold_sensor import check_review_threshold
 from tasks import (
     fetch_articles_rss,
     fetch_articles_api,
@@ -32,12 +34,22 @@ with DAG(
         python_callable=fetch_articles_api
     )
 
+    # sensor to wait and check for if at least n articles have been labeled
+    # within review_queue. if so, triggers t2.
+    wait_for_n_labeled = PythonSensor(
+        task_id="wait_for_n_labeled",
+        python_callable=check_review_threshold,
+        poke_interval=300,   # check every 5 minutes (300 seconds)
+        timeout=7200,        # give up after 2 hours (7200 seconds)
+        mode="poke"
+    )
+
     t2 = PythonOperator(
         task_id="human_review",
         python_callable=human_review
     )
 
-    t3 = PythonOperator(  # new get_embeddings step
+    t3 = PythonOperator(
         task_id="get_embeddings",
         python_callable=get_embeddings
     )
@@ -74,6 +86,6 @@ with DAG(
     )
 
     # DAG flow
-    [t1a, t1b] >> t2 >> t3 >> t4 >> t5 >> branch
+    [t1a, t1b] >> wait_for_n_labeled >> t2 >> t3 >> t4 >> t5 >> branch
     branch >> t6a >> t7
     branch >> t6b >> t7

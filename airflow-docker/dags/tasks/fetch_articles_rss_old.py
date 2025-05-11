@@ -15,9 +15,7 @@ MONGO_URI = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URI)
 db = client["lgbtq-ai_db"]
 review_queue = db["review_queue"]
-all_data = db["all_data"]
-new_data = db["new_data"]
-production_data = db["production_data"]
+
 
 # the RSS feeds we are currently listening to
 RSS_FEEDS = [
@@ -50,12 +48,14 @@ RSS_FEEDS = [
     "http://www.redstate.com/feed/",
     "https://www.nationalreview.com/rss.xml",
     "http://www.popsci.com/rss.xml"
+
 ]
 
 # this tracks the RSS articles we have already pulled
 RSS_SEEN_FILE = "seen_articles.json"
 
 # these are the keywords we are looking for in the RSS content
+# we check both title and content for keywords
 KEYWORDS = [
     "transgender", "trans", "non-binary", "genderqueer", 
     "gender nonconforming", "gender fluid", "gender identity", 
@@ -94,9 +94,10 @@ else:
     seen = set()
 
 def actual_run():
+    
     articles = []
     added = 0  # Counter for added articles
-    MAX_ARTICLES = 1  # setting the number of articles to grab, for testing purposes
+    MAX_ARTICLES = 200 # setting the number of articles to grab, for testing purposes
 
     for feed_url in RSS_FEEDS:
         if added >= MAX_ARTICLES:
@@ -106,7 +107,7 @@ def actual_run():
             feed = feedparser.parse(requests.get(feed_url, timeout=10).text)
         except requests.exceptions.RequestException as e:
             print(f"❌ Failed to fetch RSS feed {feed_url}: {e}")
-            continue
+            continue  # Skip to the next feed
 
         for entry in feed.entries:
             if added >= MAX_ARTICLES:
@@ -114,11 +115,7 @@ def actual_run():
 
             url = entry.link
             uid = hashlib.sha256(url.encode()).hexdigest()
-
-            # Skip if seen or already in any collection
             if uid in seen:
-                continue
-            if any(coll.find_one({"uid": uid}) for coll in [review_queue, all_data, new_data, production_data]):
                 continue
 
             try:
@@ -144,7 +141,7 @@ def actual_run():
                     "url": url,
                     "publication": entry.get("published", ""),
                     "author": None,
-                    "stance": "",  # initialized as empty string
+                    "stance": None,
                     "full_text": article.text,
                     "stance_encoded": None,
                     "embedding": None
@@ -172,7 +169,6 @@ def actual_run():
 
 def run():
     print("slay mawmaw")
-    # actual_run()
 
 if __name__ == "__main__":
     run()

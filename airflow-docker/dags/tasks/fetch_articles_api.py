@@ -16,6 +16,9 @@ MONGO_URI = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URI)
 db = client["lgbtq-ai_db"]
 review_queue = db["review_queue"]
+all_data = db["all_data"]
+new_data = db["new_data"]
+production_data = db["production_data"]
 
 SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/19gFONrR0d4Ed57gGWtUqVHjjvw85WgysCh9ukhiTmBM/export?format=csv"
 GNEWS_API_KEY = "5656c1aafe7e3642d853a5bfb1570caa"
@@ -35,7 +38,7 @@ def fetch_articles_from_gnews():
     params = {
         "q": query,
         "lang": "en",
-        "max": 200,
+        "max": 1,
         "token": GNEWS_API_KEY
     }
     try:
@@ -66,6 +69,7 @@ def make_article_json(row):
     title = row.get("title", "")
     publication = row.get("source", "")
     full_text = f"{title} {row.get('content', '')}".strip()
+
     return {
         "uid": uid,
         "date": date,
@@ -73,31 +77,37 @@ def make_article_json(row):
         "url": url,
         "publication": publication,
         "author": None,
-        "stance": row.get("stance", None),
+        "stance": row.get("stance", ""),
         "full_text": full_text,
-        "stance_encoded": None,
-        "embedding": None
+        "stance_encoded": None
     }
 
-def run():
+def actual_run():
     print("📥 Fetching CSV data from Google Sheets...")
     df = pd.read_csv(SHEET_CSV_URL)
 
     new_articles = []
     articles = fetch_articles_from_gnews()
     for art in articles:
-        if art.get("url", "") not in df["url"].values:
+        url = art.get("url", "")
+        uid = hashlib.sha256(url.encode()).hexdigest()
+
+        # Skip if already exists in any MongoDB collection
+        if any(coll.find_one({"uid": uid}) for coll in [review_queue, all_data, new_data, production_data]):
+            continue
+
+        if url not in df["url"].values:
             source_name = art.get("source", {})
             if isinstance(source_name, dict):
                 source_name = source_name.get("name", "")
             new_articles.append({
                 "title": art.get("title", ""),
                 "content": art.get("content", ""),
-                "url": art.get("url", ""),
+                "url": url,
                 "publishedAt": art.get("publishedAt", ""),
                 "source": source_name,
                 "date": art.get("publishedAt", "")[:10],
-                "stance": "",
+                "stance": ""
             })
 
     if new_articles:
@@ -109,8 +119,9 @@ def run():
 
     print("📦 Finished GNews fetch.")
 
-# def run():
-#     print("🫡 skipping this one mawmawww 🗣️")
+def run():
+    print("🫡 skipping this one mawmawww 🗣️")
+    # actual_run()
 
 if __name__ == "__main__":
     run()

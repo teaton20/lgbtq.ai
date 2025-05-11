@@ -31,9 +31,9 @@ def run():
         print(f"⏳ Not enough files in review queue ({total_in_queue}/{REVIEW_THRESHOLD}). Waiting for more.")
         return
 
-    # Only proceed with articles that have been manually labeled (true_label exists)
-    labeled_articles = review_queue.find({"true_label": {"$exists": True}})
-    labeled_count = review_queue.count_documents({"true_label": {"$exists": True}})
+    # Only proceed with articles that have a non-empty stance
+    labeled_articles = review_queue.find({"stance": {"$ne": ""}})
+    labeled_count = review_queue.count_documents({"stance": {"$ne": ""}})
 
     if labeled_count < REVIEW_THRESHOLD:
         print(f"✋ Waiting for manual labeling. Only {labeled_count}/{REVIEW_THRESHOLD} articles labeled.")
@@ -50,6 +50,11 @@ def run():
 
         if article_id_exists(article_id):
             print(f"⚠️ Skipping duplicate article {article_id}")
+            continue
+
+        uid = article.get("uid")
+        if new_data.find_one({"uid": uid}) or all_data.find_one({"uid": uid}):
+            print(f"⏩ Skipping already-seen article: {uid}")
             continue
 
         new_data.insert_one(article)

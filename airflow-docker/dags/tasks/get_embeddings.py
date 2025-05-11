@@ -21,7 +21,12 @@ new_data = db["new_data"]
 def run():
     print("🧠 Starting embedding task on new_data articles...")
 
-    articles = list(new_data.find({"embedding": {"$exists": False}}))
+    articles = list(new_data.find({
+        "$or": [
+            { "embedding": { "$exists": False } },
+            { "embedding": None }
+        ]
+    }))
 
     if not articles:
         print("🕳️ No unembedded articles found in new_data. Moving to next task.")
