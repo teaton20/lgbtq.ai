@@ -5,16 +5,19 @@ from pathlib import Path
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from pymongo import MongoClient
+from dotenv import load_dotenv
 
-
+# Load the .env in the same directory
+dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
+load_dotenv(dotenv_path)
 
 # MongoDB Atlas Connection URI (Replace with your actual URI)
-MONGODB_URI = "mongodb+srv://teaton20:ni0nQTGVyKmeHqjn@lgbtq-ai.j5sdxbs.mongodb.net/?retryWrites=true&w=majority&appName=lgbtq-ai"  # e.g., "mongodb+srv://<username>:<password>@cluster0.mongodb.net/?retryWrites=true&w=majority"
+MONGODB_URI = os.getenv("MONGODB_URI")
 DB_NAME = "lgbtq-ai_db"
 COLLECTION_NAME = "production_data"
 
 # Load SentenceTransformer model (must match model used during training)
-model = SentenceTransformer("all-MiniLM-L6-v2")  # Replace with actual model !!!
+model = SentenceTransformer("all-MiniLM-L6-v2")
 
 # MongoDB Client
 client = MongoClient(MONGODB_URI)
