@@ -8,3 +8,11 @@ airflow-docker/logs/*
 # Ignore all .env files (holding API keys and other sensitive info)
 airflow-docker/.env
 demo_2/lgbtq_rag_system/model/.env
+
+# Ignore unused directories
+/RL
+/similarity_testing
+/MODELING
+
+# macOS system files
+.DS_Store
