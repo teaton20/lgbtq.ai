@@ -20,9 +20,9 @@ all_data = db["all_data"]
 new_data = db["new_data"]
 production_data = db["production_data"]
 
-SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/19gFONrR0d4Ed57gGWtUqVHjjvw85WgysCh9ukhiTmBM/export?format=csv"
-GNEWS_API_KEY = "5656c1aafe7e3642d853a5bfb1570caa"
-GNEWS_ENDPOINT = "https://gnews.io/api/v4/search"
+SHEET_CSV_URL = os.getenv("SHEET_CSV_URL")
+GNEWS_API_KEY = os.getenv("GNEWS_API_KEY")
+GNEWS_ENDPOINT = os.getenv("GNEWS_ENDPOINT")
 CHUNK_SIZE = 5
 
 def clean_text(text):
