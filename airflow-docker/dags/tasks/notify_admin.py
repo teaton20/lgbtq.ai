@@ -12,11 +12,11 @@ def run():
             metadata = json.load(f)
         print("💌 Sending email to team...")
         print(f"""
-📢 A new model was deployed!
-🆕 Path:     {metadata['deployed_model_path']}
-📂 Source:   {metadata['source_model_path']}
-🕒 Deployed: {metadata['deployed_at']}
-📝 Reason:   {metadata['deployment_reason']}
+            📢 A new model was deployed!
+            🆕 Path:     {metadata['deployed_model_path']}
+            📂 Source:   {metadata['source_model_path']}
+            🕒 Deployed: {metadata['deployed_at']}
+            📝 Reason:   {metadata['deployment_reason']}
         """)
     else:
         print("🕳️ No new model was deployed in this run. Nothing to notify.")

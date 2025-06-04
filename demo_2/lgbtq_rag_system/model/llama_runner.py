@@ -2,9 +2,14 @@ import requests
 from google.auth import default
 from google.auth.transport.requests import Request
 import json
+from dotenv import load_dotenv
+import os
+
+dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
+load_dotenv(dotenv_path)
 
 # Set your endpoint details
-DEDICATED_DNS = "https://5270536475534950400.us-central1-544847253323.prediction.vertexai.goog/v1/projects/544847253323/locations/us-central1/endpoints/5270536475534950400:predict"
+DEDICATED_DNS = os.getenv("DEDICATED_DNS")
 
 # Function to get access token
 def get_access_token():
