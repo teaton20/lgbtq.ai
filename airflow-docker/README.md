@@ -10,4 +10,4 @@ It includes:
 This is the core backend orchestration layer of the LGBTQ.AI+ platform.
 
 All scripts can be found in /dags/tasks. The 'lgbtq_model_pipeline.py' script
-in /dags/ shows the flow of the DAG and ties each task together.
+in /dags/ shows the flow of the DAG and ties each task together. 
