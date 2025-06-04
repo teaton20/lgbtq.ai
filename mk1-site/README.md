@@ -7,4 +7,4 @@ It includes:
 - Test pages for embedding model results
 - Placeholder visual elements for interface design
 
-This version was used to explore layout and content strategy early on.
+This version was used to explore layout and content strategy early on. 
