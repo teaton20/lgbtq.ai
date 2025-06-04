@@ -7,4 +7,4 @@ This directory contains the main logic for the LGBTQ.AI+ system, including:
 - Model classification code
 - Support files for integrating with the frontend or triggering jobs
 
-This is the active directory where model inference and LLM calls happen.
+This is the active directory where model inference and LLM calls happen. 
