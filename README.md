@@ -34,7 +34,7 @@ This project uses a custom-built machine learning model in the backend that dete
 
 - **Vertex AI** — Model deployment and GPU inference
 - **Hugging Face Transformers** — LLM-based classification
-- **TripletNet** — Embedding model trained with human-labeled article triplets (for )
+- **TripletNet** — Embedding model trained with human-labeled article triplets (for automated trusted-sites sourcing and classifications)
 - **MongoDB** — Secure data storage for articles and metadata
 - **Airflow + Docker** — Pipeline orchestration for scheduled retraining and model deployment
 - **FAISS** — Fast similarity search for article retrieval
