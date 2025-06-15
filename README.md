@@ -1,4 +1,4 @@
-# LGBTQ.AI+
+# LGBTQ.AI
 
 **LGBTQ.AI+** is an machine learning and AI-assisted content curation and classification platform built to support and uplift queer communities, especially trans folks, in an era of information overload and queer oppression. It aims to curate and generate content tailored to the real needs of LGBTQIA+ individuals, with a focus on trust, transparency, and joy.
 
