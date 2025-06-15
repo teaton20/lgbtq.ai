@@ -15,6 +15,8 @@ This project uses a custom-built machine learning model in the backend that dete
 
 ---
 
+[![Watch the demo](demo_screenshot.png)](demo.mov)
+
 ## Repo Structure
 
 | Folder            | Description                                                                 |
